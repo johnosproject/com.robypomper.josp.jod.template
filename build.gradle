@@ -1,0 +1,163 @@
+/*******************************************************************************
+ * The John Operating System Project is the collection of software and configurations
+ * to generate IoT EcoSystem, like the John Operating System Platform one.
+ * Copyright (C) 2021 Roberto Pompermaier
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ ******************************************************************************/
+
+// ---------------
+// Project configs
+// ---------------
+
+group = 'com.robypomper.josp'
+
+ext {
+    set('version.deps.josp.jod.template', '1.0-DEV')                // Update also any *.sh file's Version field
+}
+
+
+// -------------------------------
+// Clean JOD Distribution TEMPLATE
+// -------------------------------
+
+task cleanAssemble(type: Delete) {
+    delete layout.buildDirectory.dir('assemble')
+}
+
+
+// -------------------------------
+// Build JOD Distribution TEMPLATE
+// -------------------------------
+
+task assembleTMPLScripts(type: Copy) {
+    def version = project.ext.get('version.deps.josp.jod.template')
+
+    from 'src/tmpl/bash'
+    into layout.buildDirectory.dir("assemble/$version/scripts")
+
+    mustRunAfter cleanAssemble
+}
+
+task assembleTMPLConfigs(type: Copy) {
+    def version = project.ext.get('version.deps.josp.jod.template')
+
+    from 'src/tmpl/configs'
+    into layout.buildDirectory.dir("assemble/$version/configs")
+
+    mustRunAfter cleanAssemble
+}
+
+task assembleTMPLDocs(type: Copy) {
+    def version = project.ext.get('version.deps.josp.jod.template')
+
+    from 'src/tmpl/docs/README.txt'
+    into layout.buildDirectory.dir("assemble/$version")
+
+    mustRunAfter cleanAssemble
+}
+
+task assembleTMPL() {
+    dependsOn assembleTMPLScripts, assembleTMPLConfigs, assembleTMPLDocs
+
+    mustRunAfter cleanAssemble
+}
+
+task assembleTMPLDistsScripts(type: Copy) {
+    def version = project.ext.get('version.deps.josp.jod.template')
+
+    from 'src/dists/bash'
+    into layout.buildDirectory.dir("assemble/$version/dists/scripts")
+
+    mustRunAfter cleanAssemble
+}
+
+task assembleTMPLDistsConfigs(type: Copy) {
+    def version = project.ext.get('version.deps.josp.jod.template')
+
+    from 'src/dists/configs'
+    into layout.buildDirectory.dir("assemble/$version/dists/configs")
+
+    mustRunAfter cleanAssemble
+}
+
+task assembleTMPLDistsResources(type: Copy) {
+    def version = project.ext.get('version.deps.josp.jod.template')
+
+    from 'src/dists/resources'
+    into layout.buildDirectory.dir("assemble/$version/dists/resources")
+
+    mustRunAfter cleanAssemble
+}
+
+task assembleTMPLDists() {
+    dependsOn assembleTMPLDistsScripts, assembleTMPLDistsConfigs, assembleTMPLDistsResources
+
+    mustRunAfter cleanAssemble
+}
+
+task buildZip(type: Zip) {
+    def version = project.ext.get('version.deps.josp.jod.template')
+
+    from layout.buildDirectory.dir("assemble/$version")
+    include '*'
+    include '*/*'
+    into "JOD_Dist_TMPL-${version}"
+    archiveName "JOD_Dist_TMPL-${version}.zip"
+    destinationDir file(layout.buildDirectory.dir("publications"))
+
+    mustRunAfter assembleTMPL, assembleTMPLDists
+}
+
+task buildTar(type: Tar) {
+    def version = project.ext.get('version.deps.josp.jod.template')
+
+    from layout.buildDirectory.dir("assemble/$version")
+    include '*'
+    include '*/*'
+    into "JOD_Dist_TMPL-${version}"
+    archiveName "JOD_Dist_TMPL-${version}.tgz"
+    destinationDir file(layout.buildDirectory.dir("publications"))
+    compression = Compression.GZIP
+
+    mustRunAfter assembleTMPL, assembleTMPLDists
+}
+
+task buildTMPL() {
+    dependsOn cleanAssemble
+    dependsOn assembleTMPL, assembleTMPLDists
+    dependsOn buildZip, buildTar
+}
+
+
+// -------------------------------
+// Build JOD Distribution TEMPLATE
+// -------------------------------
+
+task publishTMPL() {
+    doFirst {
+        println "####################"
+        println "# MANUAL OPERATION #"
+        println "####################"
+        println "1. Build JOD Distribution TEMPLATE"
+        println "   ./gradlew buildTMPL"
+        println "2. Copy results files (JOD_Dist_TMPL-{VER}.zip and JOD_Dist_TMPL-{VER}.tgz) to public repository"
+        println "3. Update public repository with new version links and references"
+    }
+}
+
+
+task clean(type: Delete) {
+    delete layout.buildDirectory
+}
