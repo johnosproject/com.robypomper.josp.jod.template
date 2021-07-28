@@ -24,7 +24,7 @@
 group = 'com.robypomper.josp'
 
 ext {
-    set('version.deps.josp.jod.template', '1.0-DEV')                // Update also any *.sh file's Version field
+    set('version.deps.josp.jod.template', '1.0-DEV')                // Update also any *.sh file's Version fields and src/tmpls/docs/README.txt file
 }
 
 
