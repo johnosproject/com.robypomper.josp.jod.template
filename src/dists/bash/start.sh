@@ -43,10 +43,7 @@
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)"
-source "$JOD_DIR/scripts/libs/bash.sh"
-source "$JOD_DIR/scripts/libs/logs.sh"
-source "$JOD_DIR/scripts/libs/filesAndDirs.sh"
-source "$JOD_DIR/scripts/libs/hostAndOS.sh"
+source "$JOD_DIR/scripts/libs/include.sh" "$JOD_DIR"
 
 #DEBUG=true
 [[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs

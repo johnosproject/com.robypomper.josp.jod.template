@@ -32,10 +32,7 @@
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
-source "$JOD_DIR/scripts/libs/bash.sh"
-source "$JOD_DIR/scripts/libs/logs.sh"
-source "$JOD_DIR/scripts/libs/filesAndDirs.sh"
-source "$JOD_DIR/scripts/libs/hostAndOS.sh"
+source "$JOD_DIR/scripts/libs/include.sh" "$JOD_DIR"
 
 #DEBUG=true
 [[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
@@ -43,7 +40,6 @@ setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
 
 execScriptConfigs "$JOD_DIR/scripts/jod/jod-script-configs.sh"
 execScriptConfigs "$JOD_DIR/scripts/jod/errors.sh"
-
 
 ###############################################################################
 logScriptInit

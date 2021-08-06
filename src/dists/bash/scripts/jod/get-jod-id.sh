@@ -32,11 +32,8 @@
 # Version:  1.0-DEV
 ###############################################################################
 
-JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
-source "../libs/bash.sh"
-source "../libs/logs.sh"
-source "../libs/filesAndDirs.sh"
-source "../libs/hostAndOS.sh"
+JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/../.."
+source "$JOD_DIR/scripts/libs/include.sh" "$JOD_DIR"
 
 # PRE Init NO_LOGS
 NO_LOGS=${1:-false}
