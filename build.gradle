@@ -59,17 +59,18 @@ task assembleTMPLConfigs(type: Copy) {
     mustRunAfter cleanAssemble
 }
 
-task assembleTMPLDocs(type: Copy) {
+task assembleTMPLResources(type: Copy) {
     def version = project.ext.get('version.deps.josp.jod.template')
 
-    from 'src/tmpl/docs/README.txt'
+    from 'src/tmpl/resources/README.md'
+
     into layout.buildDirectory.dir("assemble/$version")
 
     mustRunAfter cleanAssemble
 }
 
 task assembleTMPL() {
-    dependsOn assembleTMPLScripts, assembleTMPLConfigs, assembleTMPLDocs
+    dependsOn assembleTMPLScripts, assembleTMPLConfigs, assembleTMPLResources
 
     mustRunAfter cleanAssemble
 }
