@@ -62,8 +62,9 @@ logCallerAndScript() {
 execScriptCommand() {
   SCRIPT="$1"
   shift
-  bash "$SCRIPT" $@
+  bash "$SCRIPT" "$@"
   [ $? -gt 0 ] && logFat "Error including script '$(basename $SCRIPT)' at '$(dirname $SCRIPT)'" $ERR_EXEC_SCRIPT_CMD
+  return 0
 }
 
 # Execute given script as source, if errors occurs it exit with
@@ -74,7 +75,7 @@ execScriptCommand() {
 execScriptConfigs() {
   SCRIPT="$1"
   shift
-  source "$SCRIPT" $@
+  source "$SCRIPT" "$@"
   [ $? -gt 0 ] && logFat "Error including script '$(basename $SCRIPT)' at '$(dirname $SCRIPT)'" $ERR_EXEC_CONFIG_CMD
   return 0
 }
