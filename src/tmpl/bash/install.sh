@@ -38,16 +38,12 @@
 ###############################################################################
 
 JOD_DIST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
-source "$JOD_DIST_DIR/scripts/libs/bash.sh"
-source "$JOD_DIST_DIR/scripts/libs/logs.sh"
-source "$JOD_DIST_DIR/scripts/libs/filesAndDirs.sh"
-source "$JOD_DIST_DIR/scripts/libs/hostAndOS.sh"
+source "$JOD_DIST_DIR/scripts/libs/include.sh" $JOD_DIST_DIR
 
 #DEBUG=true
 [[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
 
 setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
-
 
 ###############################################################################
 logScriptInit
@@ -65,8 +61,7 @@ logScriptParam "INST_DIR" "$INST_DIR"
 execScriptConfigs $JOD_DIST_CONFIG_FILE
 
 DEST_DIR=$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER
-INSTALL_DIR=$JOD_DIST_DIR/build/envs/installable/$DEST_ARTIFACT-$DEST_VER     #-$(date '+%Y%m%d_%H%M')
-
+INSTALL_DIR=$JOD_DIST_DIR/build/envs/installable/$DEST_ARTIFACT-$DEST_VER #-$(date '+%Y%m%d_%H%M')
 
 ###############################################################################
 logScriptRun
@@ -81,7 +76,6 @@ cp -r $DEST_DIR/* $INST_DIR
 [ "$?" -ne 0 ] && logFat "Can't copy JOD Distribution from '$DEST_DIR/*' dir, exit."
 
 logInf "JOD Distribution installed successfully to $INST_DIR"
-
 
 ###############################################################################
 logScriptEnd
