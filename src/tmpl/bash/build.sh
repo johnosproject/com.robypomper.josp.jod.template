@@ -40,6 +40,7 @@
 
 JOD_DIST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
 source "$JOD_DIST_DIR/scripts/libs/include.sh" $JOD_DIST_DIR
+source "$JOD_DIST_DIR/scripts/jod_tmpl/include.sh" $JOD_DIST_DIR
 
 #DEBUG=true
 [[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
