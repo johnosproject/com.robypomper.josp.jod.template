@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -29,7 +29,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0-DEV
+# Version:  1.0-DEVb
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)"
@@ -46,7 +46,6 @@ setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
 execScriptConfigs "$JOD_DIR/scripts/jod/jod-script-configs.sh"
 execScriptConfigs "$JOD_DIR/scripts/jod/errors.sh"
 
-
 ###############################################################################
 logScriptInit
 
@@ -60,7 +59,6 @@ logScriptParam "SHOW_ALL" "$SHOW_ALL"
 # Load jod_configs.sh, exit if fails
 setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 
-
 ###############################################################################
 logScriptRun
 
@@ -71,8 +69,7 @@ JOD_PID=$(bash "$JOD_DIR/scripts/jod/get-jod-pid.sh" true)
 JOD_OBJ_NAME=$(bash "$JOD_DIR/scripts/jod/get-jod-name.sh" true)
 JOD_OBJ_ID=$(bash "$JOD_DIR/scripts/jod/get-jod-id.sh" true)
 
-if [ "$SHOW_ALL" == true ]
-then
+if [ "$SHOW_ALL" == true ]; then
   INIT_SYS=$(echo "$OS_INIT_SYS" | tr '[:upper:]' '[:lower:]')
   logTra "Execute '$JOD_DIR/scripts/init/$INIT_SYS/state-install-jod.sh'"
   JOD_INSTALLED=$(bash "$JOD_DIR/scripts/init/$INIT_SYS/state-install-jod.sh" true)
@@ -85,7 +82,6 @@ echo "Obj's name:      ${JOD_OBJ_NAME:-N/A}"
 echo "Obj's id:        ${JOD_OBJ_ID:-N/A}"
 
 logInf "Distribution state get successfully"
-
 
 ###############################################################################
 logScriptEnd

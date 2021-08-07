@@ -21,11 +21,10 @@
 
 ################################################################################
 # Artifact: JOD Dist Template
-# Version:  1.0-DEV
+# Version:  1.0-DEVb
 ################################################################################
 
-LOG_ENABLED=false             # if true, print log messages
-
+LOG_ENABLED=false # if true, print log messages
 
 # ####### #
 # Loggers #
@@ -39,11 +38,9 @@ _war() {
   echo "WAR: $1" >&2
 }
 
-
 # ################### #
 # Components builders #
 # ################### #
-
 
 #
 # COMP=$(buildComponent "Mute" "BooleanState" "listener|puller" "listener.sh param1 param2")
@@ -319,7 +316,6 @@ EOM
   _log "< $COMP_STR"
 }
 
-
 # ###################### #
 # SubComponents managers #
 # ###################### #
@@ -459,7 +455,6 @@ EOM
   echo "$CONT_INFO$CONT_CONTAINS"
 }
 
-
 # ########## #
 # Formatters #
 # ########## #
@@ -479,8 +474,6 @@ tryPrettyFormat() {
 prettyFormat() {
   echo "$(echo "$1" | jq .)" || _war "Error parsing JSON string ($1)"
 }
-
-
 
 # ######## #
 # Examples #
@@ -505,8 +498,6 @@ prettyFormat() {
 ## Root creation
 #ROOT=$(buildComponent "Root" "$MODEL" "$BRAND" "$DESCR" "$DESCR_LONG")
 #ROOT=$(addSubComponent "$ROOT" "$LIGHT_COMP")
-
-
 
 ## Example 1
 ## Root > Lampada 1 > Switch

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -19,14 +19,29 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ################################################################################
 
+###############################################################################
+# Usage:
+# no direct usage, included from other scripts
+#
+# Example configs script called by JOD builders scripts.
+# This configuration can be used to customize the JOD distribution management
+# like execution, installation, etc...
+#
+# To enable this config script, rename it to configs.sh and place in the JOD's
+# dist main dir. If not present, then default configs are used.
+#
+# Artifact: JOD Dist Template
+# Version:  1.0-DEVb
+###############################################################################
+
 # TMPL Customize - START
 CURRENT_SCRIPT="$(pwd)/${BASH_SOURCE[0]}"
-echo "WAR: Please customize TMPL before call it" \
-  && echo "     Update the '${CURRENT_SCRIPT}' file and delete current line" \
-  && exit
-DEST_ARTIFACT="jod-TMPL"                            # JOD Distribution dir name
-DEST_VER="0.1"                                      # JOD Distribution version
-JOD_VER="2.2.0"                                     # JOD version (Warning this is only for distribution filename)
-JOD_CONFIG=jod_custom.yml                           # JOD Config file, searched in JOD Distribution and deploy/dists/jospJODExt/_generic/configs/jod dirs
-JOD_STRUCT=struct_custom.jod                        # JOD Struct file, searched in JOD Distribution and in deploy/dists/jospJODExt/_generic/configs/struct dirs
+echo "WAR: Please customize TMPL before call it" &&
+  echo "     Update the '${CURRENT_SCRIPT}' file and delete current line" &&
+  exit
+DEST_ARTIFACT="jod-TMPL"     # JOD Distribution dir name
+DEST_VER="0.1"               # JOD Distribution version
+JOD_VER="2.2.0"              # JOD version (Warning this is only for distribution filename)
+JOD_CONFIG=jod_custom.yml    # JOD Config file, searched in JOD Distribution and deploy/dists/jospJODExt/_generic/configs/jod dirs
+JOD_STRUCT=struct_custom.jod # JOD Struct file, searched in JOD Distribution and in deploy/dists/jospJODExt/_generic/configs/struct dirs
 # TMPL Customize - END

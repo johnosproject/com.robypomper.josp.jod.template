@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -32,7 +32,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0-DEV
+# Version:  1.0-DEVb
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)"

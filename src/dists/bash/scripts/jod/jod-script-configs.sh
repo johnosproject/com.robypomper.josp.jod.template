@@ -21,7 +21,7 @@
 
 ################################################################################
 # Artifact: JOD Dist Template
-# Version:  1.0-DEV
+# Version:  1.0-DEVb
 ################################################################################
 
 # Initialize all JOD Scripts configs. Env vars used by JOD Distributions scripts.
