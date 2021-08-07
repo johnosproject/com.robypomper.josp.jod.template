@@ -40,6 +40,7 @@
 
 JOD_DIST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
 source "$JOD_DIST_DIR/scripts/libs/include.sh" $JOD_DIST_DIR
+source "$JOD_DIST_DIR/scripts/jod_tmpl/include.sh" $JOD_DIST_DIR
 
 #DEBUG=true
 [[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
@@ -128,6 +129,13 @@ cp -r $JOD_DIST_DIR/dists/scripts/* $DEST_DIR
 [ "$?" -ne 0 ] && logFat "Can't include 'scripts' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/scripts/*'"
 
 logDeb "Copy JOD Distribution resources"
+cp -r $JOD_DIST_DIR/dists/resources/ $DEST_DIR
+[ "$?" -ne 0 ] && logFat "Can't include 'resources' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/resources/'"
+
+logDeb "Generate JOD Distribution VERSIONS.md"
+echo "JOD '$DEST_ARTIFACT' Distribution: $DEST_VER
+JOD Distribution TEMPLATE: $JOD_TMPL_VERSION
+JOD: $JOD_VER" >"$DEST_DIR/VERSIONS.md"
 cp -r $JOD_DIST_DIR/dists/resources/ $DEST_DIR
 [ "$?" -ne 0 ] && logFat "Can't include 'resources' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/resources/'"
 
