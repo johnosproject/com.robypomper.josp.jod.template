@@ -50,7 +50,7 @@ logInf "PRE Startup script"
 ## Example check Java installed - START
 # Check java
 #if command -v java &>/dev/null; then
-#  echo "Java installed"
+#  logInf "Java installed"
 #else
 #  echo "Missing Java, please install it"
 #  logFat "Java not installed, exit"
