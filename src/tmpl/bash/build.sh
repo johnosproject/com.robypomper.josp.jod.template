@@ -132,6 +132,13 @@ logDeb "Copy JOD Distribution resources"
 cp -r $JOD_DIST_DIR/dists/resources/ $DEST_DIR
 [ "$?" -ne 0 ] && logFat "Can't include 'resources' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/resources/'"
 
+logDeb "Generate JOD Distribution VERSIONS.md"
+echo "JOD '$DEST_ARTIFACT' Distribution: $DEST_VER
+JOD Distribution TEMPLATE: $JOD_TMPL_VERSION
+JOD: $JOD_VER" >"$DEST_DIR/VERSIONS.md"
+cp -r $JOD_DIST_DIR/dists/resources/ $DEST_DIR
+[ "$?" -ne 0 ] && logFat "Can't include 'resources' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/resources/'"
+
 logInf "JOD Distribution built successfully"
 
 ###############################################################################
