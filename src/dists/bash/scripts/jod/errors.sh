@@ -25,15 +25,26 @@
 ################################################################################
 
 # Generic
-ERR_LOAD_SCRIPT_CONFIG=1   # "JOD script config file not found ($JOD_SCRIPT_CONFIG), exit"
-ERR_DETECT_SCRIPT_CONFIG=2 # "Can't detect XY ($XY), exit"
-ERR_NOT_IMPLEMENTED=3      # "Distribution installation not implemented"
+_ERRBASE_GENERIC=0
+ERR_LOAD_SCRIPT_CONFIG=$((_ERRBASE_GENERIC+1))      # "JOD script config file not found ($JOD_SCRIPT_CONFIG), exit"
+ERR_DETECT_SCRIPT_CONFIG=$((_ERRBASE_GENERIC+2))    # "Can't detect XY ($XY), exit"
+ERR_NOT_IMPLEMENTED=$((_ERRBASE_GENERIC+3))         # "Distribution installation not implemented"
 
-# jod.sh
-ERR_ALREADY_RUNNING=1   # "Distribution already running, please shutdown distribution or set FORCE param"
+# start.sh
+_ERRBASE_START=10
+ERR_ALREADY_RUNNING=$((_ERRBASE_START+1))           # "Distribution already running, please shutdown distribution or set FORCE param"
 
-# shutdown.sh
-ERR_CANT_SHUTDOWN=1     # "Can't shutdown JOD with PID=$JOD_PID"
+# stop.sh
+_ERRBASE_SHUTDOWN=20
+ERR_CANT_SHUTDOWN=$((_ERRBASE_SHUTDOWN+1))          # "Can't shutdown JOD with PID=$JOD_PID"
 
 # install.sh
-ERR_ALREADY_INSTALLED=1 # "Distribution already installed, please uninstall distribution or set FORCE param"
+_ERRBASE_INSTALL=30
+ERR_ALREADY_INSTALLED=$((_ERRBASE_INSTALL+1))       # "Distribution already installed, please uninstall distribution or set FORCE param"
+
+# uninstall.sh
+_ERRBASE_UNINSTALL=40
+
+# pre-post scripts
+_ERRBASE_PREPOST=100
+ERR_MISSING_REQUIREMENTS=$((_ERRBASE_PREPOST+1))    # "Distribution already installed, please uninstall distribution or set FORCE param"
