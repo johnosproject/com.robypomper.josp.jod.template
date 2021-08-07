@@ -21,7 +21,7 @@
 
 ################################################################################
 # Artifact: Robypomper Bash Utils
-# Version:  1.0-DEV
+# Version:  1.0-DEVb
 ################################################################################
 
 # Return normalized path, without unnecessary '.' and '..'.

@@ -7,7 +7,7 @@ that can be executed on the local machine, deployed on remote objects or shared
 with other users.
 
 <table>
-  <tr><th>Current version</th><td>1.0-DEV</td></tr>
+  <tr><th>Current version</th><td>1.0-DEVb</td></tr>
   <tr><th>References</th><td><a href="https://www.johnosproject.org/docs/References/JOD_Dists/JOD_Dist_TEMPLATE/Home">JOD_Dist_TEMPLATE @ JOSP Docs</a></td></tr>
   <tr><th>Repository</th><td><a href="https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/">com.robypomper.josp.jod.template @ Bitbucket</a></td></tr>
   <tr><th>Downloads</th><td><a href="https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/">com.robypomper.josp.jod.template > Downloads @ Bitbucket</a></td></tr>
