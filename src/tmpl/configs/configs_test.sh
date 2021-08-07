@@ -22,8 +22,7 @@
 # TMPL Customize - START
 DEST_ARTIFACT="jod-test"                            # JOD Distribution dir name
 DEST_VER="1.0"                                      # JOD Distribution version
-JOD_VER="2.2.0-alpha"                                     # JOD version (Warning this is only for distribution filename)
-ARTIFACT="jospJODExt"                               # Standard
+JOD_VER="2.2.0"                                     # JOD version (Warning this is only for distribution filename)
 JOD_CONFIG=jod_test.yml                             # JOD Config file, searched in JOD Distribution and deploy/dists/jospJODExt/_generic/configs/jod dirs
 JOD_STRUCT=struct_test.jod                          # JOD Struct file, searched in JOD Distribution and in deploy/dists/jospJODExt/_generic/configs/struct dirs
 # TMPL Customize - END
