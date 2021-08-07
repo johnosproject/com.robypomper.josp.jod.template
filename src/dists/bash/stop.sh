@@ -45,13 +45,11 @@ setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
 execScriptConfigs "$JOD_DIR/scripts/jod/jod-script-configs.sh"
 execScriptConfigs "$JOD_DIR/scripts/jod/errors.sh"
 
-
 ###############################################################################
 logScriptInit
 
 # Load jod_configs.sh, exit if fails
 setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
-
 
 ###############################################################################
 logScriptRun
@@ -65,7 +63,13 @@ if [ -z "$JOD_PID" ]; then
 fi
 
 logInf "Execute pre-shutdown.sh..."
-[ -f "$JOD_DIR/scripts/pre-shutdown.sh" ] && ( execScriptConfigs $JOD_DIR/scripts/pre-shutdown.sh || logWar "Error executing PRE shutdown script, continue" ) || logInf "PRE shutdown script not found, skipped (missing $JOD_DIR/scripts/pre-shutdown.sh)"
+if [ -f "$JOD_DIR/scripts/pre-shutdown.sh" ]; then
+  execScriptCommand $JOD_DIR/scripts/pre-shutdown.sh || ([ "$?" -gt "0" ] &&
+    logWar "Error executing PRE shutdown script, exit $?" && exit $? ||
+    logWar "Error executing PRE shutdown script, continue $?")
+else
+  logDeb "PRE shutdown script not found, skipped (missing $JOD_DIR/scripts/pre-shutdown.sh)"
+fi
 
 logInf "Kill distribution..."
 logDeb "Kill JOD with PID=$JOD_PID"
@@ -81,7 +85,13 @@ if [ -z "$JOD_PID" ]; then
   logInf "JOD shutdown successfully"
 
   logInf "Execute post-shutdown.sh..."
-  [ -f "$JOD_DIR/scripts/post-shutdown.sh" ] && ( execScriptConfigs $JOD_DIR/scripts/post-shutdown.sh || logWar "Error executing POST shutdown script, continue" ) || logInf "POST shutdown script not found, skipped (missing $JOD_DIR/scripts/post-shutdown.sh)"
+  if [ -f "$JOD_DIR/scripts/post-shutdown.sh" ]; then
+    execScriptCommand $JOD_DIR/scripts/post-shutdown.sh || ([ "$?" -gt "0" ] &&
+      logWar "Error executing POST shutdown script, exit $?" && exit $? ||
+      logWar "Error executing POST shutdown script, continue $?")
+  else
+    logDeb "POST shutdown script not found, skipped (missing $JOD_DIR/scripts/post-shutdown.sh)"
+  fi
 
   logScriptEnd
 fi
@@ -96,7 +106,13 @@ if [ -z "$JOD_PID" ]; then
   logInf "JOD shutdown successfully"
 
   logInf "Execute post-shutdown.sh..."
-  [ -f "$JOD_DIR/scripts/post-shutdown.sh" ] && ( execScriptConfigs $JOD_DIR/scripts/post-shutdown.sh || logWar "Error executing POST shutdown script, continue" ) || logInf "POST shutdown script not found, skipped (missing $JOD_DIR/scripts/post-shutdown.sh)"
+  if [ -f "$JOD_DIR/scripts/post-shutdown.sh" ]; then
+    execScriptCommand $JOD_DIR/scripts/post-shutdown.sh || ([ "$?" -gt "0" ] &&
+      logWar "Error executing POST shutdown script, exit $?" && exit $? ||
+      logWar "Error executing POST shutdown script, continue $?")
+  else
+    logDeb "POST shutdown script not found, skipped (missing $JOD_DIR/scripts/post-shutdown.sh)"
+  fi
 
   logScriptEnd
 fi
@@ -115,13 +131,18 @@ if [ -z "$JOD_PID" ]; then
   logInf "JOD shutdown successfully"
 
   logInf "Execute post-shutdown.sh..."
-  [ -f "$JOD_DIR/scripts/post-shutdown.sh" ] && ( execScriptConfigs $JOD_DIR/scripts/post-shutdown.sh || logWar "Error executing POST shutdown script, continue" ) || logInf "POST shutdown script not found, skipped (missing $JOD_DIR/scripts/post-shutdown.sh)"
+  if [ -f "$JOD_DIR/scripts/post-shutdown.sh" ]; then
+    execScriptCommand $JOD_DIR/scripts/post-shutdown.sh || ([ "$?" -gt "0" ] &&
+      logWar "Error executing POST shutdown script, exit $?" && exit $? ||
+      logWar "Error executing POST shutdown script, continue $?")
+  else
+    logDeb "POST shutdown script not found, skipped (missing $JOD_DIR/scripts/post-shutdown.sh)"
+  fi
 
   logScriptEnd
 fi
 
 logFat "Can't shutdown JOD with PID=$JOD_PID" $ERR_CANT_SHUTDOWN
-
 
 ###############################################################################
 logScriptEnd

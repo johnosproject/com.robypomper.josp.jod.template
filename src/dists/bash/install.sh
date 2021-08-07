@@ -48,13 +48,11 @@ setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
 execScriptConfigs "$JOD_DIR/scripts/jod/jod-script-configs.sh"
 execScriptConfigs "$JOD_DIR/scripts/jod/errors.sh"
 
-
 ###############################################################################
 logScriptInit
 
 # Load jod_configs.sh, exit if fails
 setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
-
 
 ###############################################################################
 logScriptRun
@@ -75,7 +73,13 @@ if [ "$STATUS_INSTALL" = "Installed" ]; then
 fi
 
 logInf "Execute pre-install.sh..."
-[ -f "$JOD_DIR/scripts/pre-install.sh" ] && ( execScriptConfigs $JOD_DIR/scripts/pre-install.sh || logWar "Error executing PRE install script, continue" ) || logInf "PRE install script not found, skipped (missing $JOD_DIR/scripts/pre-install.sh)"
+if [ -f "$JOD_DIR/scripts/pre-install.sh" ]; then
+  execScriptCommand $JOD_DIR/scripts/pre-install.sh || ([ "$?" -gt "0" ] &&
+    logWar "Error executing PRE install script, exit $?" && exit $? ||
+    logWar "Error executing PRE install script, continue $?")
+else
+  logDeb "PRE install script not found, skipped (missing $JOD_DIR/scripts/pre-install.sh)"
+fi
 
 logInf "Installing distribution..."
 INIT_SYS=$(echo "$OS_INIT_SYS" | tr '[:upper:]' '[:lower:]')
@@ -85,8 +89,13 @@ execScriptCommand "$JOD_DIR/scripts/init/$INIT_SYS/install-jod.sh"
 logInf "Distribution installed successfully"
 
 logInf "Execute post-install.sh..."
-[ -f "$JOD_DIR/scripts/post-install.sh" ] && ( execScriptConfigs $JOD_DIR/scripts/post-install.sh || logWar "Error executing POST install script, continue" ) || logInf "POST install script not found, skipped (missing $JOD_DIR/scripts/post-install.sh)"
-
+if [ -f "$JOD_DIR/scripts/post-install.sh" ]; then
+  execScriptCommand $JOD_DIR/scripts/post-install.sh || ([ "$?" -gt "0" ] &&
+    logWar "Error executing POST install script, exit $?" && exit $? ||
+    logWar "Error executing POST install script, continue $?")
+else
+  logDeb "POST install script not found, skipped (missing $JOD_DIR/scripts/post-install.sh)"
+fi
 
 ###############################################################################
 logScriptEnd

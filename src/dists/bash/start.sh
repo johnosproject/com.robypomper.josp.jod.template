@@ -53,7 +53,6 @@ setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
 execScriptConfigs "$JOD_DIR/scripts/jod/jod-script-configs.sh"
 execScriptConfigs "$JOD_DIR/scripts/jod/errors.sh"
 
-
 ###############################################################################
 logScriptInit
 
@@ -73,7 +72,6 @@ JAR_RUN="jospJOD.jar"
 [ -z "$MAIN_CLASS" ] && [ "$FOREGROUND" == true ] && MAIN_CLASS="com.robypomper.josp.jod.JODShell" || MAIN_CLASS="com.robypomper.josp.jod.JODDaemon"
 logTra "MAIN_CLASS=$MAIN_CLASS"
 PID_FILE="/tmp/jod.$JOD_NAME_DOT.pid"
-
 
 ###############################################################################
 logScriptRun
@@ -95,7 +93,13 @@ logInf "Create logs dir..."
 mkdir -p "$JOD_DIR/logs"
 
 logInf "Execute pre-startup.sh..."
-[ -f "$JOD_DIR/scripts/pre-startup.sh" ] && ( execScriptConfigs $JOD_DIR/scripts/pre-startup.sh || logWar "Error executing PRE startup script, continue" ) || logInf "PRE startup script not found, skipped (missing $JOD_DIR/scripts/pre-startup.sh)"
+if [ -f "$JOD_DIR/scripts/pre-startup.sh" ]; then
+  execScriptCommand $JOD_DIR/scripts/pre-startup.sh || ([ "$?" -gt "0" ] &&
+    logWar "Error executing PRE startup script, exit $?" && exit $? ||
+    logWar "Error executing PRE startup script, continue $?")
+else
+  logDeb "PRE startup script not found, skipped (missing $JOD_DIR/scripts/pre-startup.sh)"
+fi
 
 if [ "$FOREGROUND" = "true" ]; then
   logInf "Start JOD distribution in foreground..."
@@ -126,10 +130,14 @@ else
   logInf "Distribution started successfully"
 
   logInf "Execute post-startup.sh..."
-  [ -f "$JOD_DIR/scripts/post-startup.sh" ] && ( execScriptConfigs $JOD_DIR/scripts/post-startup.sh || logWar "Error executing POST startup script" ) || logInf "POST startup script not found, skipped (missing $JOD_DIR/scripts/post-startup.sh)"
-
+  if [ -f "$JOD_DIR/scripts/post-startup.sh" ]; then
+    execScriptCommand $JOD_DIR/scripts/post-startup.sh || ([ "$?" -gt "0" ] &&
+      logWar "Error executing POST startup script, exit $?" && exit $? ||
+      logWar "Error executing POST startup script, continue $?")
+  else
+    logDeb "POST startup script not found, skipped (missing $JOD_DIR/scripts/post-startup.sh)"
+  fi
 fi
-
 
 ###############################################################################
 logScriptEnd
