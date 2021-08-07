@@ -25,30 +25,30 @@
 
     <Appenders>
 
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/error.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/error-dark.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/error-file.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/error-libs.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/error.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/error-dark.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/error-file.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/error-libs.xml"/>
 
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/warning.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/warning-dark.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/warning-file.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/warning-libs.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/warning.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/warning-dark.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/warning-file.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/warning-libs.xml"/>
 
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/info.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/info-dark.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/info-file.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/info-libs.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/info.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/info-dark.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/info-file.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/info-libs.xml"/>
 
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/debug.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/debug-dark.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/debug-file.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/debug-libs.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/debug.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/debug-dark.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/debug-file.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/debug-libs.xml"/>
 
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/trace.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/trace-dark.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/trace-file.xml"/>
-        <xi:include href="jar:file:libs/jospCommons-2.2.0-alpha.jar!/log4j2/appenders/trace-libs.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/trace.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/trace-dark.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/trace-file.xml"/>
+        <xi:include href="jar:file:libs/jospCommons-2.2.0.jar!/log4j2/appenders/trace-libs.xml"/>
 
     </Appenders>
 

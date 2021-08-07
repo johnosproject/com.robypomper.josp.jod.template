@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -29,15 +29,11 @@
 # if any.
 #
 # Artifact: JOD Dist Template
-# Version:  1.0-DEV
+# Version:  1.0-DEVb
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)"
-source "$JOD_DIR/scripts/libs/bash.sh"
-[ $? -gt 0 ] && logFat "Can't include bash libraries, current dir '$(pwd). Exit'" 255
-source "$JOD_DIR/scripts/libs/logs.sh"
-source "$JOD_DIR/scripts/libs/filesAndDirs.sh"
-includeLib "$JOD_DIR/scripts/libs/hostAndOS.sh"
+source "$JOD_DIR/scripts/libs/include.sh" "$JOD_DIR"
 
 #DEBUG=true
 [[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
@@ -45,7 +41,6 @@ setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
 
 execScriptConfigs "$JOD_DIR/scripts/jod/jod-script-configs.sh"
 execScriptConfigs "$JOD_DIR/scripts/jod/errors.sh"
-
 
 ###############################################################################
 logScriptInit
@@ -67,7 +62,13 @@ if [ "$STATUS_INSTALL" = "Not Installed" ]; then
 fi
 
 logInf "Execute pre-uninstall.sh..."
-[ -f "$JOD_DIR/scripts/pre-uninstall.sh" ] && ( execScriptConfigs $JOD_DIR/scripts/pre-uninstall.sh || logWar "Error executing PRE uninstall script, continue" ) || logInf "PRE uninstall script not found, skipped (missing $JOD_DIR/scripts/pre-uninstall.sh)"
+if [ -f "$JOD_DIR/scripts/pre-startup.sh" ]; then
+  execScriptCommand $JOD_DIR/scripts/pre-uninstall.sh || ([ "$?" -gt "0" ] &&
+    logWar "Error executing PRE uninstall script, exit $?" && exit $? ||
+    logWar "Error executing PRE uninstall script, continue $?")
+else
+  logDeb "PRE uninstall script not found, skipped (missing $JOD_DIR/scripts/pre-uninstall.sh)"
+fi
 
 logInf "Uninstalling distribution..."
 INIT_SYS=$(echo "$OS_INIT_SYS" | tr '[:upper:]' '[:lower:]')
@@ -77,7 +78,13 @@ execScriptCommand "$JOD_DIR/scripts/init/$INIT_SYS/uninstall-jod.sh"
 logInf "Distribution uninstalled successfully"
 
 logInf "Execute post-uninstall.sh..."
-[ -f "$JOD_DIR/scripts/post-uninstall.sh" ] && ( execScriptConfigs $JOD_DIR/scripts/post-uninstall.sh || logWar "Error executing POST uninstall script, continue" ) || logInf "POST uninstall script not found, skipped (missing $JOD_DIR/scripts/post-uninstall.sh)"
+if [ -f "$JOD_DIR/scripts/post-uninstall.sh" ]; then
+  execScriptCommand $JOD_DIR/scripts/post-uninstall.sh || ([ "$?" -gt "0" ] &&
+    logWar "Error executing POST uninstall script, exit $?" && exit $? ||
+    logWar "Error executing POST uninstall script, continue $?")
+else
+  logDeb "POST uninstall script not found, skipped (missing $JOD_DIR/scripts/post-uninstall.sh)"
+fi
 
 ###############################################################################
 logScriptEnd

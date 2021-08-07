@@ -24,7 +24,7 @@
 group = 'com.robypomper.josp'
 
 ext {
-    set('version.deps.josp.jod.template', '1.0-DEV')                // Update also any *.sh file's Version fields and src/tmpls/docs/README.txt file
+    set('version.deps.josp.jod.template', '1.0-DEVb')                // Update also any *.sh file's Version fields and src/tmpls/docs/README.txt file
 }
 
 
@@ -59,17 +59,22 @@ task assembleTMPLConfigs(type: Copy) {
     mustRunAfter cleanAssemble
 }
 
-task assembleTMPLDocs(type: Copy) {
+task assembleTMPLResources(type: Copy) {
     def version = project.ext.get('version.deps.josp.jod.template')
 
-    from 'src/tmpl/docs/README.txt'
+    from 'src/tmpl/resources/README.md'
+    from 'src/tmpl/resources/_gitignore'
+    rename { filename ->
+        filename.replace '_gitignore', '.gitignore'
+    }
+
     into layout.buildDirectory.dir("assemble/$version")
 
     mustRunAfter cleanAssemble
 }
 
 task assembleTMPL() {
-    dependsOn assembleTMPLScripts, assembleTMPLConfigs, assembleTMPLDocs
+    dependsOn assembleTMPLScripts, assembleTMPLConfigs, assembleTMPLResources
 
     mustRunAfter cleanAssemble
 }

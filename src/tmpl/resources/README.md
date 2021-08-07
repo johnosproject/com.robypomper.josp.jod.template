@@ -1,4 +1,4 @@
-# JOD Distribution TEMPLATE - 1.0-DEV
+# JOD Distribution TEMPLATE - 1.0-DEVb
 
 The JOD Distribution TEMPLATE helps Makers to generates custom JOD Distributions
 that can be executed on the local machine, deployed on remote objects or shared

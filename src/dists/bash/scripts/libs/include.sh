@@ -20,31 +20,13 @@
 ################################################################################
 
 ################################################################################
-# Artifact: JOD Dist Template
+# Artifact: Robypomper Bash Utils
 # Version:  1.0-DEVb
 ################################################################################
 
-# Generic
-_ERRBASE_GENERIC=0
-ERR_LOAD_SCRIPT_CONFIG=$((_ERRBASE_GENERIC + 1))   # "JOD script config file not found ($JOD_SCRIPT_CONFIG), exit"
-ERR_DETECT_SCRIPT_CONFIG=$((_ERRBASE_GENERIC + 2)) # "Can't detect XY ($XY), exit"
-ERR_NOT_IMPLEMENTED=$((_ERRBASE_GENERIC + 3))      # "Distribution installation not implemented"
+JOD_DIR=$1
 
-# start.sh
-_ERRBASE_START=10
-ERR_ALREADY_RUNNING=$((_ERRBASE_START + 1)) # "Distribution already running, please shutdown distribution or set FORCE param"
-
-# stop.sh
-_ERRBASE_SHUTDOWN=20
-ERR_CANT_SHUTDOWN=$((_ERRBASE_SHUTDOWN + 1)) # "Can't shutdown JOD with PID=$JOD_PID"
-
-# install.sh
-_ERRBASE_INSTALL=30
-ERR_ALREADY_INSTALLED=$((_ERRBASE_INSTALL + 1)) # "Distribution already installed, please uninstall distribution or set FORCE param"
-
-# uninstall.sh
-_ERRBASE_UNINSTALL=40
-
-# pre-post scripts
-_ERRBASE_PREPOST=100
-ERR_MISSING_REQUIREMENTS=$((_ERRBASE_PREPOST + 1)) # "Distribution already installed, please uninstall distribution or set FORCE param"
+source "$JOD_DIR/scripts/libs/bash.sh"
+source "$JOD_DIR/scripts/libs/logs.sh"
+source "$JOD_DIR/scripts/libs/filesAndDirs.sh"
+source "$JOD_DIR/scripts/libs/hostAndOS.sh"

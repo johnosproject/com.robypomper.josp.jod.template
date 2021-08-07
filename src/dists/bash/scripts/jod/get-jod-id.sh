@@ -29,14 +29,11 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0-DEV
+# Version:  1.0-DEVb
 ###############################################################################
 
-JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
-source "../libs/bash.sh"
-source "../libs/logs.sh"
-source "../libs/filesAndDirs.sh"
-source "../libs/hostAndOS.sh"
+JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/../.."
+source "$JOD_DIR/scripts/libs/include.sh" "$JOD_DIR"
 
 # PRE Init NO_LOGS
 NO_LOGS=${1:-false}
@@ -47,7 +44,6 @@ setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
 
 execScriptConfigs "$JOD_DIR/scripts/jod/jod-script-configs.sh"
 execScriptConfigs "$JOD_DIR/scripts/jod/errors.sh"
-
 
 ###############################################################################
 logScriptInit
@@ -62,7 +58,7 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 logScriptRun
 
 logInf "Querying JOD configs for distribution ID..."
-JOD_OBJ_ID=$(cat "$JOD_YML" | grep -v '^#' | grep "jod.obj.id" | awk '/jod.obj.id:/ {print $2}')
+JOD_OBJ_ID=$(cat "$JOD_YML" | grep -v '^#' | grep "jod.obj.id_cloud" | awk '/jod.obj.id_cloud:/ {print $2}')
 echo $JOD_OBJ_ID
 logInf "Distribution ID queried successfully"
 
