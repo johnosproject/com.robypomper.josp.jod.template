@@ -62,8 +62,10 @@ DEST_DIR=$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER
 CACHE_DIR=$JOD_DIST_DIR/build/cache
 JOD_JAR=$CACHE_DIR/jospJOD-$JOD_VER.jar
 JOD_URL="https://repo.maven.apache.org/maven2/com/robypomper/josp/jospJOD/$JOD_VER/jospJOD-$JOD_VER.jar"
+JOD_LOCAL_MAVEN="$HOME/.m2/repository/com/robypomper/josp/jospJOD/$JOD_VER/jospJOD-$JOD_VER.jar"
 JOD_DEPS_JAR=$CACHE_DIR//jospJOD-$JOD_VER-deps.jar
 JOD_DEPS_URL="https://repo.maven.apache.org/maven2/com/robypomper/josp/jospJOD/$JOD_VER/jospJOD-$JOD_VER-deps.jar"
+JOD_DEPS_LOCAL_MAVEN="$HOME/.m2/repository/com/robypomper/josp/jospJOD/$JOD_VER/jospJOD-$JOD_VER-deps.jar"
 
 ###############################################################################
 logScriptRun
@@ -81,8 +83,15 @@ logDeb "Prepare JOD library"
 if [ ! -f "$JOD_JAR" ]; then
   logInf "Download JOD library from $JOD_URL"
   mkdir -p $CACHE_DIR
-  curl -s --fail $JOD_URL -o $JOD_JAR
-  [ "$?" -ne 0 ] && logFat "Can't download JOD library from '$JOD_URL' url, exit."
+  curl --fail -s -m 5 "$JOD_URL" -o "$JOD_JAR"
+  if [ "$?" -ne 0 ]; then
+    logWar "Can't download JOD library from '$JOD_URL' url, try on local maven repository"
+    cp "$JOD_LOCAL_MAVEN" "$JOD_JAR"
+    if [ "$?" -ne 0 ]; then
+      logFat "Can't found JOD library in local maven repository at '$JOD_LOCAL_MAVEN'"
+      logFat "Can't get JOD library, exit."
+    fi
+  fi
 fi
 cp $JOD_JAR $DEST_DIR/libs/
 cp $JOD_JAR $DEST_DIR/jospJOD.jar
@@ -91,8 +100,15 @@ logDeb "Prepare JOD dependencies"
 if [ ! -f "$JOD_DEPS_JAR" ]; then
   logInf "Download JOD dependencies from $JOD_DEPS_URL"
   mkdir -p $CACHE_DIR
-  curl --fail -s $JOD_DEPS_URL -o $JOD_DEPS_JAR
-  [ "$?" -ne 0 ] && logFat "Can't download JOD dependencies from '$JOD_URL' url, exit."
+  curl --fail -s -m 5 "$JOD_DEPS_URL" -o "$JOD_DEPS_JAR"
+  if [ "$?" -ne 0 ]; then
+    logWar "Can't download JOD dependencies from '$JOD_DEPS_URL' url, try on local maven repository"
+    cp "$JOD_DEPS_LOCAL_MAVEN" "$JOD_DEPS_JAR"
+    if [ "$?" -ne 0 ]; then
+      logFat "Can't found JOD dependencies in local maven repository at '$JOD_DEPS_LOCAL_MAVEN'"
+      logFat "Can't get JOD dependencies, exit."
+    fi
+  fi
 fi
 cd $DEST_DIR/libs/ && jar xf $JOD_DEPS_JAR && cd - >/dev/null 2>&1 || (
   echo "ERR: Can't prepare JOD Dependencies because can't extract from '$JOD_DEPS_JAR' in to '$DEST_DIR/libs/', exit."
