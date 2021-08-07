@@ -69,18 +69,20 @@ logInf "Get distribution statuses..."
 JOD_PID=$(bash "$JOD_DIR/scripts/jod/get-jod-pid.sh" true)
 [ -n "$JOD_PID" ] && JOD_STATE="Running" || JOD_STATE="NOT Running"
 JOD_OBJ_NAME=$(bash "$JOD_DIR/scripts/jod/get-jod-name.sh" true)
+JOD_OBJ_ID=$(bash "$JOD_DIR/scripts/jod/get-jod-id.sh" true)
 
 if [ "$SHOW_ALL" == true ]
 then
-    INIT_SYS=$(echo "$OS_INIT_SYS" | tr '[:upper:]' '[:lower:]')
-    logTra "Execute '$JOD_DIR/scripts/init/$INIT_SYS/state-install-jod.sh'"
-    JOD_INSTALLED=$(bash "$JOD_DIR/scripts/init/$INIT_SYS/state-install-jod.sh" true)
+  INIT_SYS=$(echo "$OS_INIT_SYS" | tr '[:upper:]' '[:lower:]')
+  logTra "Execute '$JOD_DIR/scripts/init/$INIT_SYS/state-install-jod.sh'"
+  JOD_INSTALLED=$(bash "$JOD_DIR/scripts/init/$INIT_SYS/state-install-jod.sh" true)
 fi
 
-echo "Instance PID:    $JOD_PID"
 echo "Instance State:  $JOD_STATE"
-[ "$SHOW_ALL" == true ] && echo "Is Installed:    $JOD_INSTALLED"
-echo "Obj's name:      $JOD_OBJ_NAME"
+echo "Instance PID:    ${JOD_PID:-N/A}"
+[ "$SHOW_ALL" == true ] && echo "Is Installed:    ${JOD_INSTALLED:-N/A}"
+echo "Obj's name:      ${JOD_OBJ_NAME:-N/A}"
+echo "Obj's id:        ${JOD_OBJ_ID:-N/A}"
 
 logInf "Distribution state get successfully"
 
