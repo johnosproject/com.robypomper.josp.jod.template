@@ -31,7 +31,7 @@
 # Version:  1.0-DEVb
 ###############################################################################
 
-JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
+JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/../.."
 source "$JOD_DIR/scripts/libs/include.sh" "$JOD_DIR"
 
 #DEBUG=true
