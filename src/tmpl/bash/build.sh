@@ -135,7 +135,7 @@ mkdir -p $DEST_DIR/scripts
 
 logDeb "Prepare JOD library"
 if [ ! -f "$JOD_JAR" ]; then
-  logInf "Download JOD library from $JOD_URL"
+  logDeb "Download JOD library from $JOD_URL"
   mkdir -p $CACHE_DIR
   curl --fail -s -m 5 "$JOD_URL" -o "$JOD_JAR"
   if [ "$?" -ne 0 ]; then
@@ -152,7 +152,7 @@ cp $JOD_JAR $DEST_DIR/jospJOD.jar
 
 logDeb "Prepare JOD dependencies"
 if [ ! -f "$JOD_DEPS_JAR" ]; then
-  logInf "Download JOD dependencies from $JOD_DEPS_URL"
+  logDeb "Download JOD dependencies from $JOD_DEPS_URL"
   mkdir -p $CACHE_DIR
   curl --fail -s -m 5 "$JOD_DEPS_URL" -o "$JOD_DEPS_JAR"
   if [ "$?" -ne 0 ]; then
@@ -191,7 +191,12 @@ cp -r "$JOD_DIST_DIR/$JOD_STRUCT" "$DEST_DIR/configs/struct.jod"
 cp -r "$JOD_DIST_DIR/dists/configs/jod_configs.sh" "$DEST_DIR/configs/configs.sh"
 [ "$?" -ne 0 ] && logFat "Can't include 'configs.sh' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/configs.sh_default'"
 
-logDeb "Copy JOD Distribution scripts"
+logDeb "Generate JOD Distribution dist_configs.sh"
+echo "#!/bin/bash
+export JOD_DIST_NAME='$DEST_ARTIFACT'
+export JOD_DIST_VER='$DEST_VER'" >"$DEST_DIR/configs/dist_configs.sh"
+
+logInf "Copy JOD Distribution scripts"
 cp -r $JOD_DIST_DIR/dists/scripts/* $DEST_DIR
 [ "$?" -ne 0 ] && logFat "Can't include 'scripts' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/scripts/*'"
 
