@@ -112,7 +112,7 @@ JCP_SECRET=""
 # A list of loadable JOD Executors used in the struct.jod file.
 # An empty list load default executors protocols:
 # - "shell" as ExecutorUnixShell
-# - "file" as PullerHttp
+# - "file" as ExecutorFile
 # - "http" as ExecutorHTTP
 # The list must use following format: {PROTO_SHORTCUT}://{EXECUTOR_CLASS}[ ...]
 # Example:
