@@ -2,11 +2,12 @@
 
 #jcp.connect: 'false'                              # JCP_CONNECT_DEF          = "true";
 #jcp.client.refresh: '5'                           # JCP_REFRESH_TIME_DEF     = "30";
-jcp.url.apis: 'api-stage.johnosproject.org'       # JCP_URL_DEF_APIS         = "apis.johnosproject.org";
-jcp.url.auth: 'auth-stage.johnosproject.org'      # JCP_URL_DEF_AUTH         = "auth.johnosproject.org";
-jcp.client.id: 'test-client-obj'                  # JCP_CLIENT_ID_DEF        = "";
+#jcp.client.ssl: 'false'                           # JCP_SSL_DEF              = "true";
+jcp.url.apis: 'api-stage.johnosproject.org'        # JCP_URL_DEF_APIS         = "api.johnosproject.org";
+jcp.url.auth: 'auth-stage.johnosproject.org'       # JCP_URL_DEF_AUTH         = "auth.johnosproject.org";
+jcp.client.id: 'test-client-obj'                   # JCP_CLIENT_ID_DEF        = "";
 #jcp.client.secret: ''                             # JCP_CLIENT_SECRET_DEF    = "";
-jcp.client.secret: '2d1f9b96-70d3-443b-b21b-08a401ddc16c'   # Stage
+jcp.client.secret: '2d1f9b96-70d3-443b-b21b-08a401ddc16c'    # Stage
 #jcp.client.secret: '04526df3-8752-48d2-be2b-7dca8229aa32'   # Production
 
 
@@ -41,8 +42,8 @@ jod.structure.path: 'configs/struct.jod'                 # JODSTRUCT_PATH_DEF   
 
 ## Permissions
 
-#jod.permissions.path: 'perms.jod'                 # JODPERM_PATH_DEF         = "perms.jod";
-#jod.permissions.refresh: '30'                     # JODPERM_REFRESH_DEF      = "300";
+#jod.permissions.path: 'perms.jod'                 # JODPERM_PATH_DEF         = "configs/perms.jod";
+#jod.permissions.refresh: '30'                     # JODPERM_REFRESH_DEF      = "30";
 #jod.permissions.generation_strategy: 'standard'   # JODPERM_GENSTARTEGY_DEF  = "standard";
 #jod.permissions.owner: '00000-00000-00000'        # JODPERM_OWNER_DEF        = JOSPPerm.WildCards.USR_ANONYMOUS_ID.toString();
 
