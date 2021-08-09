@@ -62,8 +62,7 @@ task assembleTMPLConfigs(type: Copy) {
 task assembleTMPLResources(type: Copy) {
     def version = project.ext.get('version.deps.josp.jod.template')
 
-    from 'src/tmpl/resources/README.md'
-    from 'src/tmpl/resources/_gitignore'
+    from 'src/tmpl/resources'
     rename { filename ->
         filename.replace '_gitignore', '.gitignore'
     }
