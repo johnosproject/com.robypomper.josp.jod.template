@@ -107,6 +107,9 @@ fi
 # JOD_CONFIG_TMPL
 [ -z "$JOD_CONFIG_TMPL" ] && JOD_CONFIG_TMPL="dists/configs/jod_TMPL.yml"
 
+# JOD_CONFIG_LOGS_TMPL
+[ -z "$JOD_CONFIG_LOGS_TMPL" ] && JOD_CONFIG_LOGS_TMPL="dists/configs/log4j2_TMPL.xml"
+
 # JOD_STRUCT: jod's structure file, path from $JOD_DIST_DIR      ; default: dists/configs/struct.jod
 [ -z "$JOD_STRUCT" ] && JOD_STRUCT="dists/configs/struct.jod"
 
@@ -185,6 +188,10 @@ sed -e 's|%JCP_ENV_API%|'"$JCP_ENV_API"'|g' \
   -e 's|%JOD_CLOUD_ENABLED%|'"$JOD_CLOUD_ENABLED"'|g' \
   "$JOD_DIST_DIR/$JOD_CONFIG_TMPL" >"$DEST_DIR/configs/jod.yml"
 
+logDeb "Generate JOD logs configs 'log4j2.xml' file"
+sed -e 's|%JOD_VER%|'"$JOD_VER"'|g' \
+  "$JOD_DIST_DIR/$JOD_CONFIG_LOGS_TMPL" >"$DEST_DIR/log4j2.xml"
+
 logDeb "Copy JOD Distribution configs"
 cp -r "$JOD_DIST_DIR/$JOD_STRUCT" "$DEST_DIR/configs/struct.jod"
 [ "$?" -ne 0 ] && logFat "Can't include 'struct.jod' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/$JOD_STRUCT'"
@@ -196,7 +203,7 @@ echo "#!/bin/bash
 export JOD_DIST_NAME='$DEST_ARTIFACT'
 export JOD_DIST_VER='$DEST_VER'" >"$DEST_DIR/configs/dist_configs.sh"
 
-logInf "Copy JOD Distribution scripts"
+logDeb "Copy JOD Distribution scripts"
 cp -r $JOD_DIST_DIR/dists/scripts/* $DEST_DIR
 [ "$?" -ne 0 ] && logFat "Can't include 'scripts' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/scripts/*'"
 

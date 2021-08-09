@@ -130,6 +130,16 @@ JCP_SECRET=""
 # The file path must be relative to the $JOD_DIST_DIR.
 #JOD_CONFIG_TMPL="dists/configs/jod_TMPL.yml"
 
+# JOD Object's logs config template
+# A file path for an alternative '$JOD_DIST_DIR/dists/configs/log4j2_TMPL.xml'
+# file.
+# By default (value = "") use preconfigured '$JOD_DIST_DIR/dists/configs/log4j2_TMPL.xml'
+# file.
+# The 'log4j2_TMPL.xml' is a Log4j2 config file used to print logs on console
+# on files, on network listeners...
+# The file path must be relative to the $JOD_DIST_DIR.
+#JOD_CONFIG_LOGS_TMPL="dists/configs/log4j2_TMPL.xml"
+
 # JOD Object's structure files
 # A file path for a valid 'struct.jod' file to include in the built
 # JOD Distribution.
