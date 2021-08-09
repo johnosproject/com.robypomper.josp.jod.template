@@ -56,7 +56,7 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 logScriptRun
 
 logInf "Check distribution status-install..."
-STATUS_INSTALL=$(systemctl is-active "jod-$JOD_NAME_DOT.service")
+STATUS_INSTALL=$(systemctl is-active "jod-$JOD_INSTALLATION_NAME_DOT.service")
 logTra "STATUS_INSTALL=$STATUS_INSTALL"
 [ "$STATUS_INSTALL" = "active" ] || [ "$STATUS_INSTALL" = "activating" ] &&
   echo "Installed" ||

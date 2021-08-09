@@ -56,8 +56,8 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 logScriptRun
 
 logInf "Check distribution status-install..."
-logTra "sudo launchctl list | grep \"com.robypomper.josp.jod.$JOD_NAME_DOT\""
-STATUS_INSTALL=$(sudo launchctl list | grep "com.robypomper.josp.jod.$JOD_NAME_DOT")
+logTra "sudo launchctl list | grep \"com.robypomper.josp.jod.$JOD_INSTALLATION_NAME_DOT\""
+STATUS_INSTALL=$(sudo launchctl list | grep "com.robypomper.josp.jod.$JOD_INSTALLATION_NAME_DOT")
 logTra "STATUS_INSTALL=$STATUS_INSTALL"
 [ -n "$STATUS_INSTALL" ] &&
   echo "Installed" ||
