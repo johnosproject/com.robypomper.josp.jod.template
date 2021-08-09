@@ -71,7 +71,7 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 JAR_RUN="jospJOD.jar"
 [ -z "$MAIN_CLASS" ] && [ "$FOREGROUND" == true ] && MAIN_CLASS="com.robypomper.josp.jod.JODShell" || MAIN_CLASS="com.robypomper.josp.jod.JODDaemon"
 logTra "MAIN_CLASS=$MAIN_CLASS"
-PID_FILE="/tmp/jod.$JOD_NAME_DOT.pid"
+PID_FILE="/tmp/$JOD_INSTALLATION_NAME_DOT.pid"
 
 ###############################################################################
 logScriptRun
@@ -107,7 +107,7 @@ if [ "$FOREGROUND" = "true" ]; then
   logInf "Skip pre-shutdown.sh because in FOREGROUND mode"
   logInf "Skip post-shutdown.sh because in FOREGROUND mode"
 
-  cd $JOD_DIR && $JAVA_EXEC -Dlog4j.configurationFile=log4j2.xml -cp $JAR_RUN $MAIN_CLASS --configs=$JOD_YML $JOD_NAME_DOT
+  cd $JOD_DIR && $JAVA_EXEC -Dlog4j.configurationFile=log4j2.xml -cp $JAR_RUN $MAIN_CLASS --configs=$JOD_YML $JOD_INSTALLATION_NAME_DOT
   EXIT_CODE=$?
   if [ $EXIT_CODE -gt 0 ]; then
     logFat "JOD Distribution terminated with exit code $EXIT_CODE"
@@ -117,9 +117,9 @@ if [ "$FOREGROUND" = "true" ]; then
 else
 
   logInf "Start JOD distribution in background..."
-  cd $JOD_DIR && $JAVA_EXEC -Dlog4j.configurationFile=log4j2.xml -cp $JAR_RUN $MAIN_CLASS --configs=$JOD_YML $JOD_NAME_DOT >logs/console.log 2>&1 &
+  cd $JOD_DIR && $JAVA_EXEC -Dlog4j.configurationFile=log4j2.xml -cp $JAR_RUN $MAIN_CLASS --configs=$JOD_YML $JOD_INSTALLATION_NAME_DOT >logs/console.log 2>&1 &
 
-  PID="$(ps aux | grep -v 'grep' | grep "$JOD_NAME_DOT" | awk '{print $2}')"
+  PID="$(ps aux | grep -v 'grep' | grep "$JOD_INSTALLATION_NAME_DOT" | awk '{print $2}')"
   echo "$PID" >$PID_FILE
   logInf "Daemon executed successfully with $PID process id"
   echo "Execute following commands to kill this process:"

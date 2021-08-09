@@ -21,7 +21,9 @@
 
 ###############################################################################
 # Usage:
-# bash $JOD_DIST_DIR/scripts/install.sh [JOD_DIST_CONFIG_FILE=configs/configs.sh] [INST_DIR=$JOD_DIST_DIR/envs/{XXXX}/]
+# bash $JOD_DIST_DIR/scripts/install.sh
+#             [JOD_DIST_CONFIG_FILE=configs/configs.sh]
+#             [INST_DIR=$JOD_DIST_DIR/envs/{XXXX}/]
 #
 # This script assemble a JOD Distribution based on specified JOD_DIST_CONFIG_FILE
 # file and copy it to INST_DIST dir. Then you can call scripts from INST_DIST to
@@ -61,8 +63,8 @@ logScriptParam "INST_DIR" "$INST_DIR"
 # Load jod distribution configs, exit if fails
 execScriptConfigs $JOD_DIST_CONFIG_FILE
 
-DEST_DIR=$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER
-INSTALL_DIR=$JOD_DIST_DIR/build/envs/installable/$DEST_ARTIFACT-$DEST_VER #-$(date '+%Y%m%d_%H%M')
+DEST_DIR="$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER"
+INSTALL_DIR="$JOD_DIST_DIR/build/envs/installable/$DEST_ARTIFACT-$DEST_VER" #-$(date '+%Y%m%d_%H%M')
 
 ###############################################################################
 logScriptRun

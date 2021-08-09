@@ -47,7 +47,7 @@ logScriptInit
 setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 
 # Internal vars
-SERVICE_FILE="/etc/systemd/system/jod-$JOD_NAME_DOT.service"
+SERVICE_FILE="/etc/systemd/system/jod-$JOD_INSTALLATION_NAME_DOT.service"
 CURRENT_USER=$(whoami)
 
 ###############################################################################
@@ -57,8 +57,8 @@ logInf "Set jod.sh as executable..."
 chmod +x $JOD_DIR/start.sh
 
 logInf "Config and copy service file..."
-sed -e 's|%JOD_NAME%|'"$JOD_NAME"'|g' \
-  -e 's|%JOD_NAME_DOT%|'"$JOD_NAME_DOT"'|g' \
+sed -e 's|%JOD_INSTALLATION_NAME%|'"$JOD_INSTALLATION_NAME"'|g' \
+  -e 's|%JOD_INSTALLATION_NAME_DOT%|'"$JOD_INSTALLATION_NAME_DOT"'|g' \
   -e 's|%JOD_DIR%|'"$JOD_DIR"'|g' \
   -e 's|%CURRENT_USER%|'"$CURRENT_USER"'|g' \
   -e 's|%JAVA_DIR%|'"$JAVA_DIR"'|g' \
@@ -68,8 +68,8 @@ sudo chown root $SERVICE_FILE
 sudo chgrp root $SERVICE_FILE
 
 logInf "Installing distribution..."
-sudo systemctl enable "jod-$JOD_NAME_DOT.service"
-sudo systemctl start "jod-$JOD_NAME_DOT.service"
+sudo systemctl enable "jod-$JOD_INSTALLATION_NAME_DOT.service"
+sudo systemctl start "jod-$JOD_INSTALLATION_NAME_DOT.service"
 
 ###############################################################################
 logScriptEnd

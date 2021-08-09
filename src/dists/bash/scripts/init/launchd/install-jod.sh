@@ -47,7 +47,7 @@ logScriptInit
 setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 
 # Internal vars
-PLIST_FILE="/Library/LaunchAgents/com.robypomper.josp.jod.$JOD_NAME_DOT.plist"
+PLIST_FILE="/Library/LaunchAgents/com.robypomper.josp.jod.$JOD_INSTALLATION_NAME_DOT.plist"
 CURRENT_USER=$(whoami)
 
 ###############################################################################
@@ -57,8 +57,8 @@ logInf "Set jod.sh as executable..."
 chmod +x $JOD_DIR/start.sh
 
 logInf "Config and copy PLIST file..."
-sed -e 's|%JOD_NAME%|'"$JOD_NAME"'|g' \
-  -e 's|%JOD_NAME_DOT%|'"$JOD_NAME_DOT"'|g' \
+sed -e 's|%JOD_INSTALLATION_NAME%|'"$JOD_INSTALLATION_NAME"'|g' \
+  -e 's|%JOD_INSTALLATION_NAME_DOT%|'"$JOD_INSTALLATION_NAME_DOT"'|g' \
   -e 's|%JOD_DIR%|'"$JOD_DIR"'|g' \
   -e 's|%CURRENT_USER%|'"$CURRENT_USER"'|g' \
   -e 's|%JAVA_DIR%|'"$JAVA_DIR"'|g' \
