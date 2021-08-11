@@ -96,13 +96,15 @@ fi
 [ -n "$JOD_ID" ] && JOD_ID_HW=${JOD_ID::5}
 
 # JOD_EXEC_PULLERS
-[ -z "$JOD_EXEC_PULLERS" ] && JOD_EXEC_PULLERS="shell://com.robypomper.josp.jod.executor.PullerUnixShell http://com.robypomper.josp.jod.executor.impls.http.PullerHTTP"
+[ "$JOD_VER" == "2.2.0" ] && SHELL_PULLER="PullerUnixShell" || SHELL_PULLER="PullerShell"
+[ -z "$JOD_EXEC_PULLERS" ] && JOD_EXEC_PULLERS="shell://com.robypomper.josp.jod.executor.$SHELL_PULLER http://com.robypomper.josp.jod.executor.impls.http.PullerHTTP"
 
 # JOD_EXEC_LISTENERS
 [ -z "$JOD_EXEC_LISTENERS" ] && JOD_EXEC_LISTENERS="file://com.robypomper.josp.jod.executor.ListenerFiles"
 
 # JOD_EXEC_EXECUTORS
-[ -z "$JOD_EXEC_EXECUTORS" ] && JOD_EXEC_EXECUTORS="shell://com.robypomper.josp.jod.executor.ExecutorUnixShell file://com.robypomper.josp.jod.executor.ExecutorFiles http://com.robypomper.josp.jod.executor.impls.http.ExecutorHTTP"
+[ "$JOD_VER" == "2.2.0" ] && SHELL_EXECUTOR="ExecutorUnixShell" || SHELL_EXECUTOR="ExecutorShell"
+[ -z "$JOD_EXEC_EXECUTORS" ] && JOD_EXEC_EXECUTORS="shell://com.robypomper.josp.jod.executor.$SHELL_EXECUTOR file://com.robypomper.josp.jod.executor.ExecutorFiles http://com.robypomper.josp.jod.executor.impls.http.ExecutorHTTP"
 
 # JOD_CONFIG_TMPL
 [ -z "$JOD_CONFIG_TMPL" ] && JOD_CONFIG_TMPL="dists/configs/jod_TMPL.yml"

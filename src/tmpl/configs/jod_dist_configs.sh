@@ -92,11 +92,11 @@ JCP_SECRET=""
 # JOD Object's pullers protocols
 # A list of loadable JOD Pullers used in the struct.jod file.
 # An empty list load default pullers protocols:
-# - "shell" as PullerUnixShell
+# - "shell" as PullerShell (PullerUnixShell for JOD_VER=2.2.0)
 # - "http" as PullerHttp
 # The list must use following format: {PROTO_SHORTCUT}://{PULLER_CLASS}[ ...]
 # Example:
-# shell://com.robypomper.josp.jod.executor.PullerUnixShell http://com.robypomper.josp.jod.executor.impls.http.PullerHTTP
+# shell://com.robypomper.josp.jod.executor.PullerShell http://com.robypomper.josp.jod.executor.impls.http.PullerHTTP
 #JOD_EXEC_PULLERS="{PROTO_SHORTCUT}://{PULLER_CLASS}[ ...]"
 
 # JOD Object's listeners protocols
@@ -111,12 +111,12 @@ JCP_SECRET=""
 # JOD Object's executors protocols
 # A list of loadable JOD Executors used in the struct.jod file.
 # An empty list load default executors protocols:
-# - "shell" as ExecutorUnixShell
+# - "shell" as ExecutorShell (ExecutorUnixShell for JOD_VER=2.2.0)
 # - "file" as ExecutorFile
 # - "http" as ExecutorHTTP
 # The list must use following format: {PROTO_SHORTCUT}://{EXECUTOR_CLASS}[ ...]
 # Example:
-# shell://com.robypomper.josp.jod.executor.ExecutorUnixShell file://com.robypomper.josp.jod.executor.ExecutorFiles http://com.robypomper.josp.jod.executor.impls.http.ExecutorHTTP
+# shell://com.robypomper.josp.jod.executor.ExecutorShell file://com.robypomper.josp.jod.executor.ExecutorFiles http://com.robypomper.josp.jod.executor.impls.http.ExecutorHTTP
 #JOD_EXEC_EXECUTORS="{PROTO_SHORTCUT}://{EXECUTOR_CLASS}[ ...]"
 
 # JOD Object's main config template
