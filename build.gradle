@@ -45,6 +45,7 @@ task assembleTMPLScripts(type: Copy) {
     def version = project.ext.get('version.deps.josp.jod.template')
 
     from 'src/tmpl/bash'
+    from 'src/tmpl/ps'
     into layout.buildDirectory.dir("assemble/$version/scripts")
 
     mustRunAfter cleanAssemble
@@ -82,6 +83,7 @@ task assembleTMPLDistsScripts(type: Copy) {
     def version = project.ext.get('version.deps.josp.jod.template')
 
     from 'src/dists/bash'
+    from 'src/dists/ps'
     into layout.buildDirectory.dir("assemble/$version/dists/scripts")
 
     mustRunAfter cleanAssemble
@@ -139,6 +141,7 @@ task buildTar(type: Tar) {
 }
 
 task buildTMPL() {
+    group "jodTemplate"
     dependsOn cleanAssemble
     dependsOn assembleTMPL, assembleTMPLDists
     dependsOn buildZip, buildTar
@@ -150,6 +153,7 @@ task buildTMPL() {
 // -------------------------------
 
 task publishTMPL() {
+    group "jodTemplate"
     doFirst {
         println "####################"
         println "# MANUAL OPERATION #"

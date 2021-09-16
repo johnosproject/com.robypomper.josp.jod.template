@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env powershell
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -21,7 +21,7 @@
 
 ###############################################################################
 # Usage:
-# bash $JOD_DIR/install.sh [FORCE]
+# powershell $JOD_DIR/install.ps1 [FORCE]
 #
 # The ```FORCE``` param, prevent the script fail when current JOD Distribution is
 # already installed. When ```FORCE``` param is ```true``` and current JOD Distribution
@@ -38,21 +38,27 @@
 # Version:  1.0-DEVb
 ###############################################################################
 
-JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)"
-source "$JOD_DIR/scripts/libs/include.sh" "$JOD_DIR"
+param ([switch] $FORCE=$false)
 
-#DEBUG=true
-[[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
-setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
+$JOD_DIR=(get-item $PSScriptRoot ).FullName
+.$JOD_DIR/scripts/libs/include.ps1 "$JOD_DIR"
 
-execScriptConfigs "$JOD_DIR/scripts/jod/jod-script-configs.sh"
-execScriptConfigs "$JOD_DIR/scripts/jod/errors.sh"
+#$DEBUG=$true
+if (($null -ne $DEBUG) -and ($DEBUG)) { INSTALL-LogsDebug } else { INSTALL-Logs }
+
+setupCallerAndScript $PSCommandPath $MyInvocation.PSCommandPath
+
+."$JOD_DIR/scripts/jod/jod-script-configs.ps1"
+execScriptConfigs "$JOD_DIR/scripts/jod/errors.ps1"
 
 ###############################################################################
 logScriptInit
 
+# Init FORCE
+logScriptParam "FORCE" "$FORCE"
+
 # Load jod_configs.sh, exit if fails
-setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
+setupJODScriptConfigs "$JOD_DIR/configs/configs.ps1"
 
 # Check current OS
 failOnWrongOS
@@ -61,44 +67,55 @@ failOnWrongOS
 logScriptRun
 
 logInf "Check if distribution is already installed..."
-INIT_SYS=$(echo "$OS_INIT_SYS" | tr '[:upper:]' '[:lower:]')
-logTra "Execute '$JOD_DIR/scripts/init/$INIT_SYS/state-install-jod.sh'"
-STATUS_INSTALL=$(bash "$JOD_DIR/scripts/init/$INIT_SYS/state-install-jod.sh" true)
-logTra "STATUS_INSTALL=$STATUS_INSTALL"
-if [ "$STATUS_INSTALL" = "Installed" ]; then
-  if [ "$FORCE" = "false" ]; then
+$INIT_SYS=($OS_INIT_SYS.ToLower())
+logTra "Execute '$JOD_DIR/scripts/init/$INIT_SYS/state-install-jod.ps1'"
+$STATUS_INSTALL=$(powershell "$JOD_DIR/scripts/init/$INIT_SYS/state-install-jod.ps1" -NO_LOGS)
+if ($STATUS_INSTALL.startsWith("ERROR_")) {
+  logFat "Can't get Distribution's service state, error $STATUS_INSTALL" 7364
+} elseif ( "$STATUS_INSTALL" -eq "Installed" ) {
+  if ( !$FORCE ) {
     logWar "Distribution already installed, please uninstall distribution or set FORCE param"
     logScriptEnd $ERR_ALREADY_INSTALLED
-  else
+  } else {
     logWar "Distribution already intalled, uninstall it"
     execScriptCommand "$JOD_DIR/uninstall.sh"
-  fi
-fi
+  }
+}
 
-logInf "Execute pre-install.sh..."
-if [ -f "$JOD_DIR/scripts/pre-install.sh" ]; then
-  execScriptCommand $JOD_DIR/scripts/pre-install.sh || ([ "$?" -gt "0" ] &&
-    logWar "Error executing PRE install script, exit $?" && exit $? ||
-    logWar "Error executing PRE install script, continue $?")
-else
-  logDeb "PRE install script not found, skipped (missing $JOD_DIR/scripts/pre-install.sh)"
-fi
+logInf "Execute pre-install.ps1..."
+if ( Test-Path "$JOD_DIR/scripts/pre-install.ps1" ) {
+    execScriptCommand "$JOD_DIR/scripts/pre-install.ps1"
+    if (!$?) {
+        logWar "Error executing PRE install script, continue $LastExitCode"
+    } elseif ($LastExitCode -gt 0) {
+        logWar "Error executing PRE install script, exit $LastExitCode"
+        $host.SetShouldExit($LastExitCode)
+        exit $LastExitCode
+    }
+} else {
+    logDeb "PRE install script not found, skipped (missing $JOD_DIR/scripts/pre-install.ps1)"
+}
 
 logInf "Installing distribution..."
-INIT_SYS=$(echo "$OS_INIT_SYS" | tr '[:upper:]' '[:lower:]')
+$INIT_SYS=($OS_INIT_SYS.ToLower())
 logTra "INIT_SY=$INIT_SYS"
-execScriptCommand "$JOD_DIR/scripts/init/$INIT_SYS/install-jod.sh"
+execScriptCommand "$JOD_DIR/scripts/init/$INIT_SYS/install-jod.ps1"
 
 logInf "Distribution installed successfully"
 
-logInf "Execute post-install.sh..."
-if [ -f "$JOD_DIR/scripts/post-install.sh" ]; then
-  execScriptCommand $JOD_DIR/scripts/post-install.sh || ([ "$?" -gt "0" ] &&
-    logWar "Error executing POST install script, exit $?" && exit $? ||
-    logWar "Error executing POST install script, continue $?")
-else
-  logDeb "POST install script not found, skipped (missing $JOD_DIR/scripts/post-install.sh)"
-fi
+logInf "Execute post-install.ps1..."
+if ( Test-Path "$JOD_DIR/scripts/post-install.ps1" ) {
+  execScriptCommand "$JOD_DIR/scripts/post-install.ps1"
+  if (!$?) {
+      logWar "Error executing POST install script, continue $LastExitCode"
+  } elseif ($LastExitCode -gt 0) {
+      logWar "Error executing POST install script, exit $LastExitCode"
+      $host.SetShouldExit($LastExitCode)
+      exit $LastExitCode
+  }
+} else {
+  logDeb "POST install script not found, skipped (missing $JOD_DIR/scripts/post-install.ps1)"
+}
 
 ###############################################################################
 logScriptEnd

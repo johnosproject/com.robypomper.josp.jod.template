@@ -19,13 +19,22 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ################################################################################
 
-################################################################################
+###############################################################################
+# Usage:
+# no direct usage, included from other scripts
+#
+# Example configs script called by JOD distribution scripts.
+# This configuration can be used to customize the JOD distribution management
+# like execution, installation, etc...
+#
 # Artifact: JOD Dist Template
 # Version:  1.0-DEVb
-################################################################################
+###############################################################################
 
-JOD_TMPL_VERSION="1.0-DEVb"
+# JOD_YML
+# Absolute or $JOD_DIR relative file path for JOD config file, default $JOD_DIR/jod.yml
+#$global:JOD_YML="jod_2.yml"
 
-JOD_DIR=$1
-
-#source "$JOD_DIR/scripts/libs/{LIB_ABC}.sh"
+# JAVA_HOME
+# Full path of JAVA's JVM (ex: $JAVA_HOME/bin/java)
+#$global:JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home"

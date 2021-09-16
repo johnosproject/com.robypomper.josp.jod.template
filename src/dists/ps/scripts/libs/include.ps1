@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env powershell
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -20,12 +20,14 @@
 ################################################################################
 
 ################################################################################
-# Artifact: JOD Dist Template
+# Artifact: Robypomper PowerShell Utils
 # Version:  1.0-DEVb
 ################################################################################
 
-JOD_TMPL_VERSION="1.0-DEVb"
+param ([Parameter(Mandatory)] $JOD_DIR)
 
-JOD_DIR=$1
-
-#source "$JOD_DIR/scripts/libs/{LIB_ABC}.sh"
+.$JOD_DIR/scripts/libs/powershell.ps1
+.$JOD_DIR/scripts/libs/logs.ps1
+.$JOD_DIR/scripts/libs/filesAndDirs.ps1
+.$JOD_DIR/scripts/libs/hostAndOS.ps1
+.$JOD_DIR/scripts/libs/sudo.ps1

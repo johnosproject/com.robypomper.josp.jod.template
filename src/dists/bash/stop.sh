@@ -51,6 +51,9 @@ logScriptInit
 # Load jod_configs.sh, exit if fails
 setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 
+# Check current OS
+failOnWrongOS
+
 ###############################################################################
 logScriptRun
 

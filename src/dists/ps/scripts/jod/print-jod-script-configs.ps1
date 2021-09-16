@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env powershell
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -21,42 +21,58 @@
 
 ###############################################################################
 # Usage:
-# bash $JOD_DIR/scripts/init/initsystem_TMPL/install-jod.sh
+# powershell $JOD_DIR/print-jod-script-configs.ps1
 #
-# Install current distribution as daemon on current machine.
-#
-# This is a placeholder file that return always fatal error because not implemented.
+# Print all env vars configured by $JOD_DIR/scripts/jod/jod-script-configs.ps1
+# script.
 #
 #
 # Artifact: JOD Dist Template
 # Version:  1.0-DEVb
 ###############################################################################
 
-JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/../../.."
-source "$JOD_DIR/scripts/libs/include.sh" "$JOD_DIR"
+param ([switch] $NO_LOGS=$false)
 
-#DEBUG=true
-[[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
-setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
+$JOD_DIR=(get-item $PSScriptRoot ).Parent.Parent.FullName
+.$JOD_DIR/scripts/libs/include.ps1 "$JOD_DIR"
 
-execScriptConfigs "$JOD_DIR/scripts/jod/jod-script-configs.sh"
-execScriptConfigs "$JOD_DIR/scripts/jod/errors.sh"
+#$DEBUG=$true
+if (($null -ne $DEBUG) -and ($DEBUG)) { INSTALL-LogsDebug } else { INSTALL-Logs }
+
+setupCallerAndScript $PSCommandPath $MyInvocation.PSCommandPath
+
+."$JOD_DIR/scripts/jod/jod-script-configs.ps1"
+execScriptConfigs "$JOD_DIR/scripts/jod/errors.ps1"
 
 ###############################################################################
 logScriptInit
 
 # Load jod_configs.sh, exit if fails
-setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
+setupJODScriptConfigs "$JOD_DIR/configs/configs.ps1"
 
 ###############################################################################
 logScriptRun
 
-logFat "Distribution installation for $OS_INIT_SYS not implemented" $ERR_NOT_IMPLEMENTED
+logInf "Print JOD scripts configs..."
+Write-Host " JOD"
+Write-Host " - JOD_DIR                    | $JOD_DIR"
+Write-Host " - JOD_YML                    | $JOD_YML"
+Write-Host " JOD_DIST"
+Write-Host " - JOD_DIST_NAME              | $JOD_DIST_NAME"
+Write-Host " - JOD_DIST_VER               | $JOD_DIST_VER"
+Write-Host " JOD_INSTALLATION"
+Write-Host " - JOD_INSTALLATION_HASH      | $JOD_INSTALLATION_HASH"
+Write-Host " - JOD_INSTALLATION_NAME      | $JOD_INSTALLATION_NAME"
+Write-Host " - JOD_INSTALLATION_NAME_DOT  | $JOD_INSTALLATION_NAME_DOT"
+Write-Host " OS"
+Write-Host " - OS_TYPE                    | $OS_TYPE"
+Write-Host " - OS_INIT_SYS                | $OS_INIT_SYS"
+Write-Host " JAVA:"
+Write-Host " - JAVA_EXEC                  | $JAVA_EXEC"
+Write-Host " - JAVA_DIR                   | $JAVA_DIR"
+Write-Host " - JAVA_VER                   | $JAVA_VER"
 
-# Check if it's already installed
-
-# Install distribution
-
+logInf "JOD scripts configs printed successfully"
 
 ###############################################################################
 logScriptEnd

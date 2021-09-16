@@ -51,7 +51,12 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 ###############################################################################
 logScriptRun
 
-logFat "Distribution uninstallation for Init not implemented" $ERR_NOT_IMPLEMENTED
+logFat "Distribution uninstallation for $OS_INIT_SYS not implemented" $ERR_NOT_IMPLEMENTED
+
+# Check if it's already uninstalled
+
+# Uninstall distribution
+
 
 ###############################################################################
 logScriptEnd

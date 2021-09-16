@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env powershell
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -21,7 +21,7 @@
 
 ###############################################################################
 # Usage:
-# bash $JOD_DIST_DIR/scripts/install.sh
+# powershell $JOD_DIST_DIR/scripts/install.sh
 #             [JOD_DIST_CONFIG_FILE=configs/configs.sh]
 #             [INST_DIR=$JOD_DIST_DIR/envs/{XXXX}/]
 #
@@ -39,46 +39,49 @@
 # Version:  1.0-DEVb
 ###############################################################################
 
-JOD_DIST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
-source "$JOD_DIST_DIR/scripts/libs/include.sh" $JOD_DIST_DIR
-source "$JOD_DIST_DIR/scripts/jod_tmpl/include.sh" $JOD_DIST_DIR
+param (
+    [string] $JOD_DIST_CONFIG_FILE="configs/jod_dist_configs.ps1",
+    [string] $INST_DIR=""
+)
 
-#DEBUG=true
-[[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
+$JOD_DIST_DIR=(get-item $PSScriptRoot ).parent.FullName
+.$JOD_DIST_DIR/scripts/libs/include.ps1 "$JOD_DIST_DIR"
+.$JOD_DIST_DIR/scripts/jod_tmpl/include.ps1 "$JOD_DIST_DIR"
 
-setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
+#$DEBUG=$true
+if ( $NO_LOGS ) { INSTALL-LogsNone } elseif (($DEBUG -ne $null) -and ($DEBUG)) { INSTALL-LogsDebug } else { INSTALL-Logs }
+
+setupCallerAndScript $PSCommandPath $MyInvocation.PSCommandPath
 
 ###############################################################################
 logScriptInit
 
 # Init JOD_DIST_CONFIG_FILE
-JOD_DIST_CONFIG_FILE=${1:-configs/jod_dist_configs.sh}
-[[ ! -f "$JOD_DIST_CONFIG_FILE" ]] && JOD_DIST_CONFIG_FILE="$JOD_DIST_DIR/$JOD_DIST_CONFIG_FILE"
-[[ ! -f "$JOD_DIST_CONFIG_FILE" ]] && logFat "Can't find JOD Distribution config's file (missing file: $JOD_DIST_CONFIG_FILE)"
+if (!(Test-Path $JOD_DIST_CONFIG_FILE)) { $JOD_DIST_CONFIG_FILE="$JOD_DIST_DIR/$JOD_DIST_CONFIG_FILE" }
+if (!(Test-Path $JOD_DIST_CONFIG_FILE)) { logFat "File '$JOD_DIST_CONFIG_FILE' not found" }
 logScriptParam "JOD_DIST_CONFIG_FILE" "$JOD_DIST_CONFIG_FILE"
 
 # Load jod distribution configs, exit if fails
 execScriptConfigs $JOD_DIST_CONFIG_FILE
 
 # Init INST_DIR
-INST_DIR=${2:-$JOD_DIST_DIR/envs/$DEST_ARTIFACT-$DEST_VER/$(($RANDOM % 10))$(($RANDOM % 10))$(($RANDOM % 10))$(($RANDOM % 10))}
+if ($INST_DIR -eq "") { $INST_DIR="$JOD_DIST_DIR/envs/$DEST_ARTIFACT-$DEST_VER/$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))" }
 logScriptParam "INST_DIR" "$INST_DIR"
 
-DEST_DIR="$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER"
+$DEST_DIR="$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER"
 
 ###############################################################################
 logScriptRun
 
-logInf "Run build.sh script"
-execScriptCommand "$JOD_DIST_DIR/scripts/build.sh" $JOD_DIST_CONFIG_FILE
+logInf "Run build.sh script -> $JOD_DIST_CONFIG_FILE"
+execScriptCommand "$JOD_DIST_DIR/scripts/build.ps1" $JOD_DIST_CONFIG_FILE
 
 logInf "Copy JOD Distribution to installation dir"
-rm -r $INST_DIR >/dev/null 2>&1
-mkdir -p $INST_DIR
-cp -r $DEST_DIR/* $INST_DIR
-[ "$?" -ne 0 ] && logFat "Can't copy JOD Distribution from '$DEST_DIR/*' dir, exit."
+Remove-Item -Recurse -Force $INST_DIR -ea 0
+New-Item $INST_DIR -ItemType Directory -ea 0 | Out-Null
+Copy-Item "$DEST_DIR/*" -Destination "$INST_DIR" -Recurse
 
-logInf "JOD Distribution installed successfully to $INST_DIR"
+logInf "JOD Distribution installed successfully from $DEST_DIR to $INST_DIR"
 
 ###############################################################################
 logScriptEnd

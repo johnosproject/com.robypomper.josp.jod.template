@@ -24,8 +24,8 @@
 # Version:  1.0-DEVb
 ################################################################################
 
-JOD_TMPL_VERSION="1.0-DEVb"
+$JOD_TMPL_VERSION="1.0-DEVb"
 
-JOD_DIR=$1
+$JOD_DIR=$1
 
-#source "$JOD_DIR/scripts/libs/{LIB_ABC}.sh"
+#."$JOD_DIR/scripts/libs/{LIB_ABC}.sh"

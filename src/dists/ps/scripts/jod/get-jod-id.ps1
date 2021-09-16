@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env powershell
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -21,42 +21,56 @@
 
 ###############################################################################
 # Usage:
-# bash $JOD_DIR/scripts/init/initsystem_TMPL/install-jod.sh
+# powershell $JOD_DIR/scripts/get-jod-id.ps1 [NO_LOGS]
 #
-# Install current distribution as daemon on current machine.
+# Print current distribution object's id.
 #
-# This is a placeholder file that return always fatal error because not implemented.
+# NO_LOGS           if true all logs are disabled, only PID is printed
 #
 #
 # Artifact: JOD Dist Template
 # Version:  1.0-DEVb
 ###############################################################################
 
-JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/../../.."
-source "$JOD_DIR/scripts/libs/include.sh" "$JOD_DIR"
+param ([switch] $NO_LOGS=$false)
 
-#DEBUG=true
-[[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
-setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
+$JOD_DIR=(get-item $PSScriptRoot ).Parent.Parent.FullName
+.$JOD_DIR/scripts/libs/include.ps1 "$JOD_DIR"
 
-execScriptConfigs "$JOD_DIR/scripts/jod/jod-script-configs.sh"
-execScriptConfigs "$JOD_DIR/scripts/jod/errors.sh"
+## PRE Init NO_LOGS
+
+#$DEBUG=$true
+if ( $NO_LOGS ) { INSTALL-LogsNone } elseif (($null -ne $DEBUG) -and ($DEBUG)) { INSTALL-LogsDebug } else { INSTALL-Logs }
+
+setupCallerAndScript $PSCommandPath $MyInvocation.PSCommandPath
+
+."$JOD_DIR/scripts/jod/jod-script-configs.ps1"
+execScriptConfigs "$JOD_DIR/scripts/jod/errors.ps1"
 
 ###############################################################################
 logScriptInit
 
+# Init NO_LOGS (PRE initialized)
+logScriptParam "NO_LOGS" "$NO_LOGS"
+
 # Load jod_configs.sh, exit if fails
-setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
+setupJODScriptConfigs "$JOD_DIR/configs/configs.ps1"
 
 ###############################################################################
 logScriptRun
 
-logFat "Distribution installation for $OS_INIT_SYS not implemented" $ERR_NOT_IMPLEMENTED
-
-# Check if it's already installed
-
-# Install distribution
-
+logInf "Querying JOD configs for distribution ID..."
+#JOD_OBJ_ID=$(cat "$JOD_YML" | grep -v '^#' | grep "jod.obj.id_cloud" | awk '/jod.obj.id_cloud:/ {print $2}')
+#echo $JOD_OBJ_ID
+$PATTERN="jod.obj.id_cloud"
+if ($PSVersionTable.PSVersion.Major -gt 5) {
+    $line=$(Get-Content -Path "$JOD_YML" | Select-String -Pattern $PATTERN -NoEmphasis | Out-String)
+} else {
+    $line=$(Get-Content -Path "$JOD_YML" | Select-String -Pattern $PATTERN | Out-String)
+}
+$JOD_OBJ_ID=$line.Trim().Substring($PATTERN.length+1).Replace(",","").Replace("'","").Trim()
+Write-Host $JOD_OBJ_ID
+logInf "Distribution ID queried successfully"
 
 ###############################################################################
 logScriptEnd

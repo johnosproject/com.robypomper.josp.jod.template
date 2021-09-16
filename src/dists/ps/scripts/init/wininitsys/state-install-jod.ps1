@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env powershell
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -21,9 +21,9 @@
 
 ###############################################################################
 # Usage:
-# bash $JOD_DIR/scripts/init/initsystem_TMPL/install-jod.sh
+# powershell $JOD_DIR/scripts/init/wininitsys/state-install-jod.ps1 [NO_LOGS]
 #
-# Install current distribution as daemon on current machine.
+# Check if current distribution is installed as daemon on current machine.
 #
 # This is a placeholder file that return always fatal error because not implemented.
 #
@@ -32,31 +32,45 @@
 # Version:  1.0-DEVb
 ###############################################################################
 
-JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/../../.."
-source "$JOD_DIR/scripts/libs/include.sh" "$JOD_DIR"
+param ([switch] $NO_LOGS=$false)
 
-#DEBUG=true
-[[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
-setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
+$JOD_DIR=(get-item $PSScriptRoot ).Parent.Parent.Parent.FullName
+.$JOD_DIR/scripts/libs/include.ps1 "$JOD_DIR"
 
-execScriptConfigs "$JOD_DIR/scripts/jod/jod-script-configs.sh"
-execScriptConfigs "$JOD_DIR/scripts/jod/errors.sh"
+#$DEBUG=$true
+if (($null -ne $DEBUG) -and ($DEBUG)) { INSTALL-LogsDebug } else { INSTALL-Logs }
+
+setupCallerAndScript $PSCommandPath $MyInvocation.PSCommandPath
+
+."$JOD_DIR/scripts/jod/jod-script-configs.ps1"
+execScriptConfigs "$JOD_DIR/scripts/jod/errors.ps1"
 
 ###############################################################################
 logScriptInit
 
+# Init NO_LOGS (PRE initialized)
+logScriptParam "NO_LOGS" "$NO_LOGS"
+
 # Load jod_configs.sh, exit if fails
-setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
+setupJODScriptConfigs "$JOD_DIR/configs/configs.ps1"
 
 ###############################################################################
 logScriptRun
 
-logFat "Distribution installation for $OS_INIT_SYS not implemented" $ERR_NOT_IMPLEMENTED
+$ScriptPath="$JOD_DIR/scripts/init\wininitsys"
+$OriginalScriptName="JodService.ps1"
+$ScriptFullPath="$ScriptPath/$OriginalScriptName"
+$ScriptParams="-Verbose"
 
-# Check if it's already installed
+$sudoExit=sudo "$ScriptFullPath" -NO_LOGS -Status -ServiceId $JOD_INSTALLATION_NAME_DOT  #$ScriptParams
+if ($sudoExit -eq 0) {
+    if ($Env:SUDO_OUT -eq "Running" -or $Env:SUDO_OUT -eq "Stopped") { Write-Host "Installed" }
+    else { Write-Host "Not Installed" }
+    return
+}
 
-# Install distribution
-
+logFat "Error on executing '$OriginalScriptName' script ($sudoExit)" 123
 
 ###############################################################################
 logScriptEnd
+                

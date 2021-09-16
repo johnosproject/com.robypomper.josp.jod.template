@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env powershell
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -20,43 +20,45 @@
 ################################################################################
 
 ###############################################################################
-# Usage:
-# bash $JOD_DIR/scripts/init/initsystem_TMPL/install-jod.sh
+# Customization:
+# $JOD_DIR/scripts/post-uninstall.ps1
 #
-# Install current distribution as daemon on current machine.
+# This script is executed after JOD instance uninstallation (via uninstall.sh script).
 #
-# This is a placeholder file that return always fatal error because not implemented.
+# It can be customized adding more checks or operations depending on
+# JOD Distribution needs.
 #
 #
 # Artifact: JOD Dist Template
 # Version:  1.0-DEVb
 ###############################################################################
 
-JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/../../.."
-source "$JOD_DIR/scripts/libs/include.sh" "$JOD_DIR"
+## Default init - START
+$JOD_DIR=(get-item $PSScriptRoot ).Parent.FullName
+.$JOD_DIR/scripts/libs/include.ps1 "$JOD_DIR"
 
-#DEBUG=true
-[[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
-setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
+#$DEBUG=$true
+if (($null -ne $DEBUG) -and ($DEBUG)) { INSTALL-LogsDebug } else { INSTALL-Logs }
+setupCallerAndScript $PSCommandPath $MyInvocation.PSCommandPath
 
-execScriptConfigs "$JOD_DIR/scripts/jod/jod-script-configs.sh"
-execScriptConfigs "$JOD_DIR/scripts/jod/errors.sh"
+."$JOD_DIR/scripts/jod/jod-script-configs.ps1"
+execScriptConfigs "$JOD_DIR/scripts/jod/errors.ps1"
+## Default init - END
 
-###############################################################################
-logScriptInit
+logInf "POST Uninstall script"
 
-# Load jod_configs.sh, exit if fails
-setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
+# ToDo translate examples in powershell
+## Example check Java installed - START
+# Check java
+#if command -v java &>/dev/null; then
+#  logInf "Java installed"
+#else
+#  echo "Missing Java, please install it"
+#  logFat "Java not installed, exit"
+#fi
+## Example check Java installed - END
 
-###############################################################################
-logScriptRun
-
-logFat "Distribution installation for $OS_INIT_SYS not implemented" $ERR_NOT_IMPLEMENTED
-
-# Check if it's already installed
-
-# Install distribution
-
-
-###############################################################################
-logScriptEnd
+## Example Make firmware's scripts executable - START
+# Set sensors scripts executables
+#chmod +x $SCRIPT_DIR/sensors/*
+## Example Make firmware's scripts executable - END
