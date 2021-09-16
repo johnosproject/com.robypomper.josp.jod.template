@@ -36,7 +36,7 @@
 
 # TMPL Customize - START
 $CURRENT_SCRIPT="$(pwd)/${BASH_SOURCE[0]}"
-Write-Error "WAR: Please customize TMPL before call it'n     Update the '${CURRENT_SCRIPT}' file and delete current line"
+Write-Error "WAR: Please customize TMPL before call it`n     Update the '${CURRENT_SCRIPT}' file and delete current line"
 
 # JOD Distribution name
 # A string representing current JOD Distribution.

@@ -1,6 +1,5 @@
 ## JCP Client
 
-
 jcp.url.apis: '%JCP_ENV_API%'
 jcp.url.auth: '%JCP_ENV_AUTH%'
 jcp.client.id: '%JCP_ID%'
