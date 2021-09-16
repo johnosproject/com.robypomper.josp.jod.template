@@ -81,6 +81,8 @@ elif [ "$JCP_ENV" == "stage" ]; then
 elif [ "$JCP_ENV" == "prod" ]; then
   JCP_ENV_API="api.johnosproject.org"
   JCP_ENV_AUTH="auth.johnosproject.org"
+else
+  logFat "Invalid 'JCP_ENV'='$JCP_ENV' value, accepted values: 'prod', 'stage', 'local'. Exit"
 fi
 
 # JCP_ID
@@ -196,25 +198,32 @@ sed -e 's|%JOD_VER%|'"$JOD_VER"'|g' \
 
 logDeb "Copy JOD Distribution configs"
 cp -r "$JOD_DIST_DIR/$JOD_STRUCT" "$DEST_DIR/configs/struct.jod"
-[ "$?" -ne 0 ] && logFat "Can't include 'struct.jod' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/$JOD_STRUCT'"
+[ "$?" -ne 0 ] && logFat "Can't include 'struct.jod' to JOD Distribution because can't copy file '$JOD_DIST_DIR/$JOD_STRUCT'"
 cp -r "$JOD_DIST_DIR/dists/configs/jod_configs.sh" "$DEST_DIR/configs/configs.sh"
-[ "$?" -ne 0 ] && logFat "Can't include 'configs.sh' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/configs.sh_default'"
+[ "$?" -ne 0 ] && logFat "Can't include 'configs.sh' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/jod_configs.sh'"
+cp -r "$JOD_DIST_DIR/dists/configs/jod_configs.ps1" "$DEST_DIR/configs/configs.ps1"
+[ "$?" -ne 0 ] && logFat "Can't include 'configs.ps1' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/jod_configs.ps1'"
 
-logDeb "Generate JOD Distribution dist_configs.sh"
+logDeb "Generate JOD Distribution dist_configs.sh and dist_configs.ps1"
 echo "#!/bin/bash
-export JOD_DIST_NAME='$DEST_ARTIFACT'
-export JOD_DIST_VER='$DEST_VER'" >"$DEST_DIR/configs/dist_configs.sh"
+export JOD_DIST_NAME=\"$DEST_ARTIFACT\"
+export JOD_DIST_VER=\"$DEST_VER\"
+" >"$DEST_DIR/configs/dist_configs.sh"
+echo "#!/usr/bin/env powershell
+\$global:JOD_DIST_NAME='$DEST_ARTIFACT'
+\$global:JOD_DIST_VER='$DEST_VER'" >"$DEST_DIR/configs/dist_configs.ps1"
 
 logDeb "Copy JOD Distribution scripts"
 cp -r $JOD_DIST_DIR/dists/scripts/* $DEST_DIR
-[ "$?" -ne 0 ] && logFat "Can't include 'scripts' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/scripts/*'"
+[ "$?" -ne 0 ] && logFat "Can't include 'scripts' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/scripts'"
 
 logDeb "Copy JOD Distribution resources"
 cp -r $JOD_DIST_DIR/dists/resources/ $DEST_DIR
-[ "$?" -ne 0 ] && logFat "Can't include 'resources' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/resources/'"
+[ "$?" -ne 0 ] && logFat "Can't include 'resources' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/resources'"
 
 logDeb "Generate JOD Distribution VERSIONS.md"
-echo "JOD '$DEST_NAME' Distribution:
+echo "# JOD '$DEST_NAME' Distribution
+
 JOD Distribution Version:           $DEST_VER
 JOD Distribution TEMPLATE Version:  $JOD_TMPL_VERSION
 JOD included Version:               $JOD_VER" >"$DEST_DIR/VERSIONS.md"

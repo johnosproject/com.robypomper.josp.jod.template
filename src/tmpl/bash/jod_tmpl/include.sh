@@ -24,7 +24,7 @@
 # Version:  1.0-DEVb
 ################################################################################
 
-JOD_TMPL_VERSION=1.0-DEVb
+JOD_TMPL_VERSION="1.0-DEVb"
 
 JOD_DIR=$1
 
