@@ -149,10 +149,10 @@ JCP_SECRET=""
 #JOD_STRUCT="dists/configs/struct.jod"
 
 # Enable/Disable JOD Local Communication, default true
-#JOD_LOCAL_ENABLED="true"
+#JOD_LOCAL_ENABLED="True"
 
 # Enable/Disable JOD Local Communication, default true
-#JOD_CLOUD_ENABLED="true"
+#JOD_CLOUD_ENABLED="True"
 
 # JCP Environment
 # A string from (local|stage|prod) set. This property allow to build
