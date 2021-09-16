@@ -51,7 +51,12 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 ###############################################################################
 logScriptRun
 
-logFat "Distribution installation for Init not implemented" $ERR_NOT_IMPLEMENTED
+logFat "Distribution installation for $OS_INIT_SYS not implemented" $ERR_NOT_IMPLEMENTED
+
+# Check if it's already installed
+
+# Install distribution
+
 
 ###############################################################################
 logScriptEnd
