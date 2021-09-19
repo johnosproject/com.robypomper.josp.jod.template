@@ -73,7 +73,11 @@ function execScriptCommand() {
     [string]$params=$null
   )
 
-  powershell "$script" $params
+  try {
+    powershell "$script" $params
+  } catch {
+    pwsh "$script" $params
+  }
   if (! $? ) {
     logFat "Error including script '$((get-item $script ).Name)' at '$((get-item $script ).Directory.FullName)'" $ERR_EXEC_SCRIPT_CMD
   }
