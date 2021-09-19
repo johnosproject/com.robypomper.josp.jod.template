@@ -33,6 +33,32 @@ This project provides many command to automate his process. Those commands can b
 
 ## Getting started
 
+### Requirements
+
+The JOD Distribution TEMPLATE support Linux, MacOS and Windows operating systems.
+The gradle wrapper support by himself all operating systems. On other hands JOD Template and JOD Distribution Commands can be executed as Bash (for Linux and MacOS) or Powershell (for Windows) scripts. Moreover, artifacts are OS independant, so you can build the JOD Distribution TEMPLATE on a MacOS, then build a custom distribution on a Linux and finally execute resulting JOD instance on Windows.
+
+Other software are required by JOD Distribution TEMPLATE:
+
+Linux reuirements:
+* Java Runtime Environment (prefered java version 8)<br>
+  ```sudo apt install default-jdk```
+* curl<br>
+  ```sudo apt install curl```
+* zip (optional)<br>
+  ```sudo apt install zip```
+
+Mac reuirements:
+* Java Runtime Environment (prefered java version 8)<br>
+  (Download and install it from [java.com](https://www.java.com/download/ie_manual.jsp))
+
+Windows reuirements:
+* Java Runtime Environment (prefered java version 8)<br>
+  (Download and install it from [java.com](https://www.java.com/download/ie_manual.jsp))
+* Enable powershell scripts execution<br>
+  (More inf at [microsoft](https:/go.microsoft.com/fwlink/?LinkID=135170)<br>
+  ```Set-ExecutionPolicy -ExecutionPolicy remotesigned -Scope CurrentUser```
+
 ### Build JOD Distribution TEMPLATE
 
 First lets **build the JOD Distribution TEMPLATE**. This project includes a
