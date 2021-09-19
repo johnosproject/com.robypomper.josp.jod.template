@@ -28,10 +28,10 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0-DEVb
+# Version:  1.0
 ###############################################################################
 
-JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
+JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/../.."
 source "$JOD_DIR/scripts/libs/include.sh" "$JOD_DIR"
 
 #DEBUG=true
@@ -51,15 +51,23 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 logScriptRun
 
 logInf "Print JOD scripts configs..."
-echo " OS_TYPE      | $OS_TYPE"
-echo " OS_INIT_SYS  | $OS_INIT_SYS"
-echo " JOD_NAME     | $JOD_NAME"
-echo " JOD_NAME_DOT | $JOD_NAME_DOT"
-echo " JOD_DIR      | $JOD_DIR"
-echo " JOD_YML      | $JOD_YML"
-echo " JAVA_EXEC    | $JAVA_EXEC"
-echo " JAVA_DIR     | $JAVA_DIR"
-echo " JAVA_VER     | $JAVA_VER"
+echo " JOD"
+echo " - JOD_DIR                    | $JOD_DIR"
+echo " - JOD_YML                    | $JOD_YML"
+echo " JOD_DIST"
+echo " - JOD_DIST_NAME              | $JOD_DIST_NAME"
+echo " - JOD_DIST_VER               | $JOD_DIST_VER"
+echo " JOD_INSTALLATION"
+echo " - JOD_INSTALLATION_HASH      | $JOD_INSTALLATION_HASH"
+echo " - JOD_INSTALLATION_NAME      | $JOD_INSTALLATION_NAME"
+echo " - JOD_INSTALLATION_NAME_DOT  | $JOD_INSTALLATION_NAME_DOT"
+echo " OS"
+echo " - OS_TYPE                    | $OS_TYPE"
+echo " - OS_INIT_SYS                | $OS_INIT_SYS"
+echo " JAVA:"
+echo " - JAVA_EXEC                  | $JAVA_EXEC"
+echo " - JAVA_DIR                   | $JAVA_DIR"
+echo " - JAVA_VER                   | $JAVA_VER"
 
 logInf "JOD scripts configs printed successfully"
 

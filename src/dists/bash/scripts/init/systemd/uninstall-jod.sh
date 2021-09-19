@@ -27,7 +27,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0-DEVb
+# Version:  1.0
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/../../.."
@@ -47,14 +47,14 @@ logScriptInit
 setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 
 # Internal vars
-SERVICE_FILE="/etc/systemd/system/jod-$JOD_NAME_DOT.service"
+SERVICE_FILE="/etc/systemd/system/jod-$JOD_INSTALLATION_NAME_DOT.service"
 
 ###############################################################################
 logScriptRun
 
 logInf "Uninstalling distribution..."
-sudo systemctl stop "jod-$JOD_NAME_DOT.service"
-sudo systemctl disable "jod-$JOD_NAME_DOT.service"
+sudo systemctl stop "jod-$JOD_INSTALLATION_NAME_DOT.service"
+sudo systemctl disable "jod-$JOD_INSTALLATION_NAME_DOT.service"
 
 logInf "Removing service file..."
 sudo rm $SERVICE_FILE

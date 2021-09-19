@@ -29,7 +29,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0-DEVb
+# Version:  1.0
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/../.."
@@ -58,8 +58,8 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 logScriptRun
 
 logInf "Querying 'ps' for distribution PID..."
-logTra "ps aux | grep -v \"grep\" | grep \"$JOD_NAME_DOT\" | awk '{print $2}'"
-JOD_PID=$(ps aux | grep -v "grep" | grep "$JOD_NAME_DOT" | awk '{print $2}')
+logTra "ps aux | grep -v \"grep\" | grep \"$JOD_INSTALLATION_NAME_DOT\" | awk '{print $2}'"
+JOD_PID=$(ps aux | grep -v "grep" | grep "$JOD_INSTALLATION_NAME_DOT" | awk '{print $2}')
 echo $JOD_PID
 logInf "Distribution PID queried successfully"
 

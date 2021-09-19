@@ -29,7 +29,7 @@
 # if any.
 #
 # Artifact: JOD Dist Template
-# Version:  1.0-DEVb
+# Version:  1.0
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)"
@@ -47,6 +47,9 @@ logScriptInit
 
 # Load jod_configs.sh, exit if fails
 setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
+
+# Check current OS
+failOnWrongOS
 
 ###############################################################################
 logScriptRun

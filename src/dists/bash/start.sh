@@ -39,7 +39,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0-DEVb
+# Version:  1.0
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)"
@@ -71,7 +71,10 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 JAR_RUN="jospJOD.jar"
 [ -z "$MAIN_CLASS" ] && [ "$FOREGROUND" == true ] && MAIN_CLASS="com.robypomper.josp.jod.JODShell" || MAIN_CLASS="com.robypomper.josp.jod.JODDaemon"
 logTra "MAIN_CLASS=$MAIN_CLASS"
-PID_FILE="/tmp/jod.$JOD_NAME_DOT.pid"
+PID_FILE="/tmp/$JOD_INSTALLATION_NAME_DOT.pid"
+
+# Check current OS
+failOnWrongOS
 
 ###############################################################################
 logScriptRun
@@ -94,11 +97,11 @@ mkdir -p "$JOD_DIR/logs"
 
 logInf "Execute pre-startup.sh..."
 if [ -f "$JOD_DIR/scripts/pre-startup.sh" ]; then
-  execScriptCommand $JOD_DIR/scripts/pre-startup.sh || ([ "$?" -gt "0" ] &&
+  execScriptCommand "$JOD_DIR/scripts/pre-startup.sh" || ([ "$?" -gt "0" ] &&
     logWar "Error executing PRE startup script, exit $?" && exit $? ||
     logWar "Error executing PRE startup script, continue $?")
 else
-  logDeb "PRE startup script not found, skipped (missing $JOD_DIR/scripts/pre-startup.sh)"
+  logDeb "PRE startup script not found, skipped (missing '$JOD_DIR/scripts/pre-startup.sh')"
 fi
 
 if [ "$FOREGROUND" = "true" ]; then
@@ -107,7 +110,7 @@ if [ "$FOREGROUND" = "true" ]; then
   logInf "Skip pre-shutdown.sh because in FOREGROUND mode"
   logInf "Skip post-shutdown.sh because in FOREGROUND mode"
 
-  cd $JOD_DIR && $JAVA_EXEC -Dlog4j.configurationFile=log4j2.xml -cp $JAR_RUN $MAIN_CLASS --configs=$JOD_YML $JOD_NAME_DOT
+  cd $JOD_DIR && $JAVA_EXEC -Dlog4j.configurationFile=log4j2.xml -cp $JAR_RUN $MAIN_CLASS --configs=$JOD_YML $JOD_INSTALLATION_NAME_DOT
   EXIT_CODE=$?
   if [ $EXIT_CODE -gt 0 ]; then
     logFat "JOD Distribution terminated with exit code $EXIT_CODE"
@@ -117,9 +120,14 @@ if [ "$FOREGROUND" = "true" ]; then
 else
 
   logInf "Start JOD distribution in background..."
-  cd $JOD_DIR && $JAVA_EXEC -Dlog4j.configurationFile=log4j2.xml -cp $JAR_RUN $MAIN_CLASS --configs=$JOD_YML $JOD_NAME_DOT >logs/console.log 2>&1 &
-
-  PID="$(ps aux | grep -v 'grep' | grep "$JOD_NAME_DOT" | awk '{print $2}')"
+  cd $JOD_DIR && $JAVA_EXEC -Dlog4j.configurationFile=log4j2.xml -cp $JAR_RUN $MAIN_CLASS --configs=$JOD_YML $JOD_INSTALLATION_NAME_DOT >logs/console.log 2>&1 &
+  PID=$!
+  if ! ps -p $PID > /dev/null; then
+      echo "Error on startup JOD Daemon"
+      echo "To print daemon console logs:"
+      echo "    $ tail -f $JOD_DIR/logs/console.log"
+      logFat "Error on executing JOD Daemon."
+  fi
   echo "$PID" >$PID_FILE
   logInf "Daemon executed successfully with $PID process id"
   echo "Execute following commands to kill this process:"

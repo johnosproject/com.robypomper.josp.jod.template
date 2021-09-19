@@ -21,7 +21,9 @@
 
 ###############################################################################
 # Usage:
-# bash $JOD_DIST_DIR/scripts/install.sh [JOD_DIST_CONFIG_FILE=configs/configs.sh] [INST_DIR=$JOD_DIST_DIR/envs/{XXXX}/]
+# bash $JOD_DIST_DIR/scripts/install.sh
+#             [JOD_DIST_CONFIG_FILE=configs/configs.sh]
+#             [INST_DIR=$JOD_DIST_DIR/envs/{XXXX}/]
 #
 # This script assemble a JOD Distribution based on specified JOD_DIST_CONFIG_FILE
 # file and copy it to INST_DIST dir. Then you can call scripts from INST_DIST to
@@ -34,11 +36,12 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0-DEVb
+# Version:  1.0
 ###############################################################################
 
 JOD_DIST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
 source "$JOD_DIST_DIR/scripts/libs/include.sh" $JOD_DIST_DIR
+source "$JOD_DIST_DIR/scripts/jod_tmpl/include.sh" $JOD_DIST_DIR
 
 #DEBUG=true
 [[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
@@ -49,19 +52,19 @@ setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
 logScriptInit
 
 # Init JOD_DIST_CONFIG_FILE
-JOD_DIST_CONFIG_FILE=${1:-configs/configs.sh}
+JOD_DIST_CONFIG_FILE=${1:-configs/jod_dist_configs.sh}
 [[ ! -f "$JOD_DIST_CONFIG_FILE" ]] && JOD_DIST_CONFIG_FILE="$JOD_DIST_DIR/$JOD_DIST_CONFIG_FILE"
 [[ ! -f "$JOD_DIST_CONFIG_FILE" ]] && logFat "Can't find JOD Distribution config's file (missing file: $JOD_DIST_CONFIG_FILE)"
 logScriptParam "JOD_DIST_CONFIG_FILE" "$JOD_DIST_CONFIG_FILE"
 
-INST_DIR=${2:-$JOD_DIST_DIR/envs/$(($RANDOM % 10))$(($RANDOM % 10))$(($RANDOM % 10))$(($RANDOM % 10))}
-logScriptParam "INST_DIR" "$INST_DIR"
-
 # Load jod distribution configs, exit if fails
 execScriptConfigs $JOD_DIST_CONFIG_FILE
 
-DEST_DIR=$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER
-INSTALL_DIR=$JOD_DIST_DIR/build/envs/installable/$DEST_ARTIFACT-$DEST_VER #-$(date '+%Y%m%d_%H%M')
+# Init INST_DIR
+INST_DIR=${2:-$JOD_DIST_DIR/envs/$DEST_ARTIFACT-$DEST_VER/$(($RANDOM % 10))$(($RANDOM % 10))$(($RANDOM % 10))$(($RANDOM % 10))}
+logScriptParam "INST_DIR" "$INST_DIR"
+
+DEST_DIR="$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER"
 
 ###############################################################################
 logScriptRun

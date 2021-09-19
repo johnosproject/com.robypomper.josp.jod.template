@@ -17,6 +17,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  ******************************************************************************/
 
+/**
+ * Gradle project's main config file for JOD Distribution TEMPLATE.
+ *
+ * {@see docs/gradle/gradle.md}
+ * {@see docs/gradle/buildTMPL.md}
+ * {@see docs/gradle/publishTMPL.md}
+ */
+
 // ---------------
 // Project configs
 // ---------------
@@ -24,7 +32,7 @@
 group = 'com.robypomper.josp'
 
 ext {
-    set('version.deps.josp.jod.template', '1.0-DEVb')                // Update also any *.sh file's Version fields and src/tmpls/docs/README.txt file
+    set('version.deps.josp.jod.template', '1.0')                // Update also any *.sh file's Version fields and src/tmpls/docs/README.txt file
 }
 
 
@@ -45,6 +53,7 @@ task assembleTMPLScripts(type: Copy) {
     def version = project.ext.get('version.deps.josp.jod.template')
 
     from 'src/tmpl/bash'
+    from 'src/tmpl/ps'
     into layout.buildDirectory.dir("assemble/$version/scripts")
 
     mustRunAfter cleanAssemble
@@ -62,8 +71,7 @@ task assembleTMPLConfigs(type: Copy) {
 task assembleTMPLResources(type: Copy) {
     def version = project.ext.get('version.deps.josp.jod.template')
 
-    from 'src/tmpl/resources/README.md'
-    from 'src/tmpl/resources/_gitignore'
+    from 'src/tmpl/resources'
     rename { filename ->
         filename.replace '_gitignore', '.gitignore'
     }
@@ -83,6 +91,7 @@ task assembleTMPLDistsScripts(type: Copy) {
     def version = project.ext.get('version.deps.josp.jod.template')
 
     from 'src/dists/bash'
+    from 'src/dists/ps'
     into layout.buildDirectory.dir("assemble/$version/dists/scripts")
 
     mustRunAfter cleanAssemble
@@ -140,6 +149,7 @@ task buildTar(type: Tar) {
 }
 
 task buildTMPL() {
+    group "jodTemplate"
     dependsOn cleanAssemble
     dependsOn assembleTMPL, assembleTMPLDists
     dependsOn buildZip, buildTar
@@ -151,6 +161,7 @@ task buildTMPL() {
 // -------------------------------
 
 task publishTMPL() {
+    group "jodTemplate"
     doFirst {
         println "####################"
         println "# MANUAL OPERATION #"

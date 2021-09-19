@@ -29,7 +29,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0-DEVb
+# Version:  1.0
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/../../.."
@@ -57,8 +57,8 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 ###############################################################################
 logScriptRun
 
-echo "status-install-jod for $OS_INIT_SYS Not Implemented"
-logFat "Distribution status-install for $OS_INIT_SYS not implemented" $ERR_NOT_IMPLEMENTED
+echo "state-install-jod for $OS_INIT_SYS Not Implemented"
+logFat "Distribution state-install for $OS_INIT_SYS not implemented" $ERR_NOT_IMPLEMENTED
 
 ###############################################################################
 logScriptEnd

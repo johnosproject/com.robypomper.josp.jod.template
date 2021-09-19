@@ -27,26 +27,14 @@
 # This configuration can be used to customize the JOD distribution management
 # like execution, installation, etc...
 #
-# To enable this config script, rename it to configs.sh and place in the JOD's
-# dist main dir. If not present, then default configs are used.
-#
 # Artifact: JOD Dist Template
-# Version:  1.0-DEVb
+# Version:  1.0
 ###############################################################################
-
-
-# JOD_NAME
-# Custom string valid as local JOD's installation identifier
-#export JOD_NAME="JOD Custom Instance"
 
 # JOD_YML
 # Absolute or $JOD_DIR relative file path for JOD config file, default $JOD_DIR/jod.yml
-#export JOD_YML="jod_2.yml"
-
-# OS_INIT_SYS
-# Select one of following options: Init | LaunchD | SysV | UpStart
-#OS_INIT_SYS="LaunchD"
+#$global:JOD_YML="jod_2.yml"
 
 # JAVA_HOME
-# Full path of JAVA's exec dir
-#JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home"
+# Full path of JAVA's JVM (ex: $JAVA_HOME/bin/java)
+#$global:JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home"

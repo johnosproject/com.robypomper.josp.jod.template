@@ -21,13 +21,14 @@
 
 ################################################################################
 # Artifact: Robypomper Bash Utils
-# Version:  1.0-DEVb
+# Version:  1.0
 ################################################################################
 
 # Detect current OS.
 # This method use the OSTYPE env var.
 detectOS() {
-  case "$OSTYPE" in
+  [ -n "$OSTYPE" ] && OS_VAL=$OSTYPE || OS_VAL=$OS
+  case "$OS_VAL" in
   linux*) echo "Unix" ;;
   darwin*) echo "MacOS" ;;
   bsd*) echo "BSD" ;;
@@ -35,23 +36,26 @@ detectOS() {
   solaris*) echo "Solaris" ;;
   msys*) echo "Win32" ;;
   cygwin*) echo "Win32" ;;
-  win32*) echo "Win32" ;;
-  *) echo "Unknown: $OSTYPE" ;;
+  win*) echo "Win32" ;;
+  Win*) echo "Win32" ;;
+  *) echo "Unknown: $OS_VAL" ;;
   esac
 }
 
 # Detect current OS.
 # This method use the 'uname' cmd.
+# This is an alternative to detectOS() method.
 detectOS2() {
-  OS="$(uname)"
-  case $OS in
+  OS_VAL="$(uname)"
+  case $OS_VAL in
   'Linux') echo "Unix" ;;
   'Darwin') echo "MacOS" ;;
   'FreeBSD') echo "BSD" ;;
   'WindowsNT') echo "Win32" ;;
+  'MINGW') echo "Win32" ;;
   'SunOS') echo "SunOS" ;;
   'AIX') echo "AIX" ;;
-  *) echo "Unknow: $OS" ;;
+  *) echo "Unknow: $OS_VAL" ;;
   esac
 }
 
@@ -64,6 +68,7 @@ detectInitSystem() {
   cmdLaunchd='launchctl'
   cmdSysv='???'
   cmdUpstart='???'
+  cmdWinInitSys='sc'
 
   if command -v $cmdInit &>/dev/null; then
     echo "Init"
@@ -75,7 +80,21 @@ detectInitSystem() {
     echo "SysV"
   elif command -v $cmdUpstart &>/dev/null; then
     echo "UpStart"
+  elif command -v $cmdWinInitSys &>/dev/null; then
+    echo "WinInitSys"
   else
     echo "Unknown"
+  fi
+}
+
+# Check current OS and fail script if not on correct OS.
+# Correct OS is anything except Windows.
+failOnWrongOS() {
+  OS_VAR="$(detectOS)"
+  if [ "$OS_VAR" == "Win32" ]; then
+      logWar "Please execute PowerShell version of current script"
+      PS_CMD=$(echo "$0" | sed "s/\.sh/\.ps1/")
+      logWar "   $ powershell $PS_CMD"
+      logFat "Executed bash script on '$OS_VAR' system. Exit"
   fi
 }
