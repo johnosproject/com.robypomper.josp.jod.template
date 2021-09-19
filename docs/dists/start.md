@@ -40,7 +40,7 @@ INF: Daemon executed successfully with 43443 process id
 Execute following commands to kill this process:
     $ kill 43443
 To print daemon console logs:
-    $ tail -f /Users/robertopompermaier/Workspaces/josp.com/com.robypomper.josp.extended/jod/dist/TEMPLATE/build/assemble/1.0-DEVb/build/JOD-Tmpl/0.1/logs/console.log
+    $ tail -f /Users/robertopompermaier/Workspaces/josp.com/com.robypomper.josp.extended/jod/dist/TEMPLATE/build/assemble/1.0/build/JOD-Tmpl/0.1/logs/console.log
 INF: Distribution started successfully
 INF: Execute post-startup.sh...
 ```
@@ -87,7 +87,7 @@ INF: Daemon executed successfully with 45197 process id
 Execute following commands to kill this process:
 $ kill 45197
 To print daemon console logs:
-$ tail -f /Users/robertopompermaier/Workspaces/josp.com/com.robypomper.josp.extended/jod/dist/TEMPLATE/build/assemble/1.0-DEVb/build/JOD-Tmpl/0.1/logs/console.log
+$ tail -f /Users/robertopompermaier/Workspaces/josp.com/com.robypomper.josp.extended/jod/dist/TEMPLATE/build/assemble/1.0/build/JOD-Tmpl/0.1/logs/console.log
 INF: Distribution started successfully
 INF: Execute post-startup.sh...
 ```

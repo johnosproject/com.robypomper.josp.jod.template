@@ -29,7 +29,7 @@
 # if any.
 #
 # Artifact: JOD Dist Template
-# Version:  1.0-DEVb
+# Version:  1.0
 ###############################################################################
 
 $JOD_DIR=(get-item $PSScriptRoot ).FullName
