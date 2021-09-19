@@ -88,14 +88,32 @@ if ($JOD_SERVICE_STATUS -eq "Running") {
 
 } else {
     #logTra 'ps aux | grep -v \"grep\" | grep \"$JOD_INSTALLATION_NAME_DOT\" | awk '{print $2}''
-    #JOD_PID=$(ps aux | grep -v "grep" | grep "$JOD_INSTALLATION_NAME_DOT" | awk '{print $2}')
-    #$JOD_PID=99999
-    #Write-Host $JOD_PID
-    logInf "Querying 'jps' script for distribution PID..."
-    $pinfo=[string]$(jps -m | Select-String -Pattern "$JOD_INSTALLATION_NAME_DOT")
-    if ($null -ne $pinfo) {
-        $JOD_PID=$pinfo.SubString(0,$pinfo.IndexOf(" "))
-        Write-Host $JOD_PID
+
+    try {
+        logInf "Querying 'jps' script for distribution PID..."
+        $pinfo=[string]$(jps -m | Select-String -Pattern "$JOD_INSTALLATION_NAME_DOT")
+        if ($null -ne $pinfo) {
+            $JOD_PID=$pinfo.SubString(0,$pinfo.IndexOf(" "))
+            Write-Host $JOD_PID
+        }
+
+    } catch {
+        $spid = $null
+        # To looking for powershell process parent of java process
+        $processes = @(Get-WmiObject Win32_Process -filter "Name = 'java.exe'" | Where-Object {
+            $_.CommandLine -match ".*jospJOD\.jar.*$JOD_INSTALLATION_NAME_DOT.*"
+        })
+        foreach ($process in $processes) { # There should be just one, but be prepared for surprises.
+            $spid = $process.ProcessId
+            $scmdline = $process.CommandLine
+            Write-Verbose "$serviceName Process ID = $spid"
+        }
+	if ($null -ne $spid) {
+            Write-Host $spid
+        }
+        
+        
+        
     }
 }
 
