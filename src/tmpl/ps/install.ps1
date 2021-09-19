@@ -21,8 +21,8 @@
 
 ###############################################################################
 # Usage:
-# powershell $JOD_DIST_DIR/scripts/install.sh
-#             [JOD_DIST_CONFIG_FILE=configs/configs.sh]
+# powershell $JOD_DIST_DIR/scripts/install.ps1
+#             [JOD_DIST_CONFIG_FILE=configs/configs.ps1]
 #             [INST_DIR=$JOD_DIST_DIR/envs/{XXXX}/]
 #
 # This script assemble a JOD Distribution based on specified JOD_DIST_CONFIG_FILE

@@ -21,7 +21,7 @@
 
 ###############################################################################
 # Usage:
-# powershell $JOD_DIST_DIR/scripts/build.sh [JOD_DIST_CONFIG_FILE=configs/jod_dist_configs.sh]
+# powershell $JOD_DIST_DIR/scripts/build.ps1 [JOD_DIST_CONFIG_FILE=configs/jod_dist_configs.ps1]
 #
 # This script assemble a JOD Distribution based on specified JOD_DIST_CONFIG_FILE
 # file.
