@@ -28,7 +28,7 @@
 # like execution, installation, etc...
 #
 # Artifact: JOD Dist Template
-# Version:  1.0-DEVb
+# Version:  1.0
 ###############################################################################
 
 # JOD_YML

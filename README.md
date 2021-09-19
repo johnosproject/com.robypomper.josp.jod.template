@@ -2,7 +2,7 @@
 
 **Source Code project of the JOD Distribution TEMPLATE.**
 
-* Current version: 1.0-DEVb</td></tr>
+* Current version: 1.0</td></tr>
 * References: [JOD_Dist_TEMPLATE @ JOSP Docs](href="https://www.johnosproject.org/docs/References/JOD_Dists/JOD_Dist_TEMPLATE/Home)
 * Repository: [com.robypomper.josp.jod.template @ Bitbucket](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/)
 * Downloads: [com.robypomper.josp.jod.template > Downloads @ Bitbucket](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/)
