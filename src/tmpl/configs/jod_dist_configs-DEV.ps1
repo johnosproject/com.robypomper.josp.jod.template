@@ -35,9 +35,9 @@
 ###############################################################################
 
 # TMPL Customize - START
-CURRENT_SCRIPT="$(pwd)/${BASH_SOURCE[0]}"
+$CURRENT_SCRIPT="$(pwd)/${BASH_SOURCE[0]}"
 # Customize this file and then delete this line
-Write-Error "WAR: Please customize TMPL before call it`n     Update the '${CURRENT_SCRIPT}' file and delete current line"
+#Write-Error "WAR: Please customize TMPL before call it`n     Update the '${CURRENT_SCRIPT}' file and delete current line"
 
 
 # ################ #
