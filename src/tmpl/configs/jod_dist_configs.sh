@@ -36,9 +36,13 @@
 
 # TMPL Customize - START
 CURRENT_SCRIPT="$(pwd)/${BASH_SOURCE[0]}"
-echo "WAR: Please customize TMPL before call it" &&
-  echo "     Update the '${CURRENT_SCRIPT}' file and delete current line" &&
-  exit
+# Customize this file and then delete this line
+echo "WAR: Please customize TMPL before call it" && echo "     Update the '${CURRENT_SCRIPT}' file and delete current line" && exit
+
+
+# ################ #
+# JOD Distribution #
+# ################ #
 
 # JOD Distribution name
 # A string representing current JOD Distribution.
@@ -51,27 +55,47 @@ DEST_NAME="JOD Dist Name"
 DEST_ARTIFACT="JOD-Tmpl"
 
 # JOD Distribution version
-# A custom string representi current JOD Disitribution version
+# A custom string representing current JOD Distribution version
 DEST_VER="0.1"
+
+
+# ################### #
+# John Cloud Platform #
+# ################### #
+
+# JCP Environment Object's credentials id
+# A string containing the JCP client id for selected JCP Auth (depends on JCP_ENV)
+# It's mandatory, if not set you can't build JOD Distribution.
+JCP_ID="a"
+
+# JCP Environment Object's credentials secret
+# A string containing the JCP client secret for selected JCP Auth (depends on JCP_ENV)
+# It's mandatory, if not set you can't build JOD Distribution.
+JCP_SECRET="b"
+
+# JCP Environment
+# A string from (local|stage|prod) set. This property allow to build
+# JOD Distributions with predefined JCP configs for local, stage or
+# production JCP environments.
+# Depending on JCP_ENV value, different JCP urls are set in the 'jod.yml' file.
+# - local: set urls for a local JCP environment executed via the 'com.robypomper.josp' project
+# - stage: set urls for Public JCP - Stage environment (to use for pre-release tests)
+# - prod: set urls for Public JCP - Production environment  (to use for release build)
+#JCP_ENV="stage"
+
+
+# ########## #
+# JOD Object #
+# ########## #
 
 # JOD Agent version to include in the generated distribution
 # JOD agent's and his dependencies will be first downloaded from central maven
 # repository, if not available, then will be copied from local maven repository.
 JOD_VER="2.2.0"
 
-# JCP Environment Object's credentials id
-# A string containing the JCP client id for selected JCP Auth (depends by JCP_ENV)
-# It's mandatory, if not set you can't build JOD Distribution.
-JCP_ID=""
-
-# JCP Environment Object's credentials secret
-# A string containing the JCP client secret for selected JCP Auth (depends by JCP_ENV)
-# It's mandatory, if not set you can't build JOD Distribution.
-JCP_SECRET=""
-
 # JOD Object's name
 # A string used as JOD object's name. All instances of current JOD Distribution
-# will have the same name. By default (value = "") it allow the JOD Agent to
+# will have the same name. By default, (value = "") it allow the JOD Agent to
 # generate a new name for each JOD instance executed.
 #JOD_NAME="Entrance light 1"
 
@@ -88,6 +112,46 @@ JCP_SECRET=""
 # (value = "00000-00000-00000") means no user is registered as owner, so other
 # JOSP Users can register them self as object owners.
 #JOD_OWNER="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+
+# JOD Object's main config template
+# A file path for an alternative '$JOD_DIST_DIR/dists/configs/jod_TMPL.yml'
+# file.
+# By default, (value = "") use preconfigured '$JOD_DIST_DIR/dists/configs/jod_TMPL.yml'
+# file.
+# The 'jod_TMPL.yml' is the base file where %VAR% are replaced with
+# JOD Distribution's scripts configs values. For VARs complete list,
+# see the '$JOD_DIST_DIR/scripts/build.sh' script.
+# The file path must be relative to the $JOD_DIST_DIR.
+#JOD_CONFIG_TMPL="dists/configs/jod_TMPL.yml"
+
+# JOD Object's logs config template
+# A file path for an alternative '$JOD_DIST_DIR/dists/configs/log4j2_TMPL.xml'
+# file.
+# By default, (value = "") use preconfigured '$JOD_DIST_DIR/dists/configs/log4j2_TMPL.xml'
+# file.
+# The 'log4j2_TMPL.xml' is a Log4j2 config file used to print logs on console,
+# on files, on network listeners...
+# The file path must be relative to the $JOD_DIST_DIR.
+#JOD_CONFIG_LOGS_TMPL="dists/configs/log4j2_TMPL.xml"
+
+# JOD Object's structure files
+# A file path for a valid 'struct.jod' file to include in the built
+# JOD Distribution.
+# By default, (value = "") use preconfigured '$JOD_DIST_DIR/dists/configs/struct.jod'
+# file.
+# The file path must be relative to the $JOD_DIST_DIR.
+#JOD_STRUCT="dists/configs/struct.jod"
+
+# Enable/Disable JOD Local Communication, default true
+#JOD_LOCAL_ENABLED="True"
+
+# Enable/Disable JOD Local Communication, default true
+#JOD_CLOUD_ENABLED="True"
+
+
+# ############ #
+# JOD Firmware #
+# ############ #
 
 # JOD Object's pullers protocols
 # A list of loadable JOD Pullers used in the struct.jod file.
@@ -118,50 +182,5 @@ JCP_SECRET=""
 # Example:
 # shell://com.robypomper.josp.jod.executor.ExecutorShell file://com.robypomper.josp.jod.executor.ExecutorFiles http://com.robypomper.josp.jod.executor.impls.http.ExecutorHTTP
 #JOD_EXEC_EXECUTORS="{PROTO_SHORTCUT}://{EXECUTOR_CLASS}[ ...]"
-
-# JOD Object's main config template
-# A file path for an alternative '$JOD_DIST_DIR/dists/configs/jod_TMPL.yml'
-# file.
-# By default (value = "") use preconfigured '$JOD_DIST_DIR/dists/configs/jod_TMPL.yml'
-# file.
-# The 'jod_TMPL.yml' is the base file where %VAR% are replaced with
-# JOD Distribution's scripts configs values. For VARs complete list,
-# see the '$JOD_DIST_DIR/scripts/build.sh' script.
-# The file path must be relative to the $JOD_DIST_DIR.
-#JOD_CONFIG_TMPL="dists/configs/jod_TMPL.yml"
-
-# JOD Object's logs config template
-# A file path for an alternative '$JOD_DIST_DIR/dists/configs/log4j2_TMPL.xml'
-# file.
-# By default (value = "") use preconfigured '$JOD_DIST_DIR/dists/configs/log4j2_TMPL.xml'
-# file.
-# The 'log4j2_TMPL.xml' is a Log4j2 config file used to print logs on console
-# on files, on network listeners...
-# The file path must be relative to the $JOD_DIST_DIR.
-#JOD_CONFIG_LOGS_TMPL="dists/configs/log4j2_TMPL.xml"
-
-# JOD Object's structure files
-# A file path for a valid 'struct.jod' file to include in the built
-# JOD Distribution.
-# By default (value = "") use preconfigured '$JOD_DIST_DIR/dists/configs/struct.jod'
-# file.
-# The file path must be relative to the $JOD_DIST_DIR.
-#JOD_STRUCT="dists/configs/struct.jod"
-
-# Enable/Disable JOD Local Communication, default true
-#JOD_LOCAL_ENABLED="True"
-
-# Enable/Disable JOD Local Communication, default true
-#JOD_CLOUD_ENABLED="True"
-
-# JCP Environment
-# A string from (local|stage|prod) set. This property allow to build
-# JOD Distributions with predefined JCP configs for local, stage and
-# production JCP environments.
-# Depending on JCP_ENV value, different JCP urls are set in the 'jod.yml' file.
-# - local: set urls for a local JCP environment executed via the 'com.robypomper.josp' project
-# - stage: set urls for Public JCP - Stage environment (to use for pre-release tests)
-# - prod: set urls for Public JCP - Production environment  (to use for release build)
-#JCP_ENV="stage"
 
 # TMPL Customize - END

@@ -35,7 +35,7 @@
 ###############################################################################
 
 # TMPL Customize - START
-$CURRENT_SCRIPT="$(pwd)/${BASH_SOURCE[0]}"
+CURRENT_SCRIPT="$(pwd)/${BASH_SOURCE[0]}"
 # Customize this file and then delete this line
 Write-Error "WAR: Please customize TMPL before call it`n     Update the '${CURRENT_SCRIPT}' file and delete current line"
 
@@ -66,12 +66,12 @@ $global:DEST_VER="0.1"
 # JCP Environment Object's credentials id
 # A string containing the JCP client id for selected JCP Auth (depends on JCP_ENV)
 # It's mandatory, if not set you can't build JOD Distribution.
-$global:JCP_ID=""
+$global:JCP_ID="a"
 
 # JCP Environment Object's credentials secret
 # A string containing the JCP client secret for selected JCP Auth (depends on JCP_ENV)
 # It's mandatory, if not set you can't build JOD Distribution.
-$global:JCP_SECRET=""
+$global:JCP_SECRET="b"
 
 # JCP Environment
 # A string from (local|stage|prod) set. This property allow to build
@@ -81,7 +81,7 @@ $global:JCP_SECRET=""
 # - local: set urls for a local JCP environment executed via the 'com.robypomper.josp' project
 # - stage: set urls for Public JCP - Stage environment (to use for pre-release tests)
 # - prod: set urls for Public JCP - Production environment  (to use for release build)
-#$global:JCP_ENV="stage"
+$global:JCP_ENV="local"
 
 
 # ########## #
