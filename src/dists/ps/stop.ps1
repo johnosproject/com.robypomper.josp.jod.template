@@ -21,7 +21,7 @@
 
 ###############################################################################
 # Usage:
-# powershell $JOD_DIR/stop.sh
+# powershell $JOD_DIR/stop.ps1
 #
 # If current JOD Distribution was installed as daemon, then this script always
 # fail. This script check for current JOD Distribution's PID, kill it and then

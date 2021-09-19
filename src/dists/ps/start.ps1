@@ -21,7 +21,7 @@
 
 ###############################################################################
 # Usage:
-# powershell $JOD_DIR/start.sh [FOREGROUND=false] [FORCE=false]
+# powershell $JOD_DIR/start.ps1 [FOREGROUND=false] [FORCE=false]
 #
 # This script, depending on ```FOREGROUND``` param, can run the JOD Instance
 # in background (default) or in foreground (if ```FOREGROUND``` is ```true```).
