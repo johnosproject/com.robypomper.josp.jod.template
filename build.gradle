@@ -17,6 +17,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  ******************************************************************************/
 
+/**
+ * Gradle project's main config file for JOD Distribution TEMPLATE.
+ *
+ * {@see docs/gradle/gradle.md}
+ * {@see docs/gradle/buildTMPL.md}
+ * {@see docs/gradle/publishTMPL.md}
+ */
+
 // ---------------
 // Project configs
 // ---------------
