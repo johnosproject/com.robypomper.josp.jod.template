@@ -21,7 +21,7 @@
 
 ################################################################################
 # Artifact: Robypomper PowerShell Utils
-# Version:  1.0
+# Version:  1.0.1
 ################################################################################
 
 # Return normalized path, without unnecessary '.' and '..'.

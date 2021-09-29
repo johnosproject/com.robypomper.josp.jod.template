@@ -2,7 +2,7 @@
 
 **Source Code project of the JOD Distribution TEMPLATE.**
 
-* Current version: 1.0</td></tr>
+* Current version: 1.0.1</td></tr>
 * References: [JOD_Dist_TEMPLATE @ JOSP Docs](href="https://www.johnosproject.org/docs/References/JOD_Dists/JOD_Dist_TEMPLATE/Home)
 * Repository: [com.robypomper.josp.jod.template @ Bitbucket](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/)
 * Downloads: [com.robypomper.josp.jod.template > Downloads @ Bitbucket](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/)
@@ -191,8 +191,11 @@ Please email to [tech@johnosproject.com](mailto:tech@johnosproject.com).
   [tgz](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-1.0-DEVb.tgz) | 
   [zip](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-1.0-DEVb.zip))
 * v [1.0](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/src/1.0/) (
-  [tgz](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-1.0.tgz) | 
+  [tgz](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-1.0.tgz) |
   [zip](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-1.0.zip))
+* v [1.0.1](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/src/1.0.1/) (
+  [tgz](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-1.0.1.tgz) |
+  [zip](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-1.0.1.zip))
 
 Each JOD Distribution TEMPLATE can download and build a JOD Distribution using different versions of the JOD agent. Here the table of JOD Distribution TEMPLATE versions and corresponding supported JOD versions.
 
@@ -200,7 +203,8 @@ Each JOD Distribution TEMPLATE can download and build a JOD Distribution using d
 |----------------------|--------------------|
 | 1.0-DEV  | 2.2.0 |
 | 1.0-DEVb | 2.2.0 |
-| 1.0      | 2.2.0, 2.2.1 |
+| 1.0      | 2.2.0*, 2.2.1 |
+| 1.0.1    | 2.2.0, 2.2.1* |
 
 ----
 
