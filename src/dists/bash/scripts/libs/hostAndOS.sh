@@ -92,9 +92,19 @@ detectInitSystem() {
 failOnWrongOS() {
   OS_VAR="$(detectOS)"
   if [ "$OS_VAR" == "Win32" ]; then
-      logWar "Please execute PowerShell version of current script"
-      PS_CMD=$(echo "$0" | sed "s/\.sh/\.ps1/")
-      logWar "   $ powershell $PS_CMD"
-      logFat "Executed bash script on '$OS_VAR' system. Exit"
+    logWar "Please execute PowerShell version of current script"
+    PS_CMD=$(echo "$0" | sed "s/\.sh/\.ps1/")
+    logWar "   $ powershell $PS_CMD"
+    logFat "Executed bash script on '$OS_VAR' system. Exit"
+  fi
+}
+
+# Check if current OS is contained in supportedOS list (given param).
+failOnUnsupportedOS() {
+  SOS=($@)
+  CURR_OS=$(detectOS)
+  if [ "$(containsElement "$CURR_OS" "${SOS[@]}")" == "1" ]; then
+    logWar "Operating system '$CURR_OS' not supported by current distribution"
+    logFat "Please execute this JOD distribution on one of the following OS '${SOS[*]}'" 1
   fi
 }
