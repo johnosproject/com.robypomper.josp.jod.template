@@ -50,6 +50,17 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 
 logInf "PRE Startup script"
 
+## Example check Supported OS - START
+# Check supported OS
+## De-comment only supported OS
+##supportedOS=("Unix" "MacOS" "BSD" "Solaris" "Win32")    # All OSs
+##supportedOS=("Unix" "MacOS" "BSD" "Solaris" )           # Only Unix base OS
+##supportedOS=("Unix" "BSD" "Solaris")                    # Only Linux
+##supportedOS=("MacOS")                                   # Only MacOS
+##supportedOS=("Win32")                                   # Only Windows
+#failOnUnsupportedOS "${supportedOS[@]}"
+## Example check Supported OS - END
+
 ## Example check Java installed - START
 # Check java
 #if command -v java &>/dev/null; then
