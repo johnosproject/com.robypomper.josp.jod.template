@@ -64,12 +64,12 @@ DEST_VER="0.1"
 # JCP Environment Object's credentials id
 # A string containing the JCP client id for selected JCP Auth (depends on JCP_ENV)
 # It's mandatory, if not set you can't build JOD Distribution.
-JCP_ID="a"
+JCP_ID=""
 
 # JCP Environment Object's credentials secret
 # A string containing the JCP client secret for selected JCP Auth (depends on JCP_ENV)
 # It's mandatory, if not set you can't build JOD Distribution.
-JCP_SECRET="b"
+JCP_SECRET=""
 
 # JCP Environment
 # A string from (local|stage|prod) set. This property allow to build
@@ -79,7 +79,7 @@ JCP_SECRET="b"
 # - local: set urls for a local JCP environment executed via the 'com.robypomper.josp' project
 # - stage: set urls for Public JCP - Stage environment (to use for pre-release tests)
 # - prod: set urls for Public JCP - Production environment  (to use for release build)
-#JCP_ENV="stage"
+JCP_ENV="local"
 
 # ########## #
 # JOD Object #
@@ -88,7 +88,7 @@ JCP_SECRET="b"
 # JOD Agent version to include in the generated distribution
 # JOD agent's and his dependencies will be first downloaded from central maven
 # repository, if not available, then will be copied from local maven repository.
-JOD_VER="2.2.0"
+JOD_VER="2.2.1"
 
 # JOD Object's name
 # A string used as JOD object's name. All instances of current JOD Distribution

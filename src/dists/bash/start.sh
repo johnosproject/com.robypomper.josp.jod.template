@@ -108,7 +108,6 @@ if [ "$FOREGROUND" = "true" ]; then
   logInf "Start JOD distribution in foreground..."
   logInf "Skip post-startup.sh because in FOREGROUND mode"
   logInf "Skip pre-shutdown.sh because in FOREGROUND mode"
-  logInf "Skip post-shutdown.sh because in FOREGROUND mode"
 
   cd $JOD_DIR && $JAVA_EXEC -Dlog4j.configurationFile=log4j2.xml -cp $JAR_RUN $MAIN_CLASS --configs=$JOD_YML $JOD_INSTALLATION_NAME_DOT
   EXIT_CODE=$?
@@ -116,6 +115,15 @@ if [ "$FOREGROUND" = "true" ]; then
     logFat "JOD Distribution terminated with exit code $EXIT_CODE"
   fi
   logInf "JOD distribution started and terminated successfully"
+
+  logInf "Execute post-shutdown.sh..."
+  if [ -f "$JOD_DIR/scripts/post-shutdown.sh" ]; then
+    execScriptCommand "$JOD_DIR/scripts/post-shutdown.sh" || ([ "$?" -gt "0" ] &&
+      logWar "Error executing POST shutdown script, exit $?" && exit $? ||
+      logWar "Error executing POST shutdown script, continue $?")
+  else
+    logDeb "POST shutdown script not found, skipped (missing '$JOD_DIR/scripts/post-shutdown.sh')"
+  fi
 
 else
 

@@ -81,3 +81,14 @@ function failOnWrongOS() {
     logFat "Executed PowerShell script on '$OS_VAR' system. Exit"
   }
 }
+
+# Check if current OS is contained in supportedOS list (given param).
+function failOnUnsupportedOS()
+{
+    $CURR_OS = detectOS
+    if (!$args.Contains($CURR_OS))
+    {
+        logWar "Operating system '$CURR_OS' not supported by current distribution"
+        logFat "Please execute this JOD distribution on one of the following OS '$( $args )'" 1
+    }
+}

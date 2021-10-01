@@ -43,11 +43,26 @@ setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
 
 execScriptConfigs "$JOD_DIR/scripts/jod/jod-script-configs.sh"
 execScriptConfigs "$JOD_DIR/scripts/jod/errors.sh"
+
+# Load jod_configs.sh, exit if fails
+setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 ## Default init - END
 
 logInf "PRE Install script"
 
+## Example check Supported OS - START
+# Check supported OS
+## De-comment only supported OS
+##supportedOS=("Unix" "MacOS" "BSD" "Solaris" "Win32")    # All OSs
+##supportedOS=("Unix" "MacOS" "BSD" "Solaris" )           # Only Unix base OS
+##supportedOS=("Unix" "BSD" "Solaris")                    # Only Linux
+##supportedOS=("MacOS")                                   # Only MacOS
+##supportedOS=("Win32")                                   # Only Windows
+#failOnUnsupportedOS "${supportedOS[@]}"
+## Example check Supported OS - END
+
 ## Example include another PRE/POST script - START
+logInf "Execute pre-startup.sh..."
 if [ -f "$JOD_DIR/scripts/pre-startup.sh" ]; then
   execScriptCommand $JOD_DIR/scripts/pre-startup.sh || ( [ "$?" -gt "0" ] \
     && logWar "Error executing PRE startup script, exit $?" && exit $? \

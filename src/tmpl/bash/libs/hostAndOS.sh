@@ -98,3 +98,13 @@ failOnWrongOS() {
     logFat "Executed bash script on '$OS_VAR' system. Exit"
   fi
 }
+
+# Check if current OS is contained in supportedOS list (given param).
+failOnUnsupportedOS() {
+  SOS=($@)
+  CURR_OS=$(detectOS)
+  if [ "$(containsElement "$CURR_OS" "${SOS[@]}")" == "1" ]; then
+    logWar "Operating system '$CURR_OS' not supported by current distribution"
+    logFat "Please execute this JOD distribution on one of the following OS '${SOS[*]}'" 1
+  fi
+}
