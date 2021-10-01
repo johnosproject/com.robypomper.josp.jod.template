@@ -31,7 +31,7 @@
 # dist main dir. If not present, then default configs are used.
 #
 # Artifact: JOD Dist Template
-# Version:  1.0
+# Version:  1.1.0-DEV
 ###############################################################################
 
 # TMPL Customize - START

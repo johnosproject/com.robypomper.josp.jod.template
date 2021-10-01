@@ -39,7 +39,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0
+# Version:  1.1.0-DEV
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)"
@@ -122,11 +122,11 @@ else
   logInf "Start JOD distribution in background..."
   cd $JOD_DIR && $JAVA_EXEC -Dlog4j.configurationFile=log4j2.xml -cp $JAR_RUN $MAIN_CLASS --configs=$JOD_YML $JOD_INSTALLATION_NAME_DOT >logs/console.log 2>&1 &
   PID=$!
-  if ! ps -p $PID > /dev/null; then
-      echo "Error on startup JOD Daemon"
-      echo "To print daemon console logs:"
-      echo "    $ tail -f $JOD_DIR/logs/console.log"
-      logFat "Error on executing JOD Daemon."
+  if ! ps -p $PID >/dev/null; then
+    echo "Error on startup JOD Daemon"
+    echo "To print daemon console logs:"
+    echo "    $ tail -f $JOD_DIR/logs/console.log"
+    logFat "Error on executing JOD Daemon."
   fi
   echo "$PID" >$PID_FILE
   logInf "Daemon executed successfully with $PID process id"

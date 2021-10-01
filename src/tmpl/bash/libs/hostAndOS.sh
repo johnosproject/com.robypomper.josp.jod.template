@@ -21,7 +21,7 @@
 
 ################################################################################
 # Artifact: Robypomper Bash Utils
-# Version:  1.0
+# Version:  1.1.0-DEV
 ################################################################################
 
 # Detect current OS.
@@ -92,9 +92,9 @@ detectInitSystem() {
 failOnWrongOS() {
   OS_VAR="$(detectOS)"
   if [ "$OS_VAR" == "Win32" ]; then
-      logWar "Please execute PowerShell version of current script"
-      PS_CMD=$(echo "$0" | sed "s/\.sh/\.ps1/")
-      logWar "   $ powershell $PS_CMD"
-      logFat "Executed bash script on '$OS_VAR' system. Exit"
+    logWar "Please execute PowerShell version of current script"
+    PS_CMD=$(echo "$0" | sed "s/\.sh/\.ps1/")
+    logWar "   $ powershell $PS_CMD"
+    logFat "Executed bash script on '$OS_VAR' system. Exit"
   fi
 }

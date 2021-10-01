@@ -21,7 +21,7 @@
 
 ################################################################################
 # Artifact: Robypomper PowerShell Utils
-# Version:  1.0
+# Version:  1.1.0-DEV
 ################################################################################
 
 # Initialize log env var to print only important logs.

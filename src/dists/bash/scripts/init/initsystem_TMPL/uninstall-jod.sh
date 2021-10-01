@@ -29,7 +29,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0
+# Version:  1.1.0-DEV
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/../../.."
@@ -56,7 +56,6 @@ logFat "Distribution uninstallation for $OS_INIT_SYS not implemented" $ERR_NOT_I
 # Check if it's already uninstalled
 
 # Uninstall distribution
-
 
 ###############################################################################
 logScriptEnd

@@ -27,7 +27,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0
+# Version:  1.1.0-DEV
 ###############################################################################
 
 param ([switch] $NO_LOGS=$false)
