@@ -81,7 +81,7 @@ $global:JCP_SECRET=""
 # - local: set urls for a local JCP environment executed via the 'com.robypomper.josp' project
 # - stage: set urls for Public JCP - Stage environment (to use for pre-release tests)
 # - prod: set urls for Public JCP - Production environment  (to use for release build)
-#$global:JCP_ENV="stage"
+$global:JCP_ENV = "local"
 
 
 # ########## #
@@ -91,7 +91,7 @@ $global:JCP_SECRET=""
 # JOD Agent version to include in the generated distribution
 # JOD agent's and his dependencies will be first downloaded from central maven
 # repository, if not available, then will be copied from local maven repository.
-$global:JOD_VER="2.2.0"
+$global:JOD_VER = "2.2.1"
 
 # JOD Object's name
 # A string used as JOD object's name. All instances of current JOD Distribution
