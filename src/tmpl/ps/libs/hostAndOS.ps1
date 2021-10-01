@@ -21,63 +21,103 @@
 
 ################################################################################
 # Artifact: Robypomper PowerShell Utils
-# Version:  1.0
+# Version:  1.0.1
 ################################################################################
 
 # Detect current OS.
 # This method use the OSTYPE env var.
 function detectOS() {
-  $OS=$PSVersionTable.OS
-  if ($null -eq $OS) { $OS=$env:OS }
-  return $(switch -Wildcard ($OS) {
-    "Linux*"  { return "Unix" }
-    "Darwin*"  { return "MacOS" }
-    #"XXX*"  { return "BSD" }
-    #"XXX*"  { return "Solaris" }
-    "Microsoft*"  { return "Win32" }
-    "Windows*"  { return "Win32" }
-    Default  { return "Unknown: '${PSVersionTable.OS}'" }
-  })
+    $OS = $PSVersionTable.OS
+    if ($null -eq $OS)
+    {
+        $OS = $env:OS
+    }
+    return $( switch -Wildcard ($OS)
+    {
+        "Linux*"  {
+            return "Unix"
+        }
+        "Darwin*"  {
+            return "MacOS"
+        }
+        #"XXX*"  { return "BSD" }
+        #"XXX*"  { return "Solaris" }
+        "Microsoft*"  {
+            return "Win32"
+        }
+        "Windows*"  {
+            return "Win32"
+        }
+        Default  {
+            return "Unknown: '${PSVersionTable.OS}'"
+        }
+    } )
 }
 
 # Detect current Init System.
 # This method check the management command of each Init System know until
 # it found the installed one.
 function detectInitSystem() {
-  try {
-    Get-Service | Out-Null
-    return "WinInitSys"
-  } catch {}
+    try
+    {
+        Get-Service | Out-Null
+        return "WinInitSys"
+    }
+    catch
+    {
+    }
 
-  try {
-    initctrl | Out-Null
-    return "Init"
-  } catch {
-  }
+    try
+    {
+        initctrl | Out-Null
+        return "Init"
+    }
+    catch
+    {
+    }
 
-  try {
-    systemd | Out-Null
-    return "SystemD"
-  } catch {
-  }
+    try
+    {
+        systemd | Out-Null
+        return "SystemD"
+    }
+    catch
+    {
+    }
 
-  try {
-    launchctl | Out-Null
-    return "LaunchD"
-  } catch {
-  }
+    try
+    {
+        launchctl | Out-Null
+        return "LaunchD"
+    }
+    catch
+    {
+    }
 
-  return "Unknown"
+    return "Unknown"
 }
 
 # Check current OS and fail script if not on correct OS.
 # Correct OS is anything except Windows.
-function failOnWrongOS() {
-  $OS_VAR=detectOS
-  if ($OS_VAR -ne "Win32") {
-    logWar "Please execute bash version of current script"
-    $BASH_CMD=$PSCommandPath -replace '.ps1','.sh'
-    logWar "   $ bash $BASH_CMD"
-    logFat "Executed PowerShell script on '$OS_VAR' system. Exit"
-  }
+function failOnWrongOS()
+{
+    $OS_VAR = detectOS
+    if ($OS_VAR -ne "Win32")
+    {
+        logWar "Please execute bash version of current script"
+        $BASH_CMD = $PSCommandPath -replace '.ps1', '.sh'
+        logWar "   $ bash $BASH_CMD"
+        logFat "Executed PowerShell script on '$OS_VAR' system. Exit"
+    }
+}
+
+# Check if current OS is contained in supportedOS list (given param).
+function failOnUnsupportedOS()
+{
+    $CURR_OS = detectOS
+    if (!$args.Contains($CURR_OS))
+    {
+        logWar "Operating system '$CURR_OS' not supported by current distribution"
+        logFat "Please execute this JOD distribution on one of the following OS '$( $args )'" 1
+    }
 }

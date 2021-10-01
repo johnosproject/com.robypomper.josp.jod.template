@@ -21,7 +21,7 @@
 
 ################################################################################
 # Artifact: Robypomper PowerShell Utils
-# Version:  1.0
+# Version:  1.0.1
 ################################################################################
 
 # Detect current OS.
@@ -72,12 +72,25 @@ function detectInitSystem() {
 
 # Check current OS and fail script if not on correct OS.
 # Correct OS is anything except Windows.
-function failOnWrongOS() {
-  $OS_VAR=detectOS
-  if ($OS_VAR -ne "Win32") {
+function failOnWrongOS()
+{
+  $OS_VAR = detectOS
+  if ($OS_VAR -ne "Win32")
+  {
     logWar "Please execute bash version of current script"
-    $BASH_CMD=$PSCommandPath -replace '.ps1','.sh'
+    $BASH_CMD = $PSCommandPath -replace '.ps1', '.sh'
     logWar "   $ bash $BASH_CMD"
     logFat "Executed PowerShell script on '$OS_VAR' system. Exit"
+  }
+}
+
+# Check if current OS is contained in supportedOS list (given param).
+function failOnUnsupportedOS()
+{
+  $CURR_OS = detectOS
+  if (!$args.Contains($CURR_OS))
+  {
+    logWar "Operating system '$CURR_OS' not supported by current distribution"
+    logFat "Please execute this JOD distribution on one of the following OS '$( $args )'" 1
   }
 }

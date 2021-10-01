@@ -21,7 +21,7 @@
 
 ################################################################################
 # Artifact: Robypomper Bash Utils
-# Version:  1.0
+# Version:  1.0.1
 ################################################################################
 
 ERR_EXEC_SCRIPT_CMD=1
@@ -88,4 +88,13 @@ includeLib() {
   LIB=$1
   source $LIB
   [ $? -gt 0 ] && logFat "Can't include bash libraries, current dir '$(pwd). Exit'" $ERR_EXEC_LIB_CMD
+}
+
+# test if an array contains given value
+# Call with following line: containsElement "a string" "${array[@]}"
+containsElement() {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && echo 0; done
+  echo 1
 }

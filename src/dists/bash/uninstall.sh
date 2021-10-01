@@ -29,7 +29,7 @@
 # if any.
 #
 # Artifact: JOD Dist Template
-# Version:  1.0
+# Version:  1.0.1
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)"
@@ -65,7 +65,7 @@ if [ "$STATUS_INSTALL" = "Not Installed" ]; then
 fi
 
 logInf "Execute pre-uninstall.sh..."
-if [ -f "$JOD_DIR/scripts/pre-startup.sh" ]; then
+if [ -f "$JOD_DIR/scripts/pre-uninstall.sh" ]; then
   execScriptCommand $JOD_DIR/scripts/pre-uninstall.sh || ([ "$?" -gt "0" ] &&
     logWar "Error executing PRE uninstall script, exit $?" && exit $? ||
     logWar "Error executing PRE uninstall script, continue $?")

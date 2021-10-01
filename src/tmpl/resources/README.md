@@ -1,4 +1,4 @@
-# JOD Distribution TEMPLATE - 1.0
+# JOD Distribution TEMPLATE - 1.0.1
 
 The JOD Distribution TEMPLATE helps Makers to generates custom JOD Distributions that can be executed on the local machine, deployed on remote objects or shared with other users.
 
@@ -7,7 +7,7 @@ A JOD Distribution can be generated from scratch simply with following steps
 1. [build](#build)
 1. [install](#install) or [publish](#publish)
 
-* Current version: 1.0</td></tr>
+* Current version: 1.0.1</td></tr>
 * References: [JOD_Dist_TEMPLATE @ JOSP Docs](href="https://www.johnosproject.org/docs/References/JOD_Dists/JOD_Dist_TEMPLATE/Home)
 * Repository: [com.robypomper.josp.jod.template @ Bitbucket](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/)
 

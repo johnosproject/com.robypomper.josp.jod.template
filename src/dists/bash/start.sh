@@ -39,7 +39,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0
+# Version:  1.0.1
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)"
@@ -108,7 +108,6 @@ if [ "$FOREGROUND" = "true" ]; then
   logInf "Start JOD distribution in foreground..."
   logInf "Skip post-startup.sh because in FOREGROUND mode"
   logInf "Skip pre-shutdown.sh because in FOREGROUND mode"
-  logInf "Skip post-shutdown.sh because in FOREGROUND mode"
 
   cd $JOD_DIR && $JAVA_EXEC -Dlog4j.configurationFile=log4j2.xml -cp $JAR_RUN $MAIN_CLASS --configs=$JOD_YML $JOD_INSTALLATION_NAME_DOT
   EXIT_CODE=$?
@@ -117,16 +116,25 @@ if [ "$FOREGROUND" = "true" ]; then
   fi
   logInf "JOD distribution started and terminated successfully"
 
+  logInf "Execute post-shutdown.sh..."
+  if [ -f "$JOD_DIR/scripts/post-shutdown.sh" ]; then
+    execScriptCommand "$JOD_DIR/scripts/post-shutdown.sh" || ([ "$?" -gt "0" ] &&
+      logWar "Error executing POST shutdown script, exit $?" && exit $? ||
+      logWar "Error executing POST shutdown script, continue $?")
+  else
+    logDeb "POST shutdown script not found, skipped (missing '$JOD_DIR/scripts/post-shutdown.sh')"
+  fi
+
 else
 
   logInf "Start JOD distribution in background..."
   cd $JOD_DIR && $JAVA_EXEC -Dlog4j.configurationFile=log4j2.xml -cp $JAR_RUN $MAIN_CLASS --configs=$JOD_YML $JOD_INSTALLATION_NAME_DOT >logs/console.log 2>&1 &
   PID=$!
-  if ! ps -p $PID > /dev/null; then
-      echo "Error on startup JOD Daemon"
-      echo "To print daemon console logs:"
-      echo "    $ tail -f $JOD_DIR/logs/console.log"
-      logFat "Error on executing JOD Daemon."
+  if ! ps -p $PID >/dev/null; then
+    echo "Error on startup JOD Daemon"
+    echo "To print daemon console logs:"
+    echo "    $ tail -f $JOD_DIR/logs/console.log"
+    logFat "Error on executing JOD Daemon."
   fi
   echo "$PID" >$PID_FILE
   logInf "Daemon executed successfully with $PID process id"

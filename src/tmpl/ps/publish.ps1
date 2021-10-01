@@ -36,7 +36,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0
+# Version:  1.0.1
 ###############################################################################
 
 param (
@@ -75,10 +75,17 @@ logInf "Run build.sh script -> $JOD_DIST_CONFIG_FILE"
 execScriptCommand "$JOD_DIST_DIR/scripts/build.ps1" $JOD_DIST_CONFIG_FILE
 
 logInf "Compress JOD Distribution to publication dir"
-remove-item $DEST_DIR -ea 0
+Remove-Item -Recurse $DEST_DIR -ea 0
 New-Item $DEST_DIR -ItemType Directory -ea 0
-tar -zcf "$DEST_FILE_TGZ" "$SRC_DIR"    # Supported by windows since 2017
-Compress-Archive -Path "$SRC_DIR" -DestinationPath "$DEST_FILE_ZIP"
+cd $SRC_DIR > /dev/null 2>&1
+tar -czvf "$DEST_FILE_TGZ" .    # Supported by windows since 2017
+cd -
+
+$SRC_DIR_NAMED = "$JOD_DIST_DIR/build/tmp/$DEST_ARTIFACT-$DEST_VER"
+Copy-Item -Path $SRC_DIR -Destination "$SRC_DIR_NAMED" -Recurse
+cd $SRC_DIR_NAMED > /dev/null 2>&1
+Compress-Archive -Path . -DestinationPath "$DEST_FILE_ZIP"
+cd -
 
 logWar "Upload disabled because not yet implemented"
 Write-Host "####################"

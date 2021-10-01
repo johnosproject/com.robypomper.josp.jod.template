@@ -39,7 +39,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0
+# Version:  1.0.1
 ###############################################################################
 
 param ([switch] $FOREGROUND=$false, [switch] $FORCE=$false)
@@ -121,18 +121,38 @@ if ($FOREGROUND) {
     logInf "Start JOD distribution in foreground..."
     logInf "Skip post-startup.sh because in FOREGROUND mode"
     logInf "Skip pre-shutdown.sh because in FOREGROUND mode"
-    logInf "Skip post-shutdown.sh because in FOREGROUND mode"
 
-    $CURRENT_DIR=$(Get-Location)
+    $CURRENT_DIR = $( Get-Location )
     Set-Location -Path $JOD_DIR
-    .$JAVA_EXEC "-Dlog4j.configurationFile=log4j2.xml" -cp $JAR_RUN $MAIN_CLASS --configs=$JOD_YML $JOD_INSTALLATION_NAME_DOT
+    .$JAVA_EXEC "-Dlog4j.configurationFile=log4j2.xml" -cp $JAR_RUN $MAIN_CLASS --configs = $JOD_YML $JOD_INSTALLATION_NAME_DOT
     Set-Location -Path $CURRENT_DIR
-    $EXIT_STATE=$?
-    $EXIT_CODE=$LastExitCode
-    if ( !$EXIT_STATE -or $EXIT_CODE -gt 0 ) {
-      logFat "JOD Distribution terminated with exit code $EXIT_CODE"
+    $EXIT_STATE = $?
+    $EXIT_CODE = $LastExitCode
+    if (!$EXIT_STATE -or $EXIT_CODE -gt 0)
+    {
+        logFat "JOD Distribution terminated with exit code $EXIT_CODE"
     }
     logInf "JOD distribution started and terminated successfully"
+
+    logInf "Execute post-shutdown.ps1..."
+    if (Test-Path "$JOD_DIR/scripts/post-shutdown.ps1")
+    {
+        execScriptCommand "$JOD_DIR/scripts/post-shutdown.ps1"
+        if (!$?)
+        {
+            logWar "Error executing POST shutdown script, continue $LastExitCode"
+        }
+        elseif ($LastExitCode -gt 0)
+        {
+            logWar "Error executing POST shutdown script, exit $LastExitCode"
+            $host.SetShouldExit($LastExitCode)
+            exit $LastExitCode
+        }
+    }
+    else
+    {
+        logDeb "POST shutdown script not found, skipped (missing $JOD_DIR/scripts/post-shutdown.sh)"
+    }
 
 } else {
 

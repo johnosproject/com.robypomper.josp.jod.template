@@ -36,7 +36,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0
+# Version:  1.0.1
 ###############################################################################
 
 JOD_DIST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
@@ -68,18 +68,23 @@ DEST_FILE_ZIP="$JOD_DIST_DIR/build/publications/$DEST_ARTIFACT-$DEST_VER.zip"
 ###############################################################################
 logScriptRun
 
-logInf "Run publish.sh script"
+logInf "Run build.sh script"
 execScriptCommand "$JOD_DIST_DIR/scripts/build.sh" $JOD_DIST_CONFIG_FILE
 
 logInf "Compress JOD Distribution to publication dir"
 rm -r $DEST_DIR >/dev/null 2>&1
 mkdir -p $DEST_DIR
-tar -zcf "$DEST_FILE_TGZ" "$SRC_DIR"
+cd $SRC_DIR >/dev/null 2>&1
+tar -czf "$DEST_FILE_TGZ" .
+cd -
+
+cd $SRC_DIR >/dev/null 2>&1
 if command -v zip &>/dev/null; then
-  zip -qr "$DEST_FILE_ZIP" "$SRC_DIR"
+  zip -qr "$DEST_FILE_ZIP" .
 else
   logWar "'zip' command not installed, skip 'zip' compression"
 fi
+cd -
 
 logWar "Upload disabled because not yet implemented"
 echo "####################"

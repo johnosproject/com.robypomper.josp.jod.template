@@ -30,7 +30,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0
+# Version:  1.0.1
 ###############################################################################
 
 ## Default init - START
@@ -43,6 +43,9 @@ setupCallerAndScript $PSCommandPath $MyInvocation.PSCommandPath
 
 ."$JOD_DIR/scripts/jod/jod-script-configs.ps1"
 execScriptConfigs "$JOD_DIR/scripts/jod/errors.ps1"
+
+# Load jod_configs.sh, exit if fails
+setupJODScriptConfigs "$JOD_DIR/configs/configs.ps1"
 ## Default init - END
 
 logInf "PRE Uninstall script"

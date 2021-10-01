@@ -30,7 +30,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0
+# Version:  1.0.1
 ###############################################################################
 
 ## Default init - START
@@ -43,6 +43,9 @@ setupCallerAndScript "$0" "${BASH_SOURCE[0]}"
 
 execScriptConfigs "$JOD_DIR/scripts/jod/jod-script-configs.sh"
 execScriptConfigs "$JOD_DIR/scripts/jod/errors.sh"
+
+# Load jod_configs.sh, exit if fails
+setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 ## Default init - END
 
 logInf "PRE Shutdown script"

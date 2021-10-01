@@ -30,7 +30,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0
+# Version:  1.0.1
 ###############################################################################
 
 ## Default init - START
@@ -43,9 +43,23 @@ setupCallerAndScript $PSCommandPath $MyInvocation.PSCommandPath
 
 ."$JOD_DIR/scripts/jod/jod-script-configs.ps1"
 execScriptConfigs "$JOD_DIR/scripts/jod/errors.ps1"
+
+# Load jod_configs.sh, exit if fails
+setupJODScriptConfigs "$JOD_DIR/configs/configs.ps1"
 ## Default init - END
 
 logInf "PRE Startup script"
+
+## Example check Supported OS - START
+# Check supported OS
+## De-comment only supported OS
+##$supportedOS="Unix", "MacOS", "BSD", "Solaris", "Win32"        # All OSs
+##$supportedOS="Unix", "MacOS", "BSD", "Solaris"                 # Only Unix base OS
+##$supportedOS="Unix", "BSD", "Solaris"                          # Only Linux
+##$supportedOS="MacOS"                                           # Only MacOS
+##$supportedOS="Win32"                                           # Only Windows
+#failOnUnsupportedOS $supportedOS
+## Example check Supported OS - END
 
 # ToDo translate examples in powershell
 ## Example check Java installed - START
@@ -58,6 +72,7 @@ logInf "PRE Startup script"
 #fi
 ## Example check Java installed - END
 
+# ToDo translate examples in powershell
 ## Example Make firmware's scripts executable - START
 # Set sensors scripts executables
 #chmod +x $SCRIPT_DIR/sensors/*

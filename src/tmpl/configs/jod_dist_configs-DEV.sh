@@ -31,14 +31,13 @@
 # dist main dir. If not present, then default configs are used.
 #
 # Artifact: JOD Dist Template
-# Version:  1.0
+# Version:  1.0.1
 ###############################################################################
 
 # TMPL Customize - START
 CURRENT_SCRIPT="$(pwd)/${BASH_SOURCE[0]}"
 # Customize this file and then delete this line
 #echo "WAR: Please customize TMPL before call it" && echo "     Update the '${CURRENT_SCRIPT}' file and delete current line" && exit
-
 
 # ################ #
 # JOD Distribution #
@@ -57,7 +56,6 @@ DEST_ARTIFACT="JOD-Tmpl"
 # JOD Distribution version
 # A custom string representing current JOD Distribution version
 DEST_VER="0.1"
-
 
 # ################### #
 # John Cloud Platform #
@@ -83,7 +81,6 @@ JCP_SECRET="b"
 # - prod: set urls for Public JCP - Production environment  (to use for release build)
 JCP_ENV="local"
 
-
 # ########## #
 # JOD Object #
 # ########## #
@@ -91,7 +88,7 @@ JCP_ENV="local"
 # JOD Agent version to include in the generated distribution
 # JOD agent's and his dependencies will be first downloaded from central maven
 # repository, if not available, then will be copied from local maven repository.
-JOD_VER="2.2.0"
+JOD_VER="2.2.1"
 
 # JOD Object's name
 # A string used as JOD object's name. All instances of current JOD Distribution
@@ -147,7 +144,6 @@ JOD_VER="2.2.0"
 
 # Enable/Disable JOD Local Communication, default true
 #JOD_CLOUD_ENABLED="True"
-
 
 # ############ #
 # JOD Firmware #
