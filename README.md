@@ -3,12 +3,12 @@
 **Source Code project of the JOD Distribution TEMPLATE.**
 
 * Current version: 1.0.1</td></tr>
-* References: [JOD_Dist_TEMPLATE @ JOSP Docs](href="https://www.johnosproject.org/docs/References/JOD_Dists/JOD_Dist_TEMPLATE/Home)
+* References: [JOD_Dist_TEMPLATE @ JOSP Docs](href="https://www.johnosproject.org/docs/references/jod_dists/jod_dist_template/)
 * Repository: [com.robypomper.josp.jod.template @ Bitbucket](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/)
 * Downloads: [com.robypomper.josp.jod.template > Downloads @ Bitbucket](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/)
 
 The **JOD Distribution TEMPLATE is the starting point for Makers to generates custom JOD Distributions**. Generated distributions can be executed by end users on their local machine, deployed on remote objects or shared with other users.
-*A JOD Distribution, once executed, represent an IoT Object for the [John O.S. Platform](https://www.johnosproject.org/docs/index.html) Ecosystem.* During JOD Distribution TEMPLATE's configuration, makers can customize object's structure and any other config of the [John Object Daemon](https://www.johnosproject.org/docs/References/JOSP_Components/John%20Object%20Daemon/Home). <br>
+*A JOD Distribution, once executed, represent an IoT Object for the [John O.S. Platform](https://www.johnosproject.org/docs/index.html) Ecosystem.* During JOD Distribution TEMPLATE's configuration, makers can customize object's structure and any other config of the [John Object Daemon](https://www.johnosproject.org/docs/references/josp/jod/). <br>
 Once the JOD Distribution is installed on desired location (machine/path), it becomes a JOD instance that represent a [JOSP Object](https://www.johnosproject.org/docs/what/IoT%20Components/Object).
 
 ![JOD Distribution TEMPLATE LifeCycle diagram](docs/JODDistTMPL_Overview.png "JOD Distribution TEMPLATE LifeCycle")
@@ -23,7 +23,7 @@ With JOD Distribution TEMPLATE makers can:
   * JOD Instance's management scripts via Bash and PowerShell
   * Custom Pre/Post scripts on management scripts
 
-At [JOD Distributions list](https://www.johnosproject.org/docs/References/JOD_Dists/Home) page of the JOSP Docs, you can find many ready-to-use JOD Distributions. Depending on what you would integrate to the JOSP EcoSystem as an Object, maybe there is already a JOD Distribution for your needs. Otherwise, use them as examples for your custom JOD Distribution.<br>
+At [JOD Distributions list](https://www.johnosproject.org/docs/references/jod_dists/) page of the JOSP Docs, you can find many ready-to-use JOD Distributions. Depending on what you would integrate to the JOSP EcoSystem as an Object, maybe there is already a JOD Distribution for your needs. Otherwise, use them as examples for your custom JOD Distribution.<br>
 *To publish your own distribution on this list, please contact us at [tech@johnosproject.com](mailto:tech@johnosproject.com).*
 
 ### JOD Distribution Life-cycle
@@ -93,12 +93,12 @@ download it.
 
 For Bash:
 ```shell
-$ curl -fo JOD_Dist_TMPL-{VER}.tgz https://www.johnosproject.org/docs/References/JOD_Dists/JOD_Dist_TEMPLATE/JOD_Dist_TMPL-{VER}.tgz
+$ curl -fo JOD_Dist_TMPL-{VER}.tgz https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-{VER}.tgz
 ```
 
 For Powershell:
 ```shell
-$ Invoke-WebRequest -Uri "https://www.johnosproject.org/docs/References/JOD_Dists/JOD_Dist_TEMPLATE/JOD_Dist_TMPL-{VER}.tgz" -OutFile "JOD_Dist_TMPL-{VER}.tgz"
+$ Invoke-WebRequest -Uri "https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-{VER}.zip" -OutFile "JOD_Dist_TMPL-{VER}.tgz"
 ```
 
 ### Create your own JOD Distribution
@@ -111,11 +111,7 @@ The ```jod_dist_configs.(sh|ps1)``` files contains the main distribution's confi
 like his name and version, the JOD version to use, the JCP credentials, etc...
 Populate all properties from both files and remove the "customization check" at
 the top of the files.<br>
-More details on JOD distribution customization in the [TMPL/build](https://www.johnosproject.org/docs/References/JOD_Dists/JOD_Dist_TEMPLATE/Cmd_Tmpl_Build
-ToDo update TMPL/build link
-) script references
-or in the ```README.md``` file of the corresponding JOD Distribution TEMPLATE (Latest
-[README.md](src/tmpl/resources/README.md) version).
+More details on JOD distribution customization in the [Start a new JOD Dist](https://www.johnosproject.org/docs/references/jod_dists/jod_dist_template/create_your_own_jod_distribution/start_new_jod_distribution) script references  or in the ```README.md``` file of the corresponding JOD Distribution TEMPLATE (Latest [README.md](src/tmpl/resources/README.md) version).
 
 For Bash:
 ```shell

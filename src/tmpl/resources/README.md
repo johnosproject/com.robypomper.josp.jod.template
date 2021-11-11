@@ -8,7 +8,7 @@ A JOD Distribution can be generated from scratch simply with following steps
 1. [install](#install) or [publish](#publish)
 
 * Current version: 1.0.1</td></tr>
-* References: [JOD_Dist_TEMPLATE @ JOSP Docs](href="https://www.johnosproject.org/docs/References/JOD_Dists/JOD_Dist_TEMPLATE/Home)
+* References: [JOD_Dist_TEMPLATE @ JOSP Docs](href="https://www.johnosproject.org/docs/references/jod_dists/jod_dist_template/)
 * Repository: [com.robypomper.josp.jod.template @ Bitbucket](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/)
 
 ## Configure
@@ -17,7 +17,7 @@ If you haven't already, download and extract the JOD Distribution TEMPLATE from 
 
 ```shell
 $ curl -fo JOD_Dist_TMPL-{VER}.tgz \
-      https://www.johnosproject.org/docs/References/JOD_Dists/JOD_Dist_TEMPLATE/JOD_Dist_TMPL-{VER}.tgz
+      https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-{VER}.tgz
 $ tar zxvf JOD_Dist_TMPL-{VER}.tgz
 $ mv JOD_Dist_TMPL-{VER} {MY_JOD_DIST}
 ```
@@ -126,7 +126,7 @@ $ bash scripts/install.sh configs/configs.sh envs/my-jod-object
 
 ## Publish
 
-When ready, a JOD Distribution con be published. That means generate distributable files (tgz and zip) and upload to the [JOSP Docs > JOD Distributions list](https://www.johnosproject.org/docs/References/JOD_Dists/Home) page.
+When ready, a JOD Distribution con be published. That means generate distributable files (tgz and zip) and upload to the [JOSP Docs > JOD Distributions list](https://www.johnosproject.org/docs/references/jod_dists/) page.
 
 To upload the distribution to the JOD Distributions list, you must set valid credentials for JCP and JOSP JOD Distributions repository in the ```configs/jod_dist_configs.(sh|ps1)``` file. JOSP JOD Distributions repository credentials are optionals, if not set the upload step is skip.
 

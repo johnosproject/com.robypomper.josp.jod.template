@@ -40,5 +40,5 @@ Each JOD Distribution comes with a set of script for local JOD Instance manageme
 ### Remote JOD Instance
 
 To deploy and manage a JOD instance on remote device (local computer, cloud server,
-object device...) please use the [John Object Remote](https://www.johnosproject.org/docs/References/Tools/John_Object_Remote/Home)
+object device...) please use the [John Object Remote](https://www.johnosproject.org/docs/references/tools/john_object_remote/)
 tools.
