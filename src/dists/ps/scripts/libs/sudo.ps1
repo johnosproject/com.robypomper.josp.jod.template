@@ -123,7 +123,7 @@ function sudo() {
             logWar "To run this command you must allow it to run as admin"
             return $SUDO_ERR_USER_DENIED
         }
-        
+
         logWar "Unknown error on start-process: $Error"
         return $SUDO_ERR_START_UNKNOWN
     }
