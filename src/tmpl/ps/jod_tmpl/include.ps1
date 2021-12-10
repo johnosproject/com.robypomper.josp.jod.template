@@ -24,8 +24,8 @@
 # Version:  1.0.1
 ################################################################################
 
+param ([Parameter(Mandatory)] $JOD_DIR)
+
 $JOD_TMPL_VERSION = "1.0.1"
 
-$JOD_DIR=$1
-
-#."$JOD_DIR/scripts/libs/{LIB_ABC}.sh"
+.$JOD_DIR/scripts/jod_tmpl/errors.ps1
