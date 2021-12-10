@@ -53,7 +53,7 @@ logScriptInit
 # Init JOD_DIST_CONFIG_FILE
 JOD_DIST_CONFIG_FILE=${1:-configs/jod_dist_configs.sh}
 [[ ! -f "$JOD_DIST_CONFIG_FILE" ]] && JOD_DIST_CONFIG_FILE="$JOD_DIST_DIR/$JOD_DIST_CONFIG_FILE"
-[[ ! -f "$JOD_DIST_CONFIG_FILE" ]] && logFat "Can't find JOD Distribution config's file (missing file: $JOD_DIST_CONFIG_FILE)"
+[[ ! -f "$JOD_DIST_CONFIG_FILE" ]] && logFat "Can't find JOD Distribution config's file (missing file: $JOD_DIST_CONFIG_FILE)" $ERR_CONFIGS_NOT_FOUND
 logScriptParam "JOD_DIST_CONFIG_FILE" "$JOD_DIST_CONFIG_FILE"
 
 # Load jod distribution configs, exit if fails
@@ -82,19 +82,19 @@ elif [ "$JCP_ENV" == "prod" ]; then
   JCP_ENV_API="api.johnosproject.org"
   JCP_ENV_AUTH="auth.johnosproject.org"
 else
-  logFat "Invalid 'JCP_ENV'='$JCP_ENV' value, accepted values: 'prod', 'stage', 'local'. Exit"
+  logFat "Invalid 'JCP_ENV'='$JCP_ENV' value, accepted values: 'prod', 'stage', 'local'. Exit" $ERR_CONFIGS_INVALID_JCP_ENV
 fi
 
 # JCP_ID
-[ -z $JCP_ID ] && logFat "JCP Auth id not set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_MISSING_REQUIREMENTS
+[ -z $JCP_ID ] && logFat "JCP Auth id not set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_CONFIGS_MISSING_JCP_ID
 
 # JCP_SECRET
-[ -z $JCP_SECRET ] && logFat "JCP Auth secret not set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_MISSING_REQUIREMENTS
+[ -z $JCP_SECRET ] && logFat "JCP Auth secret not set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_CONFIGS_MISSING_JCP_SECRET
 
 #JOD_NAME
 
 # JOD_ID
-# ToDo add check that $JCP_ID is not set for JOD Distribution's build in production mode
+[ -n "$JOD_ID" ] && [ "$JCP_ENV" == "prod" ] && logFat "Can't build a prod (JCP_ENV config) distribution when the JOD_ID config is set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_CONFIGS_ILLEGAL_JOD_ID
 [ -n "$JOD_ID" ] && JOD_ID_HW=${JOD_ID::5}
 
 # JOD_EXEC_PULLERS
@@ -150,7 +150,7 @@ if [ ! -f "$JOD_JAR" ]; then
     cp "$JOD_LOCAL_MAVEN" "$JOD_JAR" 2>/dev/null
     if [ "$?" -ne 0 ]; then
       logWar "Can't found JOD library in local maven repository at '$JOD_LOCAL_MAVEN'"
-      logFat "Can't get JOD library, exit." $ERR_MISSING_REQUIREMENTS
+      logFat "Can't get JOD library, exit." $ERR_GET_JOD_LIB
     fi
   fi
 fi
@@ -167,7 +167,7 @@ if [ ! -f "$JOD_DEPS_JAR" ]; then
     cp "$JOD_DEPS_LOCAL_MAVEN" "$JOD_DEPS_JAR" 2>/dev/null
     if [ "$?" -ne 0 ]; then
       logWar "Can't found JOD dependencies in local maven repository at '$JOD_DEPS_LOCAL_MAVEN'"
-      logFat "Can't get JOD dependencies, exit." $ERR_MISSING_REQUIREMENTS
+      logFat "Can't get JOD dependencies, exit." $ERR_GET_JOD_DEPS_LIB
     fi
   fi
 fi
@@ -197,11 +197,11 @@ sed -e 's|%JOD_VER%|'"$JOD_VER"'|g' \
 
 logDeb "Copy JOD Distribution configs"
 cp -r "$JOD_DIST_DIR/$JOD_STRUCT" "$DEST_DIR/configs/struct.jod"
-[ "$?" -ne 0 ] && logFat "Can't include 'struct.jod' to JOD Distribution because can't copy file '$JOD_DIST_DIR/$JOD_STRUCT'"
+[ "$?" -ne 0 ] && logFat "Can't include 'struct.jod' to JOD Distribution because can't copy file '$JOD_DIST_DIR/$JOD_STRUCT'" $ERR_GET_JOD_STRUCT
 cp -r "$JOD_DIST_DIR/dists/configs/jod_configs.sh" "$DEST_DIR/configs/configs.sh"
-[ "$?" -ne 0 ] && logFat "Can't include 'configs.sh' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/jod_configs.sh'"
+[ "$?" -ne 0 ] && logFat "Can't include 'configs.sh' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/jod_configs.sh'" $ERR_GET_JOD_CONFIGS
 cp -r "$JOD_DIST_DIR/dists/configs/jod_configs.ps1" "$DEST_DIR/configs/configs.ps1"
-[ "$?" -ne 0 ] && logFat "Can't include 'configs.ps1' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/jod_configs.ps1'"
+[ "$?" -ne 0 ] && logFat "Can't include 'configs.ps1' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/jod_configs.ps1'" $ERR_GET_JOD_CONFIGS
 
 logDeb "Generate JOD Distribution dist_configs.sh and dist_configs.ps1"
 echo "#!/bin/bash

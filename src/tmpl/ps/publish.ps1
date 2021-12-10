@@ -57,7 +57,7 @@ logScriptInit
 
 # Init JOD_DIST_CONFIG_FILE
 if (!(Test-Path $JOD_DIST_CONFIG_FILE)) { $JOD_DIST_CONFIG_FILE="$JOD_DIST_DIR/$JOD_DIST_CONFIG_FILE" }
-if (!(Test-Path $JOD_DIST_CONFIG_FILE)) { logFat "File '$JOD_DIST_CONFIG_FILE' not found" }
+if (!(Test-Path $JOD_DIST_CONFIG_FILE)) { logFat "File '$JOD_DIST_CONFIG_FILE' not found" $ERR_CONFIGS_NOT_FOUND }
 logScriptParam "JOD_DIST_CONFIG_FILE" "$JOD_DIST_CONFIG_FILE"
 
 # Load jod distribution configs, exit if fails

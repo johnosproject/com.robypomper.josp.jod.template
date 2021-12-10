@@ -54,7 +54,7 @@ logScriptInit
 
 # Init JOD_DIST_CONFIG_FILE
 if (!(Test-Path $JOD_DIST_CONFIG_FILE)) { $JOD_DIST_CONFIG_FILE="$JOD_DIST_DIR/$JOD_DIST_CONFIG_FILE" }
-if (!(Test-Path $JOD_DIST_CONFIG_FILE)) { logFat "File '$JOD_DIST_CONFIG_FILE' not found" }
+if (!(Test-Path $JOD_DIST_CONFIG_FILE)) { logFat "File '$JOD_DIST_CONFIG_FILE' not found" $ERR_CONFIGS_NOT_FOUND }
 logScriptParam "JOD_DIST_CONFIG_FILE" "$JOD_DIST_CONFIG_FILE"
 
 # Load jod distribution configs, exit if fails
@@ -83,7 +83,7 @@ if ($JCP_ENV -eq 'local') {
     $JCP_ENV_API="api.johnosproject.org"
     $JCP_ENV_AUTH="auth.johnosproject.org"
 } else {
-    logFat "Invalid 'JCP_ENV'='$JCP_ENV' value, accepted values: 'prod', 'stage', 'local'. Exit"
+    logFat "Invalid 'JCP_ENV'='$JCP_ENV' value, accepted values: 'prod', 'stage', 'local'. Exit" $ERR_CONFIGS_INVALID_JCP_ENV
 }
 
 # JCP_ID
@@ -95,7 +95,7 @@ if ( -not ($JCP_SECRET) ) { logFat "JCP Auth secret not set. Please check your J
 #JOD_NAME
 
 # JOD_ID
-if ($JCP_ENV -eq "prod" -and $JOD_ID) { logFat "Can't build a prod (JCP_ENV config) distribution when the JOD_ID config is set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." }
+if ($JCP_ENV -eq "prod" -and $JOD_ID) { logFat "Can't build a prod (JCP_ENV config) distribution when the JOD_ID config is set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_CONFIGS_ILLEGAL_JOD_ID }
 if ($JOD_ID) { $JOD_ID_HW=$JOD_ID.SubString(0,5)}
 
 # JOD_EXEC_PULLERS
@@ -153,7 +153,7 @@ if ( -not (Test-Path $JOD_JAR) ) {
             Copy-Item "$JOD_LOCAL_MAVEN" -Destination "$JOD_JAR"
         } else {
             logWar "Can't found JOD library in local maven repository at '$JOD_LOCAL_MAVEN'"
-            logFat "Can't get JOD library, exit." $ERR_MISSING_REQUIREMENTS
+            logFat "Can't get JOD library, exit." $ERR_GET_JOD_LIB
         }
     }
 }
@@ -172,7 +172,7 @@ if ( -not (Test-Path $JOD_DEPS_JAR) ) {
             Copy-Item "$JOD_DEPS_LOCAL_MAVEN" -Destination "$JOD_DEPS_JAR"
         } else {
             logWar "Can't found JOD dependencies in local maven repository at '$JOD_DEPS_LOCAL_MAVEN'"
-            logFat "Can't get JOD dependencies, exit." $ERR_MISSING_REQUIREMENTS
+            logFat "Can't get JOD dependencies, exit." $ERR_GET_JOD_DEPS_LIB
         }
     }
 }
@@ -203,15 +203,15 @@ logDeb "Generate JOD logs configs 'log4j2.xml' file"
 
 logDeb "Copy JOD Distribution configs"
 if ( -not (Test-Path $JOD_DIST_DIR/$JOD_STRUCT) ) {
-    logFat "Can't include 'struct.jod' to JOD Distribution because can't find file '$JOD_DIST_DIR/$JOD_STRUCT'"
+    logFat "Can't include 'struct.jod' to JOD Distribution because can't find file '$JOD_DIST_DIR/$JOD_STRUCT'" $ERR_GET_JOD_STRUCT
 }
 Copy-Item "$JOD_DIST_DIR/$JOD_STRUCT" -Destination "$DEST_DIR/configs/struct.jod"
 if ( -not (Test-Path $JOD_DIST_DIR/dists/configs/jod_configs.sh) ) {
-    logFat "Can't include 'struct.jod' to JOD Distribution because can't find file '$JOD_DIST_DIR/dists/configs/jod_configs.sh"
+    logFat "Can't include 'struct.jod' to JOD Distribution because can't find file '$JOD_DIST_DIR/dists/configs/jod_configs.sh" $ERR_GET_JOD_CONFIGS
 }
 Copy-Item "$JOD_DIST_DIR/dists/configs/jod_configs.sh" -Destination "$DEST_DIR/configs/configs.sh"
 if ( -not (Test-Path $JOD_DIST_DIR/dists/configs/jod_configs.ps1) ) {
-    logFat "Can't include 'struct.jod' to JOD Distribution because can't find file '$JOD_DIST_DIR/dists/configs/jod_configs.ps1"
+    logFat "Can't include 'struct.jod' to JOD Distribution because can't find file '$JOD_DIST_DIR/dists/configs/jod_configs.ps1" $ERR_GET_JOD_CONFIGS
 }
 Copy-Item "$JOD_DIST_DIR/dists/configs/jod_configs.ps1" -Destination "$DEST_DIR/configs/configs.ps1"
 
@@ -229,13 +229,13 @@ Set-Content -Path "$DEST_DIR/configs/dist_configs.ps1" -Value $DIST_CONFIGS_PS
 
 logDeb "Copy JOD Distribution scripts"
 if ( -not (Test-Path "$JOD_DIST_DIR/dists/scripts") ) {
-    logFat "Can't include 'scripts' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/scripts'"
+    logFat "Can't include 'scripts' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/scripts'" $ERR_GET_JOD_SCRIPTS
 }
 Copy-Item "$JOD_DIST_DIR/dists/scripts/*" -Destination "$DEST_DIR" -Recurse -ea 0
 
 logDeb "Copy JOD Distribution resources"
 if ( -not (Test-Path "$JOD_DIST_DIR/dists/resources") ) {
-    logFat "Can't include 'resources' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/resources'"
+    logFat "Can't include 'resources' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/resources'" $ERR_GET_JOD_RESOURCES
 }
 Copy-Item "$JOD_DIST_DIR/dists/resources/*" -Destination "$DEST_DIR" -Recurse -ea 0
 
