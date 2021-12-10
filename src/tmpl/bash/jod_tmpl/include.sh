@@ -28,4 +28,4 @@ JOD_TMPL_VERSION="1.0.1"
 
 JOD_DIR=$1
 
-#source "$JOD_DIR/scripts/libs/{LIB_ABC}.sh"
+source "$JOD_DIR/scripts/jod_tmpl/errors.sh"
