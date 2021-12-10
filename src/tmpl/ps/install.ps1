@@ -65,10 +65,10 @@ logScriptParam "JOD_DIST_CONFIG_FILE" "$JOD_DIST_CONFIG_FILE"
 execScriptConfigs $JOD_DIST_CONFIG_FILE
 
 # Init INST_DIR
-if ($INST_DIR -eq "") { $INST_DIR="$JOD_DIST_DIR/envs/$DEST_ARTIFACT-$DEST_VER/$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))" }
+if ($INST_DIR -eq "") { $INST_DIR="$JOD_DIST_DIR/envs/$DIST_ARTIFACT-$DIST_VER/$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))" }
 logScriptParam "INST_DIR" "$INST_DIR"
 
-$DEST_DIR="$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER"
+$DEST_DIR="$JOD_DIST_DIR/build/$DIST_ARTIFACT/$DIST_VER"
 
 ###############################################################################
 logScriptRun

@@ -60,10 +60,10 @@ logScriptParam "JOD_DIST_CONFIG_FILE" "$JOD_DIST_CONFIG_FILE"
 # Load jod distribution configs, exit if fails
 execScriptConfigs $JOD_DIST_CONFIG_FILE
 
-SRC_DIR="$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER"
+SRC_DIR="$JOD_DIST_DIR/build/$DIST_ARTIFACT/$DIST_VER"
 DEST_DIR="$JOD_DIST_DIR/build/publications"
-DEST_FILE_TGZ="$JOD_DIST_DIR/build/publications/$DEST_ARTIFACT-$DEST_VER.tgz"
-DEST_FILE_ZIP="$JOD_DIST_DIR/build/publications/$DEST_ARTIFACT-$DEST_VER.zip"
+DEST_FILE_TGZ="$JOD_DIST_DIR/build/publications/$DIST_ARTIFACT-$DIST_VER.tgz"
+DEST_FILE_ZIP="$JOD_DIST_DIR/build/publications/$DIST_ARTIFACT-$DIST_VER.zip"
 
 ###############################################################################
 logScriptRun
@@ -92,7 +92,7 @@ echo "# MANUAL OPERATION #"
 echo "####################"
 echo "1. Build your JOD Distribution"
 echo "   bash scripts/build.sh $JOD_DIST_CONFIG_FILE"
-echo "2. Copy results files ({DEST_ARTIFACT}-{DEST_VER}.zip and {DEST_ARTIFACT}-{DEST_VER}.tgz) to public repository"
+echo "2. Copy results files ({DIST_ARTIFACT}-{DIST_VER}.zip and {DIST_ARTIFACT}-{DIST_VER}.tgz) to public repository"
 echo "3. Update public repository with new version links and references"
 
 logInf "JOD Distribution published successfully"
