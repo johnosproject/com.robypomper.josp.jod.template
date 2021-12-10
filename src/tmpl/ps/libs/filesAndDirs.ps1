@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env powershell
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -32,7 +32,7 @@ function normalizeDirPath() {
   param (
     [Parameter(Mandatory)][string]$PATH
   )
-  
+
   return Resolve-Path -Path $PATH
 }
 

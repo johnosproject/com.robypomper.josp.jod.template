@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env powershell
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations

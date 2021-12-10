@@ -68,7 +68,7 @@ DEST_FILE_ZIP="$JOD_DIST_DIR/build/publications/$DEST_ARTIFACT-$DEST_VER.zip"
 ###############################################################################
 logScriptRun
 
-logInf "Run build.sh script"
+logInf "Run build.sh script -> $JOD_DIST_CONFIG_FILE"
 execScriptCommand "$JOD_DIST_DIR/scripts/build.sh" $JOD_DIST_CONFIG_FILE
 
 logInf "Compress JOD Distribution to publication dir"
