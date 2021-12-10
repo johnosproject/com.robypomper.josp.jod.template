@@ -199,9 +199,9 @@ logDeb "Copy JOD Distribution configs"
 cp -r "$JOD_DIST_DIR/$DIST_JOD_STRUCT" "$DEST_DIR/configs/struct.jod"
 [ "$?" -ne 0 ] && logFat "Can't include 'struct.jod' to JOD Distribution because can't copy file '$JOD_DIST_DIR/$DIST_JOD_STRUCT'" $ERR_GET_DIST_JOD_STRUCT
 cp -r "$JOD_DIST_DIR/dists/configs/jod_configs.sh" "$DEST_DIR/configs/configs.sh"
-[ "$?" -ne 0 ] && logFat "Can't include 'configs.sh' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/jod_configs.sh'" $ERR_GET_JOD_CONFIGS
+[ "$?" -ne 0 ] && logFat "Can't include 'jod_configs.sh' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/jod_configs.sh'" $ERR_GET_JOD_CONFIGS
 cp -r "$JOD_DIST_DIR/dists/configs/jod_configs.ps1" "$DEST_DIR/configs/configs.ps1"
-[ "$?" -ne 0 ] && logFat "Can't include 'configs.ps1' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/jod_configs.ps1'" $ERR_GET_JOD_CONFIGS
+[ "$?" -ne 0 ] && logFat "Can't include 'jod_configs.ps1' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/jod_configs.ps1'" $ERR_GET_JOD_CONFIGS
 
 logDeb "Generate JOD Distribution dist_configs.sh and dist_configs.ps1"
 echo "#!/bin/bash
