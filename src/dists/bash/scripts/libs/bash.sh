@@ -63,7 +63,7 @@ execScriptCommand() {
   SCRIPT="$1"
   shift
   bash "$SCRIPT" "$@"
-  [ $? -gt 0 ] && logFat "Error including script '$(basename $SCRIPT)' at '$(dirname $SCRIPT)'" $ERR_EXEC_SCRIPT_CMD
+  [ $? -gt 0 ] && logFat "Error including script '$(basename "$SCRIPT")' at '$(dirname "$SCRIPT")'" $ERR_EXEC_SCRIPT_CMD
   return 0
 }
 
