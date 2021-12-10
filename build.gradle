@@ -49,6 +49,16 @@ task cleanAssemble(type: Delete) {
 // Build JOD Distribution TEMPLATE
 // -------------------------------
 
+task assembleTMPLShellUtilsScripts(type: Copy) {
+    def version = project.ext.get('version.deps.josp.jod.template')
+
+    from 'src/shell/bash'
+    from 'src/shell/ps'
+    into layout.buildDirectory.dir("assemble/$version/scripts/libs")
+
+    mustRunAfter cleanAssemble
+}
+
 task assembleTMPLScripts(type: Copy) {
     def version = project.ext.get('version.deps.josp.jod.template')
 
@@ -82,7 +92,17 @@ task assembleTMPLResources(type: Copy) {
 }
 
 task assembleTMPL() {
-    dependsOn assembleTMPLScripts, assembleTMPLConfigs, assembleTMPLResources
+    dependsOn assembleTMPLShellUtilsScripts, assembleTMPLScripts, assembleTMPLConfigs, assembleTMPLResources
+
+    mustRunAfter cleanAssemble
+}
+
+task assembleTMPLDistShellUtilsScripts(type: Copy) {
+    def version = project.ext.get('version.deps.josp.jod.template')
+
+    from 'src/shell/bash'
+    from 'src/shell/ps'
+    into layout.buildDirectory.dir("assemble/$version/dists/scripts/scripts/libs")
 
     mustRunAfter cleanAssemble
 }
@@ -116,7 +136,7 @@ task assembleTMPLDistsResources(type: Copy) {
 }
 
 task assembleTMPLDists() {
-    dependsOn assembleTMPLDistsScripts, assembleTMPLDistsConfigs, assembleTMPLDistsResources
+    dependsOn assembleTMPLDistShellUtilsScripts, assembleTMPLDistsScripts, assembleTMPLDistsConfigs, assembleTMPLDistsResources
 
     mustRunAfter cleanAssemble
 }
