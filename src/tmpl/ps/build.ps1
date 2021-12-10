@@ -72,8 +72,7 @@ $JOD_DEPS_LOCAL_MAVEN="$HOME/.m2/repository/com/robypomper/josp/jospJOD/$JOD_VER
 logInf "Load JOD Distribution configs..."
 
 # JCP_ENV
-if (-not (Test-Path env:jcp_env)) { $env:jcp_env = 'stage' }
-$JCP_ENV=$env:jcp_env
+if (-not ($JCP_ENV)) { $JCP_ENV = 'stage' }
 if ($JCP_ENV -eq 'local') {
     $JCP_ENV_API="localhost:9001"
     $JCP_ENV_AUTH="localhost:8998"
@@ -88,45 +87,45 @@ if ($JCP_ENV -eq 'local') {
 }
 
 # JCP_ID
-if ( -not (Test-Path variable:JCP_ID) ) { logFat "JCP Auth id not set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_MISSING_REQUIREMENTS }
+if ( -not ($JCP_ID) ) { logFat "JCP Auth id not set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_CONFIGS_MISSING_JCP_ID }
 
 # JCP_SECRET
-if ( -not (Test-Path variable:JCP_SECRET) ) { logFat "JCP Auth secret not set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_MISSING_REQUIREMENTS }
+if ( -not ($JCP_SECRET) ) { logFat "JCP Auth secret not set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_CONFIGS_MISSING_JCP_SECRET }
 
 #JOD_NAME
 
 # JOD_ID
-# ToDo add check that $JCP_ID is not set for JOD Distribution's build in production mode
-if (Test-Path variable:JOD_ID) { $JOD_ID_HW=$JOD_ID.SubString(0,5)}
+if ($JCP_ENV -eq "prod" -and $JOD_ID) { logFat "Can't build a prod (JCP_ENV config) distribution when the JOD_ID config is set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." }
+if ($JOD_ID) { $JOD_ID_HW=$JOD_ID.SubString(0,5)}
 
 # JOD_EXEC_PULLERS
 if ( $JOD_VER -eq "2.2.0" ) { $SHELL_PULLER="PullerUnixShell" } else { $SHELL_PULLER="PullerShell"}
-if ( -not (Test-Path variable:JOD_EXEC_PULLERS) ) { $JOD_EXEC_PULLERS="shell://com.robypomper.josp.jod.executor.$SHELL_PULLER http://com.robypomper.josp.jod.executor.impls.http.PullerHTTP" }
+if ( -not ($JOD_EXEC_PULLERS) ) { $JOD_EXEC_PULLERS="shell://com.robypomper.josp.jod.executor.$SHELL_PULLER http://com.robypomper.josp.jod.executor.impls.http.PullerHTTP" }
 
 ## JOD_EXEC_LISTENERS
-if ( -not (Test-Path variable:JOD_EXEC_LISTENERS) ) { $JOD_EXEC_LISTENERS="file://com.robypomper.josp.jod.executor.ListenerFiles" }
+if ( -not ($JOD_EXEC_LISTENERS) ) { $JOD_EXEC_LISTENERS="file://com.robypomper.josp.jod.executor.ListenerFiles" }
 
 ## JOD_EXEC_EXECUTORS
 if ( $JOD_VER -eq "2.2.0" ) { $SHELL_EXECUTOR="ExecutorUnixShell" } else { $SHELL_EXECUTOR="ExecutorShell"}
-if ( -not (Test-Path variable:JOD_EXEC_EXECUTORS) ) { $JOD_EXEC_EXECUTORS="shell://com.robypomper.josp.jod.executor.$SHELL_EXECUTOR file://com.robypomper.josp.jod.executor.ExecutorFiles http://com.robypomper.josp.jod.executor.impls.http.ExecutorHTTP" }
+if ( -not ($JOD_EXEC_EXECUTORS) ) { $JOD_EXEC_EXECUTORS="shell://com.robypomper.josp.jod.executor.$SHELL_EXECUTOR file://com.robypomper.josp.jod.executor.ExecutorFiles http://com.robypomper.josp.jod.executor.impls.http.ExecutorHTTP" }
 
 # JOD_CONFIG_TMPL
-if ( -not (Test-Path variable:JOD_CONFIG_TMPL) ) { $JOD_CONFIG_TMPL="dists/configs/jod_TMPL.yml" }
+if ( -not ($JOD_CONFIG_TMPL) ) { $JOD_CONFIG_TMPL="dists/configs/jod_TMPL.yml" }
 
 # JOD_CONFIG_LOGS_TMPL
-if ( -not (Test-Path variable:JOD_CONFIG_LOGS_TMPL) ) { $JOD_CONFIG_LOGS_TMPL="dists/configs/log4j2_TMPL.xml" }
+if ( -not ($JOD_CONFIG_LOGS_TMPL) ) { $JOD_CONFIG_LOGS_TMPL="dists/configs/log4j2_TMPL.xml" }
 
 # JOD_STRUCT: jod's structure file, path from $JOD_DIST_DIR      ; default: dists/configs/struct.jod
-if ( -not (Test-Path variable:JOD_STRUCT) ) { $JOD_STRUCT="dists/configs/struct.jod" }
+if ( -not ($JOD_STRUCT) ) { $JOD_STRUCT="dists/configs/struct.jod" }
 
 # $JOD_OWNER: josp user's id            ; default: "00000-00000-00000" as Anonymous user
-if ( -not (Test-Path variable:JOD_OWNER) ) { $JOD_OWNER="00000-00000-00000" }
+if ( -not ($JOD_OWNER) ) { $JOD_OWNER="00000-00000-00000" }
 
 # $JOD_LOCAL_ENABLED: "true|false"              ; default: "true"
-if ( -not (Test-Path variable:JOD_LOCAL_ENABLED) ) { $JOD_LOCAL_ENABLED=$true }
+if ( -not ($JOD_LOCAL_ENABLED) ) { $JOD_LOCAL_ENABLED=$true }
 
 # $JOD_CLOUD_ENABLED: "true|false"              ; default: "true"
-if ( -not (Test-Path variable:JOD_CLOUD_ENABLED) ) { $JOD_CLOUD_ENABLED=$true }
+if ( -not ($JOD_CLOUD_ENABLED) ) { $JOD_CLOUD_ENABLED=$true }
 
 logInf "JOD Distribution configs loaded successfully"
 
