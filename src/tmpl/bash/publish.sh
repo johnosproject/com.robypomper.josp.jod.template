@@ -40,8 +40,8 @@
 ###############################################################################
 
 JOD_DIST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
-source "$JOD_DIST_DIR/scripts/libs/include.sh" $JOD_DIST_DIR
-source "$JOD_DIST_DIR/scripts/jod_tmpl/include.sh" $JOD_DIST_DIR
+source "$JOD_DIST_DIR/scripts/libs/include.sh" "$JOD_DIST_DIR"
+source "$JOD_DIST_DIR/scripts/jod_tmpl/include.sh" "$JOD_DIST_DIR"
 
 #DEBUG=true
 [[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
@@ -72,19 +72,19 @@ logInf "Run build.sh script"
 execScriptCommand "$JOD_DIST_DIR/scripts/build.sh" $JOD_DIST_CONFIG_FILE
 
 logInf "Compress JOD Distribution to publication dir"
-rm -r $DEST_DIR >/dev/null 2>&1
-mkdir -p $DEST_DIR
-cd $SRC_DIR >/dev/null 2>&1
+rm -r "$DEST_DIR" >/dev/null 2>&1
+mkdir -p "$DEST_DIR"
+cd "$SRC_DIR" >/dev/null 2>&1
 tar -czf "$DEST_FILE_TGZ" .
-cd -
+cd - >/dev/null 2>&1
 
-cd $SRC_DIR >/dev/null 2>&1
+cd "$SRC_DIR" >/dev/null 2>&1
 if command -v zip &>/dev/null; then
   zip -qr "$DEST_FILE_ZIP" .
 else
   logWar "'zip' command not installed, skip 'zip' compression"
 fi
-cd -
+cd - >/dev/null 2>&1
 
 logWar "Upload disabled because not yet implemented"
 echo "####################"

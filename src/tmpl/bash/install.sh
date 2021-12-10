@@ -40,8 +40,8 @@
 ###############################################################################
 
 JOD_DIST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
-source "$JOD_DIST_DIR/scripts/libs/include.sh" $JOD_DIST_DIR
-source "$JOD_DIST_DIR/scripts/jod_tmpl/include.sh" $JOD_DIST_DIR
+source "$JOD_DIST_DIR/scripts/libs/include.sh" "$JOD_DIST_DIR"
+source "$JOD_DIST_DIR/scripts/jod_tmpl/include.sh" "$JOD_DIST_DIR"
 
 #DEBUG=true
 [[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
@@ -69,14 +69,14 @@ DEST_DIR="$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER"
 ###############################################################################
 logScriptRun
 
-logInf "Run build.sh script"
+logInf "Run build.sh script -> $JOD_DIST_CONFIG_FILE"
 execScriptCommand "$JOD_DIST_DIR/scripts/build.sh" $JOD_DIST_CONFIG_FILE
 
 logInf "Copy JOD Distribution to installation dir"
-rm -r $INST_DIR >/dev/null 2>&1
-mkdir -p $INST_DIR
-cp -r $DEST_DIR/* $INST_DIR
-[ "$?" -ne 0 ] && logFat "Can't copy JOD Distribution from '$DEST_DIR/*' dir, exit."
+rm -r "$INST_DIR" >/dev/null 2>&1
+mkdir -p "$INST_DIR"
+cp -r "$DEST_DIR/"* "$INST_DIR"
+[ "$?" -ne 0 ] && logFat "Can't copy JOD Distribution from '$DEST_DIR/*' dir, exit." $ERR_GET_JOD_ASSEMBLED
 
 logInf "JOD Distribution installed successfully to $INST_DIR"
 

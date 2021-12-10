@@ -39,8 +39,8 @@
 ###############################################################################
 
 JOD_DIST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
-source "$JOD_DIST_DIR/scripts/libs/include.sh" $JOD_DIST_DIR
-source "$JOD_DIST_DIR/scripts/jod_tmpl/include.sh" $JOD_DIST_DIR
+source "$JOD_DIST_DIR/scripts/libs/include.sh" "$JOD_DIST_DIR"
+source "$JOD_DIST_DIR/scripts/jod_tmpl/include.sh" "$JOD_DIST_DIR"
 
 #DEBUG=true
 [[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
@@ -134,16 +134,16 @@ logScriptRun
 logInf "Build JOD Distribution..."
 
 logDeb "Clean an reacreate JOD Distribution build dirs"
-rm -r $DEST_DIR >/dev/null 2>&1
-mkdir -p $DEST_DIR
-mkdir -p $DEST_DIR/configs
-mkdir -p $DEST_DIR/libs
-mkdir -p $DEST_DIR/scripts
+rm -r "$DEST_DIR" >/dev/null 2>&1
+mkdir -p "$DEST_DIR"
+mkdir -p "$DEST_DIR/configs"
+mkdir -p "$DEST_DIR/libs"
+mkdir -p "$DEST_DIR/scripts"
 
 logDeb "Prepare JOD library"
 if [ ! -f "$JOD_JAR" ]; then
   logDeb "Download JOD library from $JOD_URL"
-  mkdir -p $CACHE_DIR
+  mkdir -p "$CACHE_DIR"
   curl --fail -s -m 5 "$JOD_URL" -o "$JOD_JAR"
   if [ "$?" -ne 0 ]; then
     logWar "Can't download JOD library from '$JOD_URL' url, try on local maven repository"
@@ -154,13 +154,13 @@ if [ ! -f "$JOD_JAR" ]; then
     fi
   fi
 fi
-cp $JOD_JAR $DEST_DIR/libs/
-cp $JOD_JAR $DEST_DIR/jospJOD.jar
+cp "$JOD_JAR" "$DEST_DIR/libs/"
+cp "$JOD_JAR" "$DEST_DIR/jospJOD.jar"
 
 logDeb "Prepare JOD dependencies"
 if [ ! -f "$JOD_DEPS_JAR" ]; then
   logDeb "Download JOD dependencies from $JOD_DEPS_URL"
-  mkdir -p $CACHE_DIR
+  mkdir -p "$CACHE_DIR"
   curl --fail -s -m 5 "$JOD_DEPS_URL" -o "$JOD_DEPS_JAR"
   if [ "$?" -ne 0 ]; then
     logWar "Can't download JOD dependencies from '$JOD_DEPS_URL' url, try on local maven repository"
@@ -171,9 +171,8 @@ if [ ! -f "$JOD_DEPS_JAR" ]; then
     fi
   fi
 fi
-cd $DEST_DIR/libs/ && jar xf $JOD_DEPS_JAR && cd - >/dev/null 2>&1 || (
-  echo "ERR: Can't prepare JOD Dependencies because can't extract from '$JOD_DEPS_JAR' in to '$DEST_DIR/libs/', exit."
-  exit
+cd "$DEST_DIR/libs/" && jar xf "$JOD_DEPS_JAR" && cd - >/dev/null 2>&1 || (
+  logFat "Can't prepare JOD Dependencies because can't extract from '$JOD_DEPS_JAR' in to '$DEST_DIR/libs/', exit." $ERR_GET_JOD_DEPS_LIB
 )
 
 logDeb "Generate JOD main configs 'jod.yml' file"
@@ -214,12 +213,12 @@ echo "#!/usr/bin/env powershell
 \$global:JOD_DIST_VER='$DEST_VER'" >"$DEST_DIR/configs/dist_configs.ps1"
 
 logDeb "Copy JOD Distribution scripts"
-cp -r $JOD_DIST_DIR/dists/scripts/* $DEST_DIR
-[ "$?" -ne 0 ] && logFat "Can't include 'scripts' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/scripts'"
+cp -r "$JOD_DIST_DIR/dists/scripts/"* "$DEST_DIR"
+[ "$?" -ne 0 ] && logFat "Can't include 'scripts' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/scripts'" $ERR_GET_JOD_SCRIPTS
 
 logDeb "Copy JOD Distribution resources"
-cp -r $JOD_DIST_DIR/dists/resources/ $DEST_DIR
-[ "$?" -ne 0 ] && logFat "Can't include 'resources' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/resources'"
+cp -r "$JOD_DIST_DIR/dists/resources/" "$DEST_DIR"
+[ "$?" -ne 0 ] && logFat "Can't include 'resources' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/resources'" $ERR_GET_JOD_RESOURCES
 
 logDeb "Generate JOD Distribution VERSIONS.md"
 echo "# JOD '$DEST_NAME' Distribution
