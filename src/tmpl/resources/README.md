@@ -1,4 +1,4 @@
-# JOD Distribution TEMPLATE - 1.0.1
+# JOD Distribution TEMPLATE - 1.0.2
 
 The JOD Distribution TEMPLATE helps Makers to generates custom JOD Distributions that can be executed on the local machine, deployed on remote objects or shared with other users.
 
@@ -7,7 +7,7 @@ A JOD Distribution can be generated from scratch simply with following steps
 1. [build](#build)
 1. [install](#install) or [publish](#publish)
 
-* Current version: 1.0.1</td></tr>
+* Current version: 1.0.2</td></tr>
 * References: [JOD_Dist_TEMPLATE @ JOSP Docs](href="https://www.johnosproject.org/docs/references/jod_dists/jod_dist_template/)
 * Repository: [com.robypomper.josp.jod.template @ Bitbucket](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/)
 
@@ -32,9 +32,9 @@ First configure mandatory properties to the ```configs/jod_dist_configs.(sh|ps1)
 * JOD Object: JOD agent's version and other configs for jod.yml file to include in distribution
 * JOD Firmware: change JOD agent's executor to interact with hardware and external systems. 
 
-When develop your JOD distribution, you can set the ```test-client-obj``` client id and ```2d1f9b96-70d3-443b-b21b-08a401ddc16c``` secret as JCP credentials. This allows your JOD distribution to connect to the [Stage Public JCP](https://stage.johnosproject.org/frontend/index.html) (set the```JCP_ENV="stage"```). When you need to release your distribution and use it on [Production Public JCP](https://www.johnosproject.org/frontend/index.html), please request distribution credential sending an email to [tech@johnosproject.com](mailto:tech@johnosproject.com). 
+When develop your JOD distribution, you can set the ```test-client-obj``` client id and ```2d1f9b96-70d3-443b-b21b-08a401ddc16c``` secret as JCP credentials. This allows your JOD distribution to connect to the [Stage Public JCP](https://stage.johnosproject.org/frontend/index.html) (set the```DIST_JCP_ENV="stage"```). When you need to release your distribution and use it on [Production Public JCP](https://www.johnosproject.org/frontend/index.html), please request distribution credential sending an email to [tech@johnosproject.com](mailto:tech@johnosproject.com). 
 
-Some of ```jod_dist_configs.(sh|ps1)```'s properties are useful when makers must test their distribution. For example makers can set ```JOD_NAME```, ```JOD_ID```and ```JOD_OWNER```; so every time he builds and execute the distribution, resulting object will recognize as owned object and don't require the [object's owner registration](https://www.johnosproject.org/docs/Guides/End%20Users/Object%201st%20Setup/Register_object_owner) procedure. 
+Some of ```jod_dist_configs.(sh|ps1)```'s properties are useful when makers must test their distribution. For example makers can set ```DIST_JOD_NAME```, ```DIST_JOD_ID```and ```DIST_JOD_OWNER```; so every time he builds and execute the distribution, resulting object will recognize as owned object and don't require the [object's owner registration](https://www.johnosproject.org/docs/Guides/End%20Users/Object%201st%20Setup/Register_object_owner) procedure. 
 
 Moreover, in the ```jod_dist_configs.(sh|ps1)``` files, makers can change JOD
 executors to be loaded. JOD Executors are JOD's components that interface the
@@ -104,7 +104,7 @@ For Powershell:
 $ powershell scripts/build.ps1
 ```
 
-The generated JOD Distribution is build in ```build/$DEST_ARTIFACT/$DEST_VER``` folder.
+The generated JOD Distribution is build in ```build/$DIST_ARTIFACT/$DIST_VER``` folder.
 
 ## Install
 
@@ -116,7 +116,7 @@ The JOD Distribution installation, in this context, means copy built JOD Distrib
 $ bash scripts/install.sh
 ```
 
-This command, copy generated JOD Distribution into ```envs/$DEST_ARTIFACT-$DEST_VER/$4DIGIT_RANDOM_NUMBER``` directory. To specify
+This command, copy generated JOD Distribution into ```envs/$DIST_ARTIFACT-$DIST_VER/$4DIGIT_RANDOM_NUMBER``` directory. To specify
 different JOD Distribution's configs file or installation dir, please use
 ```install.sh``` params.
 

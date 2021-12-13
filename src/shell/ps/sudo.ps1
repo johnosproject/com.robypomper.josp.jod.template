@@ -21,7 +21,7 @@
 
 ###############################################################################
 # Artifact: Robypomper PowerShell Utils
-# Version:  1.0.1
+# Version:  1.0.2
 ###############################################################################
 
 $SUDO_ERR_SCRIPT_NOT_FOUND=1
@@ -57,7 +57,7 @@ function sudo() {
             return $SUDO_ERR_SCRIPT_NOT_FOUND
         }
     }
-    
+
     # Set script and log files's vars
     $ScriptFile=$ScriptItem.FullName
     $ScriptName=$ScriptItem.Name
@@ -123,7 +123,7 @@ function sudo() {
             logWar "To run this command you must allow it to run as admin"
             return $SUDO_ERR_USER_DENIED
         }
-        
+
         logWar "Unknown error on start-process: $Error"
         return $SUDO_ERR_START_UNKNOWN
     }

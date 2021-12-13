@@ -36,12 +36,12 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0.1
+# Version:  1.0.2
 ###############################################################################
 
 JOD_DIST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/.."
-source "$JOD_DIST_DIR/scripts/libs/include.sh" $JOD_DIST_DIR
-source "$JOD_DIST_DIR/scripts/jod_tmpl/include.sh" $JOD_DIST_DIR
+source "$JOD_DIST_DIR/scripts/libs/include.sh" "$JOD_DIST_DIR"
+source "$JOD_DIST_DIR/scripts/jod_tmpl/include.sh" "$JOD_DIST_DIR"
 
 #DEBUG=true
 [[ ! -z "$DEBUG" && "$DEBUG" == true ]] && setupLogsDebug || setupLogs
@@ -54,29 +54,29 @@ logScriptInit
 # Init JOD_DIST_CONFIG_FILE
 JOD_DIST_CONFIG_FILE=${1:-configs/jod_dist_configs.sh}
 [[ ! -f "$JOD_DIST_CONFIG_FILE" ]] && JOD_DIST_CONFIG_FILE="$JOD_DIST_DIR/$JOD_DIST_CONFIG_FILE"
-[[ ! -f "$JOD_DIST_CONFIG_FILE" ]] && logFat "Can't find JOD Distribution config's file (missing file: $JOD_DIST_CONFIG_FILE)"
+[[ ! -f "$JOD_DIST_CONFIG_FILE" ]] && logFat "Can't find JOD Distribution config's file (missing file: $JOD_DIST_CONFIG_FILE)" $ERR_CONFIGS_NOT_FOUND
 logScriptParam "JOD_DIST_CONFIG_FILE" "$JOD_DIST_CONFIG_FILE"
 
 # Load jod distribution configs, exit if fails
 execScriptConfigs $JOD_DIST_CONFIG_FILE
 
 # Init INST_DIR
-INST_DIR=${2:-$JOD_DIST_DIR/envs/$DEST_ARTIFACT-$DEST_VER/$(($RANDOM % 10))$(($RANDOM % 10))$(($RANDOM % 10))$(($RANDOM % 10))}
+INST_DIR=${2:-$JOD_DIST_DIR/envs/$DIST_ARTIFACT-$DIST_VER/$(($RANDOM % 10))$(($RANDOM % 10))$(($RANDOM % 10))$(($RANDOM % 10))}
 logScriptParam "INST_DIR" "$INST_DIR"
 
-DEST_DIR="$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER"
+DEST_DIR="$JOD_DIST_DIR/build/$DIST_ARTIFACT/$DIST_VER"
 
 ###############################################################################
 logScriptRun
 
-logInf "Run build.sh script"
+logInf "Run build.sh script -> $JOD_DIST_CONFIG_FILE"
 execScriptCommand "$JOD_DIST_DIR/scripts/build.sh" $JOD_DIST_CONFIG_FILE
 
 logInf "Copy JOD Distribution to installation dir"
-rm -r $INST_DIR >/dev/null 2>&1
-mkdir -p $INST_DIR
-cp -r $DEST_DIR/* $INST_DIR
-[ "$?" -ne 0 ] && logFat "Can't copy JOD Distribution from '$DEST_DIR/*' dir, exit."
+rm -r "$INST_DIR" >/dev/null 2>&1
+mkdir -p "$INST_DIR"
+cp -r "$DEST_DIR/"* "$INST_DIR"
+[ "$?" -ne 0 ] && logFat "Can't copy JOD Distribution from '$DEST_DIR/*' dir, exit." $ERR_GET_JOD_ASSEMBLED
 
 logInf "JOD Distribution installed successfully to $INST_DIR"
 

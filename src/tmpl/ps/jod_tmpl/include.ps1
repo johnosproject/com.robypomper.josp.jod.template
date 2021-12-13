@@ -21,11 +21,11 @@
 
 ################################################################################
 # Artifact: JOD Dist Template
-# Version:  1.0.1
+# Version:  1.0.2
 ################################################################################
 
-$JOD_TMPL_VERSION = "1.0.1"
+param ([Parameter(Mandatory)] $JOD_DIR)
 
-$JOD_DIR=$1
+$JOD_TMPL_VERSION = "1.0.2"
 
-#."$JOD_DIR/scripts/libs/{LIB_ABC}.sh"
+.$JOD_DIR/scripts/jod_tmpl/errors.ps1

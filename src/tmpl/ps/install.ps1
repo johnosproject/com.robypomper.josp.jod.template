@@ -36,7 +36,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0.1
+# Version:  1.0.2
 ###############################################################################
 
 param (
@@ -58,17 +58,17 @@ logScriptInit
 
 # Init JOD_DIST_CONFIG_FILE
 if (!(Test-Path $JOD_DIST_CONFIG_FILE)) { $JOD_DIST_CONFIG_FILE="$JOD_DIST_DIR/$JOD_DIST_CONFIG_FILE" }
-if (!(Test-Path $JOD_DIST_CONFIG_FILE)) { logFat "File '$JOD_DIST_CONFIG_FILE' not found" }
+if (!(Test-Path $JOD_DIST_CONFIG_FILE)) { logFat "File '$JOD_DIST_CONFIG_FILE' not found" $ERR_CONFIGS_NOT_FOUND }
 logScriptParam "JOD_DIST_CONFIG_FILE" "$JOD_DIST_CONFIG_FILE"
 
 # Load jod distribution configs, exit if fails
 execScriptConfigs $JOD_DIST_CONFIG_FILE
 
 # Init INST_DIR
-if ($INST_DIR -eq "") { $INST_DIR="$JOD_DIST_DIR/envs/$DEST_ARTIFACT-$DEST_VER/$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))" }
+if ($INST_DIR -eq "") { $INST_DIR="$JOD_DIST_DIR/envs/$DIST_ARTIFACT-$DIST_VER/$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))$((Get-Random -Maximum 10))" }
 logScriptParam "INST_DIR" "$INST_DIR"
 
-$DEST_DIR="$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER"
+$DEST_DIR="$JOD_DIST_DIR/build/$DIST_ARTIFACT/$DIST_VER"
 
 ###############################################################################
 logScriptRun
@@ -79,7 +79,7 @@ execScriptCommand "$JOD_DIST_DIR/scripts/build.ps1" $JOD_DIST_CONFIG_FILE
 logInf "Copy JOD Distribution to installation dir"
 Remove-Item -Recurse -Force $INST_DIR -ea 0
 New-Item $INST_DIR -ItemType Directory -ea 0 | Out-Null
-Copy-Item "$DEST_DIR/*" -Destination "$INST_DIR" -Recurse
+Copy-Item "$DEST_DIR/*" -Destination "$INST_DIR" -Recurse       # ON ERROR -> $ERR_GET_JOD_ASSEMBLED
 
 logInf "JOD Distribution installed successfully from $DEST_DIR to $INST_DIR"
 

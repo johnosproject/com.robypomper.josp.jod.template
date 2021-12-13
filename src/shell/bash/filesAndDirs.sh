@@ -20,20 +20,23 @@
 ################################################################################
 
 ################################################################################
-# Artifact: Robypomper PowerShell Utils
-# Version:  1.0.1
+# Artifact: Robypomper Bash Utils
+# Version:  1.0.2
 ################################################################################
 
 # Return normalized path, without unnecessary '.' and '..'.
 #
 # $1 the path to normailze
-function normalizeDirPath() {
+normalizeDirPath() {
+  # Remove all /./ sequences.
+  local path=${1//\/.\//\/}
 
-  param (
-    [Parameter(Mandatory)][string]$PATH
-  )
-  
-  return Resolve-Path -Path $PATH
+  # Remove dir/.. sequences.
+  while [[ $path =~ ([^/][^/]*/\.\./) ]]; do
+    path=${path/${BASH_REMATCH[0]}/}
+  done
+
+  echo $path
 }
 
 # Search for specified $FILE in specified $DIR and his parents
@@ -41,24 +44,23 @@ function normalizeDirPath() {
 #
 # $1 directory where to start search
 # $2 filename to looking for
-function findFileInParents() {
-
-  param (
-    [Parameter(Mandatory)][string]$DIR,
-    [Parameter(Mandatory)][string]$FILE
-  )
+findFileInParents() {
+  DIR=$1
+  FILE=$2
 
   # Check if root dir
-  if ( $DIR -eq "/" ) {
-    return $null
-  }
+  if [ "$DIR" = "/" ]; then
+    return
+  fi
 
   # Check if $DIR contains $FILE
-  if ( Test-Path "$DIR/$FILE" ) {
-    return "$DIR"
-  } else {
+  if [ -f "$DIR/$FILE" ]; then
+    echo "$DIR"
+    return
+  else
     # Recursive call
-    $parentDir="$(Split-Path "$DIR" -Resolve)"
-    return findFileInParents "$parentDir" "$FILE"
-  }
+    parentDir="$(dirname "$DIR")"
+    findFileInParents "$parentDir" "$FILE"
+    return
+  fi
 }

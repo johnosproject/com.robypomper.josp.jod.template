@@ -20,21 +20,29 @@
 ################################################################################
 
 ###############################################################################
-# Usage:
-# no direct usage, included from other scripts
-#
-# Example configs script called by JOD distribution scripts.
-# This configuration can be used to customize the JOD distribution management
-# like execution, installation, etc...
-#
-# Artifact: JOD Dist Template
+# Artifact: Robypomper Bash Utils
 # Version:  1.0.2
 ###############################################################################
 
-# JOD_YML
-# Absolute or $JOD_DIR relative file path for JOD config file, default $JOD_DIR/jod.yml
-#$global:JOD_YML="jod_2.yml"
+# Generic
+_ERRBASE_GENERIC=0
+export ERR_CONFIGS_NOT_FOUND=$((_ERRBASE_GENERIC + 1))           # "Script can't find distribution's configs"
 
-# JAVA_HOME
-# Full path of JAVA's JVM (ex: $JAVA_HOME/bin/java)
-#$global:JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home"
+# build.sh
+_ERRBASE_BUILD=10
+_ERRBASE_BUILD_CONFIGS=$((_ERRBASE_BUILD + (10 * 0)))
+export ERR_CONFIGS_INVALID_DIST_JCP_ENV=$((_ERRBASE_BUILD_CONFIGS + 1))         # ""
+export ERR_CONFIGS_MISSING_DIST_JCP_ID=$((_ERRBASE_BUILD_CONFIGS + 2))          # ""
+export ERR_CONFIGS_MISSING_DIST_JCP_SECRET=$((_ERRBASE_BUILD_CONFIGS + 3))      # ""
+export ERR_CONFIGS_ILLEGAL_DIST_JOD_ID=$((_ERRBASE_BUILD_CONFIGS + 4))          # ""
+_ERRBASE_BUILD_PROCESS=$((_ERRBASE_BUILD + (10 * 1)))
+export ERR_GET_JOD_LIB=$((_ERRBASE_BUILD_PROCESS + 1))           # ""
+export ERR_GET_JOD_DEPS_LIB=$((_ERRBASE_BUILD_PROCESS + 2))      # ""
+export ERR_GET_JOD_STRUCT=$((_ERRBASE_BUILD_PROCESS + 3))        # ""
+export ERR_GET_JOD_CONFIGS=$((_ERRBASE_BUILD_PROCESS + 4))       # ""
+export ERR_GET_JOD_SCRIPTS=$((_ERRBASE_BUILD_PROCESS + 5))       # ""
+export ERR_GET_JOD_RESOURCES=$((_ERRBASE_BUILD_PROCESS + 6))     # ""
+
+# install.sh
+_ERRBASE_INSTALL=10
+ERR_GET_JOD_ASSEMBLED=$((_ERRBASE_INSTALL + 1))       # ""

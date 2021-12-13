@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env powershell
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -19,14 +19,15 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ################################################################################
 
-################################################################################
-# Artifact: Robypomper Bash Utils
-# Version:  1.0.1
-################################################################################
+###############################################################################
+# Artifact: Robypomper PowerShell Utils
+# Version:  1.0.2
+###############################################################################
 
-JOD_DIR=$1
+# Generic
+$_ERRBASE_GENERIC=0
 
-source "$JOD_DIR/scripts/libs/bash.sh"
-source "$JOD_DIR/scripts/libs/logs.sh"
-source "$JOD_DIR/scripts/libs/filesAndDirs.sh"
-source "$JOD_DIR/scripts/libs/hostAndOS.sh"
+# hostAndOS.sh
+$_ERRBASE_HOST_AND_OS=10
+$global:ERR_OS_WRONG=$(($_ERRBASE_HOST_AND_OS + 1))           # "Script can't run on current OS"
+$global:ERR_OS_UNSUPPORTED=$(($_ERRBASE_HOST_AND_OS + 1))     # "Current OS is not supported"

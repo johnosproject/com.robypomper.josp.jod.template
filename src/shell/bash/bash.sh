@@ -21,7 +21,7 @@
 
 ################################################################################
 # Artifact: Robypomper Bash Utils
-# Version:  1.0.1
+# Version:  1.0.2
 ################################################################################
 
 ERR_EXEC_SCRIPT_CMD=1
@@ -63,7 +63,7 @@ execScriptCommand() {
   SCRIPT="$1"
   shift
   bash "$SCRIPT" "$@"
-  [ $? -gt 0 ] && logFat "Error including script '$(basename $SCRIPT)' at '$(dirname $SCRIPT)'" $ERR_EXEC_SCRIPT_CMD
+  [ $? -gt 0 ] && logFat "Error including script '$(basename "$SCRIPT")' at '$(dirname "$SCRIPT")'" $ERR_EXEC_SCRIPT_CMD
   return 0
 }
 

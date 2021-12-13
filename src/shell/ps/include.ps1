@@ -21,11 +21,12 @@
 
 ################################################################################
 # Artifact: Robypomper PowerShell Utils
-# Version:  1.0.1
+# Version:  1.0.2
 ################################################################################
 
 param ([Parameter(Mandatory)] $JOD_DIR)
 
+.$JOD_DIR/scripts/libs/errors.ps1
 .$JOD_DIR/scripts/libs/powershell.ps1
 .$JOD_DIR/scripts/libs/logs.ps1
 .$JOD_DIR/scripts/libs/filesAndDirs.ps1
