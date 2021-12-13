@@ -63,10 +63,10 @@ logScriptParam "JOD_DIST_CONFIG_FILE" "$JOD_DIST_CONFIG_FILE"
 # Load jod distribution configs, exit if fails
 execScriptConfigs $JOD_DIST_CONFIG_FILE
 
-$SRC_DIR="$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER"
+$SRC_DIR="$JOD_DIST_DIR/build/$DIST_ARTIFACT/$DIST_VER"
 $DEST_DIR="$JOD_DIST_DIR/build/publications"
-$DEST_FILE_TGZ="$JOD_DIST_DIR/build/publications/$DEST_ARTIFACT-$DEST_VER.tgz"
-$DEST_FILE_ZIP="$JOD_DIST_DIR/build/publications/$DEST_ARTIFACT-$DEST_VER.zip"
+$DEST_FILE_TGZ="$JOD_DIST_DIR/build/publications/$DIST_ARTIFACT-$DIST_VER.tgz"
+$DEST_FILE_ZIP="$JOD_DIST_DIR/build/publications/$DIST_ARTIFACT-$DIST_VER.zip"
 
 ###############################################################################
 logScriptRun
@@ -81,7 +81,7 @@ cd "$SRC_DIR" > /dev/null 2>&1
 tar -czvf "$DEST_FILE_TGZ" .  > /dev/null 2>&1   # Supported by windows since 2017
 cd -
 
-$SRC_DIR_NAMED = "$JOD_DIST_DIR/build/tmp/$DEST_ARTIFACT-$DEST_VER"
+$SRC_DIR_NAMED = "$JOD_DIST_DIR/build/tmp/$DIST_ARTIFACT-$DIST_VER"
 Copy-Item -Path "$SRC_DIR" -Destination "$SRC_DIR_NAMED" -Recurse -ea 0
 cd "$SRC_DIR_NAMED" > /dev/null 2>&1
 Compress-Archive -Path . -DestinationPath "$DEST_FILE_ZIP" -ea 0 > /dev/null 2>&1
@@ -93,7 +93,7 @@ Write-Host "# MANUAL OPERATION #"
 Write-Host "####################"
 Write-Host "1. Build your JOD Distribution"
 Write-Host "   bash scripts/build.sh $JOD_DIST_CONFIG_FILE"
-Write-Host "2. Copy results files ({DEST_ARTIFACT}-{DEST_VER}.zip and {DEST_ARTIFACT}-{DEST_VER}.tgz) to public repository"
+Write-Host "2. Copy results files ({DIST_ARTIFACT}-{DIST_VER}.zip and {DIST_ARTIFACT}-{DIST_VER}.tgz) to public repository"
 Write-Host "3. Update public repository with new version links and references"
 
 logInf "JOD Distribution published successfully"

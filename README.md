@@ -123,7 +123,7 @@ $ cd {MY_JOD_DIST}
 
 # Configure JOD Distribution
 # On both files delete "customization check" line and update variables according
-# to your needs (mandatory JCP_ID and JCP_SECRET).
+# to your needs (mandatory DIST_JCP_ID and DIST_JCP_SECRET).
 # For more customization option see the README.md file $ cat README.md
 $ nano configs/jod_dist_configs.sh
 $ nano configs/jod_dist_configs.ps1
@@ -139,7 +139,7 @@ $ cd {MY_JOD_DIST}
 
 # Configure JOD Distribution
 # On both files delete "customization check" line and update variables according
-# to your needs (mandatory JCP_ID and JCP_SECRET).
+# to your needs (mandatory DIST_JCP_ID and DIST_JCP_SECRET).
 # For more customization option see the README.md file $ cat README.md
 $ notepad configs/jod_dist_configs.sh
 $ notepad configs/jod_dist_configs.ps1

@@ -31,7 +31,7 @@
 # example the path 'configs/configs_test.sh' can be used also outside
 # the $JOD_DIST_DIR folder.
 #
-# The generated JOD Distribution is build in 'build/$DEST_ARTIFACT/$DEST_VER'
+# The generated JOD Distribution is build in 'build/$DIST_ARTIFACT/$DIST_VER'
 # folder.
 #
 # Artifact: JOD Dist Template
@@ -59,72 +59,72 @@ logScriptParam "JOD_DIST_CONFIG_FILE" "$JOD_DIST_CONFIG_FILE"
 # Load jod distribution configs, exit if fails
 execScriptConfigs $JOD_DIST_CONFIG_FILE
 
-DEST_DIR="$JOD_DIST_DIR/build/$DEST_ARTIFACT/$DEST_VER"
+DEST_DIR="$JOD_DIST_DIR/build/$DIST_ARTIFACT/$DIST_VER"
 CACHE_DIR="$JOD_DIST_DIR/build/cache"
-JOD_JAR="$CACHE_DIR/jospJOD-$JOD_VER.jar"
-JOD_URL="https://repo.maven.apache.org/maven2/com/robypomper/josp/jospJOD/$JOD_VER/jospJOD-$JOD_VER.jar"
-JOD_LOCAL_MAVEN="$HOME/.m2/repository/com/robypomper/josp/jospJOD/$JOD_VER/jospJOD-$JOD_VER.jar"
-JOD_DEPS_JAR="$CACHE_DIR/jospJOD-$JOD_VER-deps.jar"
-JOD_DEPS_URL="https://repo.maven.apache.org/maven2/com/robypomper/josp/jospJOD/$JOD_VER/jospJOD-$JOD_VER-deps.jar"
-JOD_DEPS_LOCAL_MAVEN="$HOME/.m2/repository/com/robypomper/josp/jospJOD/$JOD_VER/jospJOD-$JOD_VER-deps.jar"
+JOD_JAR="$CACHE_DIR/jospJOD-$DIST_JOD_VER.jar"
+JOD_URL="https://repo.maven.apache.org/maven2/com/robypomper/josp/jospJOD/$DIST_JOD_VER/jospJOD-$DIST_JOD_VER.jar"
+JOD_LOCAL_MAVEN="$HOME/.m2/repository/com/robypomper/josp/jospJOD/$DIST_JOD_VER/jospJOD-$DIST_JOD_VER.jar"
+JOD_DEPS_JAR="$CACHE_DIR/jospJOD-$DIST_JOD_VER-deps.jar"
+JOD_DEPS_URL="https://repo.maven.apache.org/maven2/com/robypomper/josp/jospJOD/$DIST_JOD_VER/jospJOD-$DIST_JOD_VER-deps.jar"
+JOD_DEPS_LOCAL_MAVEN="$HOME/.m2/repository/com/robypomper/josp/jospJOD/$DIST_JOD_VER/jospJOD-$DIST_JOD_VER-deps.jar"
 
 logInf "Load JOD Distribution configs..."
 
-# JCP_ENV
-[ -z "$JCP_ENV" ] && JCP_ENV="stage"
-if [ "$JCP_ENV" == "local" ]; then
-  JCP_ENV_API="localhost:9001"
-  JCP_ENV_AUTH="localhost:8998"
-elif [ "$JCP_ENV" == "stage" ]; then
-  JCP_ENV_API="api-stage.johnosproject.org"
-  JCP_ENV_AUTH="auth-stage.johnosproject.org"
-elif [ "$JCP_ENV" == "prod" ]; then
-  JCP_ENV_API="api.johnosproject.org"
-  JCP_ENV_AUTH="auth.johnosproject.org"
+# DIST_JCP_ENV
+[ -z "$DIST_JCP_ENV" ] && DIST_JCP_ENV="stage"
+if [ "$DIST_JCP_ENV" == "local" ]; then
+  DIST_JCP_ENV_API="localhost:9001"
+  DIST_JCP_ENV_AUTH="localhost:8998"
+elif [ "$DIST_JCP_ENV" == "stage" ]; then
+  DIST_JCP_ENV_API="api-stage.johnosproject.org"
+  DIST_JCP_ENV_AUTH="auth-stage.johnosproject.org"
+elif [ "$DIST_JCP_ENV" == "prod" ]; then
+  DIST_JCP_ENV_API="api.johnosproject.org"
+  DIST_JCP_ENV_AUTH="auth.johnosproject.org"
 else
-  logFat "Invalid 'JCP_ENV'='$JCP_ENV' value, accepted values: 'prod', 'stage', 'local'. Exit" $ERR_CONFIGS_INVALID_JCP_ENV
+  logFat "Invalid 'DIST_JCP_ENV'='$DIST_JCP_ENV' value, accepted values: 'prod', 'stage', 'local'. Exit" $ERR_CONFIGS_INVALID_DIST_JCP_ENV
 fi
 
-# JCP_ID
-[ -z $JCP_ID ] && logFat "JCP Auth id not set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_CONFIGS_MISSING_JCP_ID
+# DIST_JCP_ID
+[ -z $DIST_JCP_ID ] && logFat "JCP Auth id not set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_CONFIGS_MISSING_DIST_JCP_ID
 
-# JCP_SECRET
-[ -z $JCP_SECRET ] && logFat "JCP Auth secret not set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_CONFIGS_MISSING_JCP_SECRET
+# DIST_JCP_SECRET
+[ -z $DIST_JCP_SECRET ] && logFat "JCP Auth secret not set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_CONFIGS_MISSING_DIST_JCP_SECRET
 
-#JOD_NAME
+#DIST_JOD_NAME
 
-# JOD_ID
-[ -n "$JOD_ID" ] && [ "$JCP_ENV" == "prod" ] && logFat "Can't build a prod (JCP_ENV config) distribution when the JOD_ID config is set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_CONFIGS_ILLEGAL_JOD_ID
-[ -n "$JOD_ID" ] && JOD_ID_HW=${JOD_ID::5}
+# DIST_JOD_ID
+[ -n "$DIST_JOD_ID" ] && [ "$DIST_JCP_ENV" == "prod" ] && logFat "Can't build a prod (DIST_JCP_ENV config) distribution when the DIST_JOD_ID config is set. Please check your JOD script's configs file at '$JOD_DIST_CONFIG_FILE', exit." $ERR_CONFIGS_ILLEGAL_DIST_JOD_ID
+[ -n "$DIST_JOD_ID" ] && DIST_JOD_ID_HW=${DIST_JOD_ID::5}
 
-# JOD_EXEC_PULLERS
-[ "$JOD_VER" == "2.2.0" ] && SHELL_PULLER="PullerUnixShell" || SHELL_PULLER="PullerShell"
-[ -z "$JOD_EXEC_PULLERS" ] && JOD_EXEC_PULLERS="shell://com.robypomper.josp.jod.executor.$SHELL_PULLER http://com.robypomper.josp.jod.executor.impls.http.PullerHTTP"
+# DIST_JOD_WORK_PULLERS
+[ "$DIST_JOD_VER" == "2.2.0" ] && SHELL_PULLER="PullerUnixShell" || SHELL_PULLER="PullerShell"
+[ -z "$DIST_JOD_WORK_PULLERS" ] && DIST_JOD_WORK_PULLERS="shell://com.robypomper.josp.jod.executor.$SHELL_PULLER http://com.robypomper.josp.jod.executor.impls.http.PullerHTTP"
 
-# JOD_EXEC_LISTENERS
-[ -z "$JOD_EXEC_LISTENERS" ] && JOD_EXEC_LISTENERS="file://com.robypomper.josp.jod.executor.ListenerFiles"
+# DIST_JOD_WORK_LISTENERS
+[ -z "$DIST_JOD_WORK_LISTENERS" ] && DIST_JOD_WORK_LISTENERS="file://com.robypomper.josp.jod.executor.ListenerFiles"
 
-# JOD_EXEC_EXECUTORS
-[ "$JOD_VER" == "2.2.0" ] && SHELL_EXECUTOR="ExecutorUnixShell" || SHELL_EXECUTOR="ExecutorShell"
-[ -z "$JOD_EXEC_EXECUTORS" ] && JOD_EXEC_EXECUTORS="shell://com.robypomper.josp.jod.executor.$SHELL_EXECUTOR file://com.robypomper.josp.jod.executor.ExecutorFiles http://com.robypomper.josp.jod.executor.impls.http.ExecutorHTTP"
+# DIST_JOD_WORK_EXECUTORS
+[ "$DIST_JOD_VER" == "2.2.0" ] && SHELL_EXECUTOR="ExecutorUnixShell" || SHELL_EXECUTOR="ExecutorShell"
+[ -z "$DIST_JOD_WORK_EXECUTORS" ] && DIST_JOD_WORK_EXECUTORS="shell://com.robypomper.josp.jod.executor.$SHELL_EXECUTOR file://com.robypomper.josp.jod.executor.ExecutorFiles http://com.robypomper.josp.jod.executor.impls.http.ExecutorHTTP"
 
-# JOD_CONFIG_TMPL
-[ -z "$JOD_CONFIG_TMPL" ] && JOD_CONFIG_TMPL="dists/configs/jod_TMPL.yml"
+# DIST_JOD_CONFIG_TMPL
+[ -z "$DIST_JOD_CONFIG_TMPL" ] && DIST_JOD_CONFIG_TMPL="dists/configs/jod_TMPL.yml"
 
-# JOD_CONFIG_LOGS_TMPL
-[ -z "$JOD_CONFIG_LOGS_TMPL" ] && JOD_CONFIG_LOGS_TMPL="dists/configs/log4j2_TMPL.xml"
+# DIST_JOD_CONFIG_LOGS_TMPL
+[ -z "$DIST_JOD_CONFIG_LOGS_TMPL" ] && DIST_JOD_CONFIG_LOGS_TMPL="dists/configs/log4j2_TMPL.xml"
 
-# JOD_STRUCT: jod's structure file, path from $JOD_DIST_DIR      ; default: dists/configs/struct.jod
-[ -z "$JOD_STRUCT" ] && JOD_STRUCT="dists/configs/struct.jod"
+# DIST_JOD_STRUCT: jod's structure file, path from $JOD_DIST_DIR      ; default: dists/configs/struct.jod
+[ -z "$DIST_JOD_STRUCT" ] && DIST_JOD_STRUCT="dists/configs/struct.jod"
 
-# $JOD_OWNER: josp user's id            ; default: "00000-00000-00000" as Anonymous user
-[ -z "$JOD_OWNER" ] && JOD_OWNER="00000-00000-00000"
+# $DIST_JOD_OWNER: josp user's id            ; default: "00000-00000-00000" as Anonymous user
+[ -z "$DIST_JOD_OWNER" ] && DIST_JOD_OWNER="00000-00000-00000"
 
-# $JOD_LOCAL_ENABLED: "true|false"              ; default: "true"
-[ -z "$JOD_LOCAL_ENABLED" ] && JOD_LOCAL_ENABLED="true"
+# $DIST_JOD_COMM_DIRECT_ENABLED: "true|false"              ; default: "true"
+[ -z "$DIST_JOD_COMM_DIRECT_ENABLED" ] && DIST_JOD_COMM_DIRECT_ENABLED="true"
 
-# $JOD_CLOUD_ENABLED: "true|false"              ; default: "true"
-[ -z "$JOD_CLOUD_ENABLED" ] && JOD_CLOUD_ENABLED="true"
+# $DIST_JOD_COMM_CLOUD_ENABLED: "true|false"              ; default: "true"
+[ -z "$DIST_JOD_COMM_CLOUD_ENABLED" ] && DIST_JOD_COMM_CLOUD_ENABLED="true"
 
 logInf "JOD Distribution configs loaded successfully"
 
@@ -176,28 +176,28 @@ cd "$DEST_DIR/libs/" && jar xf "$JOD_DEPS_JAR" && cd - >/dev/null 2>&1 || (
 )
 
 logDeb "Generate JOD main configs 'jod.yml' file"
-sed -e 's|%JCP_ENV_API%|'"$JCP_ENV_API"'|g' \
-  -e 's|%JCP_ENV_AUTH%|'"$JCP_ENV_AUTH"'|g' \
-  -e 's|%JCP_ID%|'"$JCP_ID"'|g' \
-  -e 's|%JCP_SECRET%|'"$JCP_SECRET"'|g' \
-  -e 's|%JOD_NAME%|'"$JOD_NAME"'|g' \
-  -e 's|%JOD_ID%|'"$JOD_ID"'|g' \
-  -e 's|%JOD_ID_HW%|'"$JOD_ID_HW"'|g' \
-  -e 's|%JOD_EXEC_PULLERS%|'"$JOD_EXEC_PULLERS"'|g' \
-  -e 's|%JOD_EXEC_LISTENERS%|'"$JOD_EXEC_LISTENERS"'|g' \
-  -e 's|%JOD_EXEC_EXECUTORS%|'"$JOD_EXEC_EXECUTORS"'|g' \
-  -e 's|%JOD_OWNER%|'"$JOD_OWNER"'|g' \
-  -e 's|%JOD_LOCAL_ENABLED%|'"$JOD_LOCAL_ENABLED"'|g' \
-  -e 's|%JOD_CLOUD_ENABLED%|'"$JOD_CLOUD_ENABLED"'|g' \
-  "$JOD_DIST_DIR/$JOD_CONFIG_TMPL" >"$DEST_DIR/configs/jod.yml"
+sed -e 's|%DIST_JCP_ENV_API%|'"$DIST_JCP_ENV_API"'|g' \
+  -e 's|%DIST_JCP_ENV_AUTH%|'"$DIST_JCP_ENV_AUTH"'|g' \
+  -e 's|%DIST_JCP_ID%|'"$DIST_JCP_ID"'|g' \
+  -e 's|%DIST_JCP_SECRET%|'"$DIST_JCP_SECRET"'|g' \
+  -e 's|%DIST_JOD_NAME%|'"$DIST_JOD_NAME"'|g' \
+  -e 's|%DIST_JOD_ID%|'"$DIST_JOD_ID"'|g' \
+  -e 's|%DIST_JOD_ID_HW%|'"$DIST_JOD_ID_HW"'|g' \
+  -e 's|%DIST_JOD_WORK_PULLERS%|'"$DIST_JOD_WORK_PULLERS"'|g' \
+  -e 's|%DIST_JOD_WORK_LISTENERS%|'"$DIST_JOD_WORK_LISTENERS"'|g' \
+  -e 's|%DIST_JOD_WORK_EXECUTORS%|'"$DIST_JOD_WORK_EXECUTORS"'|g' \
+  -e 's|%DIST_JOD_OWNER%|'"$DIST_JOD_OWNER"'|g' \
+  -e 's|%DIST_JOD_COMM_DIRECT_ENABLED%|'"$DIST_JOD_COMM_DIRECT_ENABLED"'|g' \
+  -e 's|%DIST_JOD_COMM_CLOUD_ENABLED%|'"$DIST_JOD_COMM_CLOUD_ENABLED"'|g' \
+  "$JOD_DIST_DIR/$DIST_JOD_CONFIG_TMPL" >"$DEST_DIR/configs/jod.yml"
 
 logDeb "Generate JOD logs configs 'log4j2.xml' file"
-sed -e 's|%JOD_VER%|'"$JOD_VER"'|g' \
-  "$JOD_DIST_DIR/$JOD_CONFIG_LOGS_TMPL" >"$DEST_DIR/log4j2.xml"
+sed -e 's|%DIST_JOD_VER%|'"$DIST_JOD_VER"'|g' \
+  "$JOD_DIST_DIR/$DIST_JOD_CONFIG_LOGS_TMPL" >"$DEST_DIR/log4j2.xml"
 
 logDeb "Copy JOD Distribution configs"
-cp -r "$JOD_DIST_DIR/$JOD_STRUCT" "$DEST_DIR/configs/struct.jod"
-[ "$?" -ne 0 ] && logFat "Can't include 'struct.jod' to JOD Distribution because can't copy file '$JOD_DIST_DIR/$JOD_STRUCT'" $ERR_GET_JOD_STRUCT
+cp -r "$JOD_DIST_DIR/$DIST_JOD_STRUCT" "$DEST_DIR/configs/struct.jod"
+[ "$?" -ne 0 ] && logFat "Can't include 'struct.jod' to JOD Distribution because can't copy file '$JOD_DIST_DIR/$DIST_JOD_STRUCT'" $ERR_GET_DIST_JOD_STRUCT
 cp -r "$JOD_DIST_DIR/dists/configs/jod_configs.sh" "$DEST_DIR/configs/configs.sh"
 [ "$?" -ne 0 ] && logFat "Can't include 'configs.sh' to JOD Distribution because can't copy file '$JOD_DIST_DIR/dists/configs/jod_configs.sh'" $ERR_GET_JOD_CONFIGS
 cp -r "$JOD_DIST_DIR/dists/configs/jod_configs.ps1" "$DEST_DIR/configs/configs.ps1"
@@ -205,12 +205,12 @@ cp -r "$JOD_DIST_DIR/dists/configs/jod_configs.ps1" "$DEST_DIR/configs/configs.p
 
 logDeb "Generate JOD Distribution dist_configs.sh and dist_configs.ps1"
 echo "#!/bin/bash
-export JOD_DIST_NAME=\"$DEST_ARTIFACT\"
-export JOD_DIST_VER=\"$DEST_VER\"
+export JOD_DIST_NAME=\"$DIST_ARTIFACT\"
+export JOD_DIST_VER=\"$DIST_VER\"
 " >"$DEST_DIR/configs/dist_configs.sh"
 echo "#!/usr/bin/env powershell
-\$global:JOD_DIST_NAME='$DEST_ARTIFACT'
-\$global:JOD_DIST_VER='$DEST_VER'" >"$DEST_DIR/configs/dist_configs.ps1"
+\$global:JOD_DIST_NAME='$DIST_ARTIFACT'
+\$global:JOD_DIST_VER='$DIST_VER'" >"$DEST_DIR/configs/dist_configs.ps1"
 
 logDeb "Copy JOD Distribution scripts"
 cp -r "$JOD_DIST_DIR/dists/scripts/"* "$DEST_DIR"
@@ -221,11 +221,11 @@ cp -r "$JOD_DIST_DIR/dists/resources/" "$DEST_DIR"
 [ "$?" -ne 0 ] && logFat "Can't include 'resources' dir to JOD Distribution because can't copy dir '$JOD_DIST_DIR/dists/resources'" $ERR_GET_JOD_RESOURCES
 
 logDeb "Generate JOD Distribution VERSIONS.md"
-echo "# JOD '$DEST_NAME' Distribution
+echo "# JOD '$DIST_NAME' Distribution
 
-JOD Distribution Version:           $DEST_VER
+JOD Distribution Version:           $DIST_VER
 JOD Distribution TEMPLATE Version:  $JOD_TMPL_VERSION
-JOD included Version:               $JOD_VER" >"$DEST_DIR/VERSIONS.md"
+JOD included Version:               $DIST_JOD_VER" >"$DEST_DIR/VERSIONS.md"
 
 logInf "JOD Distribution built successfully"
 

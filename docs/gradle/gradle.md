@@ -65,7 +65,7 @@ When develop the JOD Distribution TEMPLATE commonly should use a combination of 
 # To test JOD Distribution scripts
 ./gradlew buildTMPL && \
     bash build/assemble/$JOD_DIST_TEMPLATE_VER/scripts/build.sh configs/jod_dist_configs-DEV.sh && \
-    bash build/assemble/build/$DEST_ARTIFACT/$DEST_VER/status.sh
+    bash build/assemble/build/$DIST_ARTIFACT/$DIST_VER/status.sh
 ```
 
 The JOD Distribution TEMPLATE's build command is executed using a DEV's configs file that define mandatory configs for development purposes.
