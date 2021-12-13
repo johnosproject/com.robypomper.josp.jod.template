@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env powershell
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -19,46 +19,15 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ################################################################################
 
-################################################################################
+###############################################################################
 # Artifact: Robypomper PowerShell Utils
 # Version:  1.1.0-DEV
-################################################################################
+###############################################################################
 
-# Return normalized path, without unnecessary '.' and '..'.
-#
-# $1 the path to normailze
-function normalizeDirPath() {
+# Generic
+$_ERRBASE_GENERIC=0
 
-  param (
-    [Parameter(Mandatory)][string]$PATH
-  )
-  
-  return Resolve-Path -Path $PATH
-}
-
-# Search for specified $FILE in specified $DIR and his parents
-# This method search recursively also on $DIR parent dirs
-#
-# $1 directory where to start search
-# $2 filename to looking for
-function findFileInParents() {
-
-  param (
-    [Parameter(Mandatory)][string]$DIR,
-    [Parameter(Mandatory)][string]$FILE
-  )
-
-  # Check if root dir
-  if ( $DIR -eq "/" ) {
-    return $null
-  }
-
-  # Check if $DIR contains $FILE
-  if ( Test-Path "$DIR/$FILE" ) {
-    return "$DIR"
-  } else {
-    # Recursive call
-    $parentDir="$(Split-Path "$DIR" -Resolve)"
-    return findFileInParents "$parentDir" "$FILE"
-  }
-}
+# hostAndOS.sh
+$_ERRBASE_HOST_AND_OS=10
+$global:ERR_OS_WRONG=$(($_ERRBASE_HOST_AND_OS + 1))           # "Script can't run on current OS"
+$global:ERR_OS_UNSUPPORTED=$(($_ERRBASE_HOST_AND_OS + 1))     # "Current OS is not supported"

@@ -24,27 +24,26 @@
 # Version:  1.1.0-DEV
 ################################################################################
 
+
 # Generic
-_ERRBASE_GENERIC=0
-ERR_LOAD_SCRIPT_CONFIG=$((_ERRBASE_GENERIC + 1))   # "JOD script config file not found ($JOD_SCRIPT_CONFIG), exit"
-ERR_DETECT_SCRIPT_CONFIG=$((_ERRBASE_GENERIC + 2)) # "Can't detect XY ($XY), exit"
-ERR_NOT_IMPLEMENTED=$((_ERRBASE_GENERIC + 3))      # "Distribution installation not implemented"
+$_ERRBASE_GENERIC=0
+$global:ERR_CONFIGS_NOT_FOUND=$(($_ERRBASE_GENERIC + 1))   # "Script can't find distribution's configs"
 
-# start.sh
-_ERRBASE_START=10
-ERR_ALREADY_RUNNING=$((_ERRBASE_START + 1)) # "Distribution already running, please shutdown distribution or set FORCE param"
-
-# stop.sh
-_ERRBASE_SHUTDOWN=20
-ERR_CANT_SHUTDOWN=$((_ERRBASE_SHUTDOWN + 1)) # "Can't shutdown JOD with PID=$JOD_PID"
+# build.sh
+$_ERRBASE_BUILD=10
+$_ERRBASE_BUILD_CONFIGS=$(($_ERRBASE_BUILD + (10 * 0)))
+$global:ERR_CONFIGS_INVALID_DIST_JCP_ENV=$(($_ERRBASE_BUILD_CONFIGS + 1))         # ""
+$global:ERR_CONFIGS_MISSING_DIST_JCP_ID=$(($_ERRBASE_BUILD_CONFIGS + 2))          # ""
+$global:ERR_CONFIGS_MISSING_DIST_JCP_SECRET=$(($_ERRBASE_BUILD_CONFIGS + 3))      # ""
+$global:ERR_CONFIGS_ILLEGAL_JOD_ID=$(($_ERRBASE_BUILD_CONFIGS + 4))          # ""
+$_ERRBASE_BUILD_PROCESS=$(($_ERRBASE_BUILD + (10 * 1)))
+$global:ERR_GET_JOD_LIB=$(($_ERRBASE_BUILD_PROCESS + 1))           # ""
+$global:ERR_GET_JOD_DEPS_LIB=$(($_ERRBASE_BUILD_PROCESS + 2))      # ""
+$global:ERR_GET_DIST_JOD_STRUCT=$(($_ERRBASE_BUILD_PROCESS + 3))        # ""
+$global:ERR_GET_JOD_CONFIGS=$(($_ERRBASE_BUILD_PROCESS + 4))       # ""
+$global:ERR_GET_JOD_SCRIPTS=$(($_ERRBASE_BUILD_PROCESS + 4))       # ""
+$global:ERR_GET_JOD_RESOURCES=$(($_ERRBASE_BUILD_PROCESS + 4))     # ""
 
 # install.sh
-_ERRBASE_INSTALL=30
-ERR_ALREADY_INSTALLED=$((_ERRBASE_INSTALL + 1)) # "Distribution already installed, please uninstall distribution or set FORCE param"
-
-# uninstall.sh
-_ERRBASE_UNINSTALL=40
-
-# pre-post scripts
-_ERRBASE_PREPOST=100
-ERR_MISSING_REQUIREMENTS=$((_ERRBASE_PREPOST + 1)) # "Operation failed because missing some requirement"
+$_ERRBASE_INSTALL=10
+$global:ERR_GET_JOD_ASSEMBLED=$(($_ERRBASE_INSTALL + 1))       # ""

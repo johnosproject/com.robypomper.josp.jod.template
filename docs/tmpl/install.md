@@ -16,7 +16,7 @@ powershell scripts/install.ps1 [JOD_DIST_CONFIG_FILE] [INST_DIR]
 
 ## Description
 
-This script builds the JOD Distribution (via [TMPL/build](build.md) command), then copy generated files into ```INST_DIR```. By default, ```INST_DIR``` is a random generated path following this pattern ```envs/$DEST_ARTIFACT-$DEST_VER/$4DIGIT_RANDOM_NUMBER```.
+This script builds the JOD Distribution (via [TMPL/build](build.md) command), then copy generated files into ```INST_DIR```. By default, ```INST_DIR``` is a random generated path following this pattern ```envs/$DIST_ARTIFACT-$DIST_VER/$4DIGIT_RANDOM_NUMBER```.
 The JOD Distribution is build using ```JOD_DIST_CONFIG_FILE``` config file.
 
 More info on ```JOD_DIST_CONFIG_FILE``` path and contents can be found at [TMPL/build command](build.md) documentation.

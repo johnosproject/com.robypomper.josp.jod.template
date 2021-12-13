@@ -47,4 +47,4 @@ $_ERRBASE_UNINSTALL=40
 
 # pre-post scripts
 $_ERRBASE_PREPOST=100
-$global:ERR_MISSING_REQUIREMENTS=$(($_ERRBASE_PREPOST + 1)) # "Distribution already installed, please uninstall distribution or set FORCE param"
+$global:ERR_MISSING_REQUIREMENTS=$(($_ERRBASE_PREPOST + 1)) # "Operation failed because missing some requirement"

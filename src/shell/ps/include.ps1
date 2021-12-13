@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env powershell
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -20,47 +20,15 @@
 ################################################################################
 
 ################################################################################
-# Artifact: Robypomper Bash Utils
+# Artifact: Robypomper PowerShell Utils
 # Version:  1.1.0-DEV
 ################################################################################
 
-# Return normalized path, without unnecessary '.' and '..'.
-#
-# $1 the path to normailze
-normalizeDirPath() {
-  # Remove all /./ sequences.
-  local path=${1//\/.\//\/}
+param ([Parameter(Mandatory)] $JOD_DIR)
 
-  # Remove dir/.. sequences.
-  while [[ $path =~ ([^/][^/]*/\.\./) ]]; do
-    path=${path/${BASH_REMATCH[0]}/}
-  done
-
-  echo $path
-}
-
-# Search for specified $FILE in specified $DIR and his parents
-# This method search recursively also on $DIR parent dirs
-#
-# $1 directory where to start search
-# $2 filename to looking for
-findFileInParents() {
-  DIR=$1
-  FILE=$2
-
-  # Check if root dir
-  if [ "$DIR" = "/" ]; then
-    return
-  fi
-
-  # Check if $DIR contains $FILE
-  if [ -f "$DIR/$FILE" ]; then
-    echo "$DIR"
-    return
-  else
-    # Recursive call
-    parentDir="$(dirname "$DIR")"
-    findFileInParents "$parentDir" "$FILE"
-    return
-  fi
-}
+.$JOD_DIR/scripts/libs/errors.ps1
+.$JOD_DIR/scripts/libs/powershell.ps1
+.$JOD_DIR/scripts/libs/logs.ps1
+.$JOD_DIR/scripts/libs/filesAndDirs.ps1
+.$JOD_DIR/scripts/libs/hostAndOS.ps1
+.$JOD_DIR/scripts/libs/sudo.ps1

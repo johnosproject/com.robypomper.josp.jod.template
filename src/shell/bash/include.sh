@@ -26,6 +26,7 @@
 
 JOD_DIR=$1
 
+source "$JOD_DIR/scripts/libs/errors.sh"
 source "$JOD_DIR/scripts/libs/bash.sh"
 source "$JOD_DIR/scripts/libs/logs.sh"
 source "$JOD_DIR/scripts/libs/filesAndDirs.sh"

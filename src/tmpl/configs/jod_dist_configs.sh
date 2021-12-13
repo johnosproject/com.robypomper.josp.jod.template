@@ -46,40 +46,40 @@ echo "WAR: Please customize TMPL before call it" && echo "     Update the '${CUR
 # JOD Distribution name
 # A string representing current JOD Distribution.
 # Commonly starts with "JOD something else", must be human readable
-DEST_NAME="JOD Dist Name"
+DIST_NAME="JOD Dist Name"
 
 # JOD Distribution code
 # A string representing current JOD Distribution.
 # This string must be without spaces because it's used for artifact and dir names.
-DEST_ARTIFACT="JOD-Tmpl"
+DIST_ARTIFACT="JOD-Tmpl"
 
 # JOD Distribution version
 # A custom string representing current JOD Distribution version
-DEST_VER="0.1"
+DIST_VER="0.1"
 
 # ################### #
 # John Cloud Platform #
 # ################### #
 
 # JCP Environment Object's credentials id
-# A string containing the JCP client id for selected JCP Auth (depends on JCP_ENV)
+# A string containing the JCP client id for selected JCP Auth (depends on DIST_JCP_ENV)
 # It's mandatory, if not set you can't build JOD Distribution.
-JCP_ID=""
+DIST_JCP_ID=""
 
 # JCP Environment Object's credentials secret
-# A string containing the JCP client secret for selected JCP Auth (depends on JCP_ENV)
+# A string containing the JCP client secret for selected JCP Auth (depends on DIST_JCP_ENV)
 # It's mandatory, if not set you can't build JOD Distribution.
-JCP_SECRET=""
+DIST_JCP_SECRET=""
 
 # JCP Environment
 # A string from (local|stage|prod) set. This property allow to build
 # JOD Distributions with predefined JCP configs for local, stage or
 # production JCP environments.
-# Depending on JCP_ENV value, different JCP urls are set in the 'jod.yml' file.
+# Depending on DIST_JCP_ENV value, different JCP urls are set in the 'jod.yml' file.
 # - local: set urls for a local JCP environment executed via the 'com.robypomper.josp' project
 # - stage: set urls for Public JCP - Stage environment (to use for pre-release tests)
 # - prod: set urls for Public JCP - Production environment  (to use for release build)
-JCP_ENV="local"
+DIST_JCP_ENV="local"
 
 # ########## #
 # JOD Object #
@@ -88,27 +88,27 @@ JCP_ENV="local"
 # JOD Agent version to include in the generated distribution
 # JOD agent's and his dependencies will be first downloaded from central maven
 # repository, if not available, then will be copied from local maven repository.
-JOD_VER="2.2.1"
+DIST_JOD_VER="2.2.2"
 
 # JOD Object's name
 # A string used as JOD object's name. All instances of current JOD Distribution
 # will have the same name. By default, (value = "") it allow the JOD Agent to
 # generate a new name for each JOD instance executed.
-#JOD_NAME="Entrance light 1"
+#DIST_JOD_NAME="Entrance light 1"
 
 # JOD Object's id     (WAR: do not use when releasing a JOD Distribution)
 # A string containing a predefined JOD Object's id in 'XXXXX-XXXXX-XXXXX' format.
 # All instances of current JOD Distribution will have the same id. By default
 # (value = "") it allow the JOD Agent to generate a new id for each JOD instance
 # executed.
-#JOD_ID="XXXXX-XXXXX-XXXXX"
+#DIST_JOD_ID="XXXXX-XXXXX-XXXXX"
 
 # JOD Object's owner
 # A string containing a predefined JOSP User's id in 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX' format.
 # All instances of current JOD Distribution will have the same owner. By default
 # (value = "00000-00000-00000") means no user is registered as owner, so other
 # JOSP Users can register them self as object owners.
-#JOD_OWNER="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+#DIST_JOD_OWNER="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 
 # JOD Object's main config template
 # A file path for an alternative '$JOD_DIST_DIR/dists/configs/jod_TMPL.yml'
@@ -119,7 +119,7 @@ JOD_VER="2.2.1"
 # JOD Distribution's scripts configs values. For VARs complete list,
 # see the '$JOD_DIST_DIR/scripts/build.sh' script.
 # The file path must be relative to the $JOD_DIST_DIR.
-#JOD_CONFIG_TMPL="dists/configs/jod_TMPL.yml"
+#DIST_JOD_CONFIG_TMPL="dists/configs/jod_TMPL.yml"
 
 # JOD Object's logs config template
 # A file path for an alternative '$JOD_DIST_DIR/dists/configs/log4j2_TMPL.xml'
@@ -129,7 +129,7 @@ JOD_VER="2.2.1"
 # The 'log4j2_TMPL.xml' is a Log4j2 config file used to print logs on console,
 # on files, on network listeners...
 # The file path must be relative to the $JOD_DIST_DIR.
-#JOD_CONFIG_LOGS_TMPL="dists/configs/log4j2_TMPL.xml"
+#DIST_JOD_CONFIG_LOGS_TMPL="dists/configs/log4j2_TMPL.xml"
 
 # JOD Object's structure files
 # A file path for a valid 'struct.jod' file to include in the built
@@ -137,13 +137,13 @@ JOD_VER="2.2.1"
 # By default, (value = "") use preconfigured '$JOD_DIST_DIR/dists/configs/struct.jod'
 # file.
 # The file path must be relative to the $JOD_DIST_DIR.
-#JOD_STRUCT="dists/configs/struct.jod"
+#DIST_JOD_STRUCT="dists/configs/struct.jod"
 
 # Enable/Disable JOD Local Communication, default true
-#JOD_LOCAL_ENABLED="True"
+#DIST_JOD_COMM_DIRECT_ENABLED="True"
 
 # Enable/Disable JOD Local Communication, default true
-#JOD_CLOUD_ENABLED="True"
+#DIST_JOD_COMM_CLOUD_ENABLED="True"
 
 # ############ #
 # JOD Firmware #
@@ -152,12 +152,12 @@ JOD_VER="2.2.1"
 # JOD Object's pullers protocols
 # A list of loadable JOD Pullers used in the struct.jod file.
 # An empty list load default pullers protocols:
-# - "shell" as PullerShell (PullerUnixShell for JOD_VER=2.2.0)
+# - "shell" as PullerShell (PullerUnixShell for DIST_JOD_VER=2.2.0)
 # - "http" as PullerHttp
 # The list must use following format: {PROTO_SHORTCUT}://{PULLER_CLASS}[ ...]
 # Example:
 # shell://com.robypomper.josp.jod.executor.PullerShell http://com.robypomper.josp.jod.executor.impls.http.PullerHTTP
-#JOD_EXEC_PULLERS="{PROTO_SHORTCUT}://{PULLER_CLASS}[ ...]"
+#DIST_JOD_WORK_PULLERS="{PROTO_SHORTCUT}://{PULLER_CLASS}[ ...]"
 
 # JOD Object's listeners protocols
 # A list of loadable JOD Listeners used in the struct.jod file.
@@ -166,17 +166,17 @@ JOD_VER="2.2.1"
 # The list must use following format: {PROTO_SHORTCUT}://{LISTENER_CLASS}[ ...]
 # Example:
 # file://com.robypomper.josp.jod.executor.ListenerFiles
-#JOD_EXEC_LISTENERS="{PROTO_SHORTCUT}://{LISTENER_CLASS}[ ...]"
+#DIST_JOD_WORK_LISTENERS="{PROTO_SHORTCUT}://{LISTENER_CLASS}[ ...]"
 
 # JOD Object's executors protocols
 # A list of loadable JOD Executors used in the struct.jod file.
 # An empty list load default executors protocols:
-# - "shell" as ExecutorShell (ExecutorUnixShell for JOD_VER=2.2.0)
+# - "shell" as ExecutorShell (ExecutorUnixShell for DIST_JOD_VER=2.2.0)
 # - "file" as ExecutorFile
 # - "http" as ExecutorHTTP
 # The list must use following format: {PROTO_SHORTCUT}://{EXECUTOR_CLASS}[ ...]
 # Example:
 # shell://com.robypomper.josp.jod.executor.ExecutorShell file://com.robypomper.josp.jod.executor.ExecutorFiles http://com.robypomper.josp.jod.executor.impls.http.ExecutorHTTP
-#JOD_EXEC_EXECUTORS="{PROTO_SHORTCUT}://{EXECUTOR_CLASS}[ ...]"
+#DIST_JOD_WORK_EXECUTORS="{PROTO_SHORTCUT}://{EXECUTOR_CLASS}[ ...]"
 
 # TMPL Customize - END

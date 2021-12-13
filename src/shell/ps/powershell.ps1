@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env powershell
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -45,7 +45,7 @@ function setupCallerAndScript() {
   $global:CALLER=$caller #$PSCommandPath
   $global:CALLER_PATH=$((get-item $caller ).Directory.FullName)
   $global:CALLER_NAME=$((get-item $caller ).Name)
-#  $global:CALLER_CMD="$(ps -o comm= $PPID)"
+  #  $global:CALLER_CMD="$(ps -o comm= $PPID)"
   $global:SCRIPT=$script #$MyInvocation.PSCommandPath
   $global:SCRIPT_PATH=$((get-item $script ).Directory.FullName)
   $global:SCRIPT_NAME=$((get-item $script ).Name)

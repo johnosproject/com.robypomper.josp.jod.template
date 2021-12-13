@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env powershell
 
 ################################################################################
 # The John Operating System Project is the collection of software and configurations
@@ -20,13 +20,45 @@
 ################################################################################
 
 ################################################################################
-# Artifact: Robypomper Bash Utils
+# Artifact: Robypomper PowerShell Utils
 # Version:  1.1.0-DEV
 ################################################################################
 
-JOD_DIR=$1
+# Return normalized path, without unnecessary '.' and '..'.
+#
+# $1 the path to normailze
+function normalizeDirPath() {
 
-source "$JOD_DIR/scripts/libs/bash.sh"
-source "$JOD_DIR/scripts/libs/logs.sh"
-source "$JOD_DIR/scripts/libs/filesAndDirs.sh"
-source "$JOD_DIR/scripts/libs/hostAndOS.sh"
+  param (
+    [Parameter(Mandatory)][string]$PATH
+  )
+
+  return Resolve-Path -Path $PATH
+}
+
+# Search for specified $FILE in specified $DIR and his parents
+# This method search recursively also on $DIR parent dirs
+#
+# $1 directory where to start search
+# $2 filename to looking for
+function findFileInParents() {
+
+  param (
+    [Parameter(Mandatory)][string]$DIR,
+    [Parameter(Mandatory)][string]$FILE
+  )
+
+  # Check if root dir
+  if ( $DIR -eq "/" ) {
+    return $null
+  }
+
+  # Check if $DIR contains $FILE
+  if ( Test-Path "$DIR/$FILE" ) {
+    return "$DIR"
+  } else {
+    # Recursive call
+    $parentDir="$(Split-Path "$DIR" -Resolve)"
+    return findFileInParents "$parentDir" "$FILE"
+  }
+}

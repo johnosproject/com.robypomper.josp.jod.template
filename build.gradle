@@ -35,13 +35,19 @@ ext {
     set('version.deps.josp.jod.template', '1.1.0')                // Update also any *.sh file's Version fields and src/tmpls/docs/README.txt file
 }
 
+def getAssembleDir(String subDir) {
+    if (!subDir.startsWith('/')) throw new IllegalArgumentException()
+
+    def version = project.ext.get('version.deps.josp.jod.template')
+    return layout.buildDirectory.dir("assemble/$version" + subDir)
+}
 
 // -------------------------------
 // Clean JOD Distribution TEMPLATE
 // -------------------------------
 
 task cleanAssemble(type: Delete) {
-    delete layout.buildDirectory.dir('assemble')
+    delete getAssembleDir("/")
 }
 
 
@@ -49,74 +55,81 @@ task cleanAssemble(type: Delete) {
 // Build JOD Distribution TEMPLATE
 // -------------------------------
 
-task assembleTMPLScripts(type: Copy) {
-    def version = project.ext.get('version.deps.josp.jod.template')
+task assembleTMPLShellUtilsScripts(type: Copy) {
+    from 'src/shell/bash'
+    from 'src/shell/ps'
+    into getAssembleDir("/scripts/libs")
 
+    mustRunAfter cleanAssemble
+}
+
+task assembleTMPLScripts(type: Copy) {
     from 'src/tmpl/bash'
     from 'src/tmpl/ps'
-    into layout.buildDirectory.dir("assemble/$version/scripts")
+    into getAssembleDir("/scripts")
 
     mustRunAfter cleanAssemble
 }
 
 task assembleTMPLConfigs(type: Copy) {
-    def version = project.ext.get('version.deps.josp.jod.template')
-
     from 'src/tmpl/configs'
-    into layout.buildDirectory.dir("assemble/$version/configs")
+    //into into getAssembleDir("/configs")
+    into getAssembleDir("/configs")
 
     mustRunAfter cleanAssemble
 }
 
 task assembleTMPLResources(type: Copy) {
-    def version = project.ext.get('version.deps.josp.jod.template')
-
     from 'src/tmpl/resources'
     rename { filename ->
         filename.replace '_gitignore', '.gitignore'
     }
 
-    into layout.buildDirectory.dir("assemble/$version")
+    into getAssembleDir("/")
 
     mustRunAfter cleanAssemble
 }
 
+// Assemble from TMPL
+
 task assembleTMPL() {
-    dependsOn assembleTMPLScripts, assembleTMPLConfigs, assembleTMPLResources
+    dependsOn assembleTMPLShellUtilsScripts, assembleTMPLScripts, assembleTMPLConfigs, assembleTMPLResources
+
+    mustRunAfter cleanAssemble
+}
+
+task assembleTMPLDistShellUtilsScripts(type: Copy) {
+    from 'src/shell/bash'
+    from 'src/shell/ps'
+    into getAssembleDir("/dists/scripts/scripts/libs")
 
     mustRunAfter cleanAssemble
 }
 
 task assembleTMPLDistsScripts(type: Copy) {
-    def version = project.ext.get('version.deps.josp.jod.template')
-
     from 'src/dists/bash'
     from 'src/dists/ps'
-    into layout.buildDirectory.dir("assemble/$version/dists/scripts")
+    into getAssembleDir("/dists/scripts")
 
     mustRunAfter cleanAssemble
 }
 
 task assembleTMPLDistsConfigs(type: Copy) {
-    def version = project.ext.get('version.deps.josp.jod.template')
-
     from 'src/dists/configs'
-    into layout.buildDirectory.dir("assemble/$version/dists/configs")
+    into getAssembleDir("/dists/configs")
 
     mustRunAfter cleanAssemble
 }
 
 task assembleTMPLDistsResources(type: Copy) {
-    def version = project.ext.get('version.deps.josp.jod.template')
-
     from 'src/dists/resources'
-    into layout.buildDirectory.dir("assemble/$version/dists/resources")
+    into getAssembleDir("/dists/resources")
 
     mustRunAfter cleanAssemble
 }
 
 task assembleTMPLDists() {
-    dependsOn assembleTMPLDistsScripts, assembleTMPLDistsConfigs, assembleTMPLDistsResources
+    dependsOn assembleTMPLDistShellUtilsScripts, assembleTMPLDistsScripts, assembleTMPLDistsConfigs, assembleTMPLDistsResources
 
     mustRunAfter cleanAssemble
 }
@@ -124,9 +137,8 @@ task assembleTMPLDists() {
 task buildZip(type: Zip) {
     def version = project.ext.get('version.deps.josp.jod.template')
 
-    from layout.buildDirectory.dir("assemble/$version")
-    include '*'
-    include '*/*'
+    from getAssembleDir("/")
+    include '**/**'
     into "JOD_Dist_TMPL-${version}"
     archiveName "JOD_Dist_TMPL-${version}.zip"
     destinationDir file(layout.buildDirectory.dir("publications"))
@@ -137,15 +149,17 @@ task buildZip(type: Zip) {
 task buildTar(type: Tar) {
     def version = project.ext.get('version.deps.josp.jod.template')
 
-    from layout.buildDirectory.dir("assemble/$version")
-    include '*'
-    include '*/*'
+    from getAssembleDir("/")
+    include '**/**'
     into "JOD_Dist_TMPL-${version}"
     archiveName "JOD_Dist_TMPL-${version}.tgz"
     destinationDir file(layout.buildDirectory.dir("publications"))
     compression = Compression.GZIP
 
     mustRunAfter assembleTMPL, assembleTMPLDists
+    doFirst {
+        eachFile { println it }
+    }
 }
 
 task buildTMPL() {
