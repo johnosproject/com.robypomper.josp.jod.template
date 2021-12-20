@@ -97,7 +97,7 @@ $ curl -fo JOD_Dist_TMPL-{VER}.tgz https://bitbucket.org/johnosproject_shared/co
 ```
 
 For Powershell:
-```shell
+```powershell
 $ Invoke-WebRequest -Uri "https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-{VER}.zip" -OutFile "JOD_Dist_TMPL-{VER}.tgz"
 ```
 
@@ -130,7 +130,7 @@ $ nano configs/jod_dist_configs.ps1
 ```
 
 For Powershell:
-```shell
+```powershell
 # Create new JOD Distribution
 $ Expand-Archive -Path build/publications/JOD_Dist_TMPL-{VER}.zip
 $ mv JOD_Dist_TMPL-{VER} {MY_JOD_DIST}
@@ -168,7 +168,7 @@ $ bash scripts/publish.sh
 ```
 
 For Powershell:
-```shell
+```powershell
 #Build JOD Distribution
 $ powershell scripts/build.ps1
 

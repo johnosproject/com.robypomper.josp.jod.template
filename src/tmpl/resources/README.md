@@ -100,7 +100,7 @@ $ bash scripts/build.sh
 ```
 
 For Powershell:
-```shell
+```powershell
 $ powershell scripts/build.ps1
 ```
 

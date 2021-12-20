@@ -5,13 +5,13 @@ Shell scripts to stop the JOD instance
 For Bash:
 
 ```shell
-bash stop.sh
+$ bash stop.sh
 ```
 
 For PowerShell:
 
-```shell
-powershell stop.ps1
+```powershell
+$ powershell stop.ps1
 ```
 
 ## Description
@@ -27,7 +27,7 @@ If the JOD instance is NOT running, then this command exit successfully.
 
 Stop JOD instance.
 ```shell
-bash stop.sh
+$ bash stop.sh
 INF: Check if distribution is already stopped...
 INF: Execute pre-shutdown.sh...
 INF: Kill distribution...
@@ -41,7 +41,7 @@ INF: Execute post-shutdown.sh...
 
 Error on stop JOD instance because NOT running.
 ```shell
-bash stop.sh
+$ bash stop.sh
 INF: Check if distribution is already stopped...
 WAR: Distribution already stopped, nothing to do
 ```

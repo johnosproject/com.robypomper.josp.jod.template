@@ -5,13 +5,13 @@ Shell scripts to print the JOD instance state
 For Bash:
 
 ```shell
-bash state.sh [SHOW_ALL] [NO_LOGS]
+$ bash state.sh [SHOW_ALL] [NO_LOGS]
 ```
 
 For PowerShell:
 
-```shell
-powershell state.ps1 [SHOW_ALL] [NO_LOGS]
+```powershell
+$ powershell state.ps1 [SHOW_ALL] [NO_LOGS]
 ```
 
 ## Description
@@ -29,7 +29,7 @@ Optionally this script allow two params:
 
 Print JOD instance info for a JOD instance just installed (never executed).
 ```shell
-bash state.sh
+$ bash state.sh
 > INF: Get distribution statuses...
 > Instance State:  NOT Running
 > Instance PID:    N/A
@@ -40,7 +40,7 @@ bash state.sh
 
 Print JOD instance info for a running JOD instance.
 ```shell
-bash state.sh
+$ bash state.sh
 > INF: Get distribution statuses...
 > Instance State:  Running
 > Instance PID:    43445
@@ -51,7 +51,7 @@ bash state.sh
 
 Print all JOD instance info for a running JOD instance not installed as a service/daemon.
 ```shell
-bash state.sh true true
+$ bash state.sh true true
 > INF: Get distribution statuses...
 > Password:             < enter sudo password
 > Instance State:  Running
@@ -64,7 +64,7 @@ bash state.sh true true
 
 Print only JOD instance info for a running JOD instance.
 ```shell
-bash state.sh false true
+$ bash state.sh false true
 > Password:
 > Instance State:  Running
 > Instance PID:    43445
