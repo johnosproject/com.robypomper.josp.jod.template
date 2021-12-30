@@ -409,9 +409,8 @@ _addSubComponent_Single() {
 
   EXISTING=${CONT_CONTAINS#*: {}
   EXISTING="${EXISTING%*\}*\}}"
-  EXISTING_TEST=${EXISTING//[$'\t\r\n']/}
-  [[ $EXISTING_TEST == *[!\ ]* ]] && EXISTING="$EXISTING," || EXISTING=""
-  _log "EXISTING:         |$EXISTING|"
+  [[ "${#EXISTING}" -gt "10" ]] && EXISTING="$EXISTING," || EXISTING=""
+  _logBuilder "EXISTING:         |$EXISTING|"
   #||                             // 1st add
   #|                              // 2nd add
   #"Mute" : {
