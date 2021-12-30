@@ -84,10 +84,11 @@ logInf "PRE Install script"
 #  logInf "Java installed"
 #else
 #  echo "Missing Java, please install it"
-#  logFat "Java not installed, exit"
+#  logFat "Java not installed, exit" $ERR_MISSING_REQUIREMENTS
 #fi
 ## Example check Java installed - END
 
+# ToDo translate examples in powershell
 ## Example Make firmware's scripts executable - START
 # Set sensors scripts executables
 #find $JOD_DIR/scripts/hw/ -type f -exec chmod +x {} \;

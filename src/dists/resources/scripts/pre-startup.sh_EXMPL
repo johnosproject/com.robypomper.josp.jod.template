@@ -67,7 +67,7 @@ logInf "PRE Startup script"
 #  logInf "Java installed"
 #else
 #  echo "Missing Java, please install it"
-#  logFat "Java not installed, exit"
+#  logFat "Java not installed, exit" $ERR_MISSING_REQUIREMENTS
 #fi
 ## Example check Java installed - END
 
