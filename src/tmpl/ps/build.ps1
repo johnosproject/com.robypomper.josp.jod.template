@@ -35,7 +35,7 @@
 # folder.
 #
 # Artifact: JOD Dist Template
-# Version:  1.0.2
+# Version:  1.0.3-DEV
 ###############################################################################
 
 param ([string] $JOD_DIST_CONFIG_FILE="configs/jod_dist_configs.ps1")
