@@ -72,5 +72,5 @@ fi
 
 ## Example Make firmware's scripts executable - START
 # Set sensors scripts executables
-#chmod +x $SCRIPT_DIR/sensors/*
+#find $JOD_DIR/scripts/hw/ -type f -exec chmod +x {} \;
 ## Example Make firmware's scripts executable - END
