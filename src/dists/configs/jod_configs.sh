@@ -38,3 +38,14 @@
 # JAVA_HOME
 # Full path of JAVA's JVM (ex: $JAVA_HOME/bin/java)
 #JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home"
+
+
+# ########################## #
+# JOD Struct Builder configs #
+# ########################## #
+# Configs from scripts/jod/struct/builder.sh
+
+# LOG_BUILDER_ENABLED
+# Enable debug messages on jod/struct/builder.sh script (if used in the
+# distribution). Set to true to enable builder's log messages.
+#export LOG_BUILDER_ENABLED=true

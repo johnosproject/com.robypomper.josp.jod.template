@@ -24,17 +24,21 @@
 # Version:  1.0.3-DEV
 ################################################################################
 
-LOG_ENABLED=false # if true, print log messages
+# ############### #
+# Scripts configs #
+# ############### #
+
+#LOG_BUILDER_ENABLED=true                 # set to true to enable builder's log messages
 
 # ####### #
 # Loggers #
 # ####### #
 
-_log() {
-  [ "$LOG_ENABLED" == true ] && echo "LOG: $1" >&2
+_logBuilder() {
+  [ "$LOG_BUILDER_ENABLED" == true ] && echo "LOG: $1" >&2
 }
 
-_war() {
+_warBuilder() {
   echo "WAR: $1" >&2
 }
 
@@ -95,7 +99,7 @@ buildComponent() {
       ;;
 
     *)
-      _log "WAR: Unknown component type: $COMPONENT_TYPE"
+      _logBuilder "WAR: Unknown component type: $COMPONENT_TYPE"
       echo ""
       ;;
     esac
@@ -109,18 +113,18 @@ _buildRoot() {
     DESCR=$3
     DESCR_LONG=${4-""}
   else
-    _war "Wrong buildRoot() params, please use one of the following prototypes:"
-    _war "- buildRoot MODEL BRAND DESCR"
-    _war "- buildRoot MODEL BRAND DESCR DESCR_LONG"
+    _warBuilder "Wrong buildRoot() params, please use one of the following prototypes:"
+    _warBuilder "- buildRoot MODEL BRAND DESCR"
+    _warBuilder "- buildRoot MODEL BRAND DESCR DESCR_LONG"
     echo "ERR: Can't build '$1' component because wrong params (${#}#: $*)"
     exit
   fi
 
-  _log "> create Root with following args" >&2
-  #_log "  - $MODEL"
-  #_log "  - $BRAND"
-  #_log "  - $DESCR"
-  #_log "  - $DESCR_LONG"
+  _logBuilder "> create Root with following args" >&2
+  #_logBuilder "  - $MODEL"
+  #_logBuilder "  - $BRAND"
+  #_logBuilder "  - $DESCR"
+  #_logBuilder "  - $DESCR_LONG"
 
   read -r -d '' COMP_STR <<EOM
 {
@@ -134,15 +138,15 @@ _buildRoot() {
 }
 EOM
 
-  _log "< $COMP_STR"
+  _logBuilder "< $COMP_STR"
   echo "$COMP_STR"
 }
 
 _buildContainer() {
   if [ "$#" -eq 0 ]; then
-    _war "Wrong buildContainer() params, please use one of the following prototypes:"
-    _war "- buildContainer COMP_NAME"
-    _war "- buildContainer COMP_NAME SUB_COMP_1 ... SUB_COMP_N"
+    _warBuilder "Wrong buildContainer() params, please use one of the following prototypes:"
+    _warBuilder "- buildContainer COMP_NAME"
+    _warBuilder "- buildContainer COMP_NAME SUB_COMP_1 ... SUB_COMP_N"
     echo "ERR: Can't build 'Unknown' container because wrong params (${#}#: $*)"
     exit
   fi
@@ -151,8 +155,8 @@ _buildContainer() {
   shift
   SUB_COMPONENTS=("$@")
 
-  _log "> create Container '$COMP_NAME' component with following args" >&2
-  #for arg in "${SUB_COMPONENTS[@]}"; do _log "  # $arg"; done
+  _logBuilder "> create Container '$COMP_NAME' component with following args" >&2
+  #for arg in "${SUB_COMPONENTS[@]}"; do _logBuilder "  # $arg"; done
 
   read -r -d '' COMP_STR <<EOM
 "$COMP_NAME" : {
@@ -164,7 +168,7 @@ EOM
 
   for arg in "${SUB_COMPONENTS[@]}"; do COMP_STR=$(addSubComponent "$COMP_STR" "$arg"); done
   echo "$COMP_STR"
-  _log "< $COMP_STR"
+  _logBuilder "< $COMP_STR"
 }
 
 _buildBooleanState() {
@@ -173,15 +177,15 @@ _buildBooleanState() {
     COMP_STATE_TYPE=$2
     COMP_STATE_EXECUTOR=$3
   else
-    _war "Wrong buildBooleanState() params, please use one of the following prototypes:"
-    _war "- buildBooleanState COMP_NAME COMP_STATE_TYPE COMP_STATE_EXECUTOR"
+    _warBuilder "Wrong buildBooleanState() params, please use one of the following prototypes:"
+    _warBuilder "- buildBooleanState COMP_NAME COMP_STATE_TYPE COMP_STATE_EXECUTOR"
     echo "ERR: Can't build '$1' component because wrong params (${#}#: $*)"
     exit
   fi
 
-  _log "> create BooleanState '$COMP_NAME' component with following args" >&2
-  #_log "  - $COMP_STATE_TYPE"
-  #_log "  - $COMP_STATE_EXECUTOR"
+  _logBuilder "> create BooleanState '$COMP_NAME' component with following args" >&2
+  #_logBuilder "  - $COMP_STATE_TYPE"
+  #_logBuilder "  - $COMP_STATE_EXECUTOR"
 
   read -r -d '' COMP_STR <<EOM
 "$COMP_NAME" : {
@@ -191,7 +195,7 @@ _buildBooleanState() {
 EOM
 
   echo "$COMP_STR"
-  _log "< $COMP_STR"
+  _logBuilder "< $COMP_STR"
 }
 
 _buildRangeState() {
@@ -210,19 +214,19 @@ _buildRangeState() {
     COMP_MAX=$5
     COMP_STEP=$6
   else
-    _war "Wrong buildRangeState() params, please use one of the following prototypes:"
-    _war "- buildRangeState COMP_NAME COMP_STATE_TYPE COMP_STATE_EXECUTOR"
-    _war "- buildRangeState COMP_NAME COMP_STATE_TYPE COMP_STATE_EXECUTOR COMP_MIN COMP_MAX COMP_STEP"
+    _warBuilder "Wrong buildRangeState() params, please use one of the following prototypes:"
+    _warBuilder "- buildRangeState COMP_NAME COMP_STATE_TYPE COMP_STATE_EXECUTOR"
+    _warBuilder "- buildRangeState COMP_NAME COMP_STATE_TYPE COMP_STATE_EXECUTOR COMP_MIN COMP_MAX COMP_STEP"
     echo "ERR: Can't build '$1' component because wrong params (${#}#: $*)"
     exit
   fi
 
-  _log "> create RangeState '$COMP_NAME' component with following args" >&2
-  #_log "  - $COMP_STATE_TYPE"
-  #_log "  - $COMP_STATE_EXECUTOR"
-  #_log "  - $COMP_MIN"
-  #_log "  - $COMP_MAX"
-  #_log "  - $COMP_STEP"
+  _logBuilder "> create RangeState '$COMP_NAME' component with following args" >&2
+  #_logBuilder "  - $COMP_STATE_TYPE"
+  #_logBuilder "  - $COMP_STATE_EXECUTOR"
+  #_logBuilder "  - $COMP_MIN"
+  #_logBuilder "  - $COMP_MAX"
+  #_logBuilder "  - $COMP_STEP"
 
   read -r -d '' COMP_STR <<EOM
 "$COMP_NAME" : {
@@ -235,7 +239,7 @@ _buildRangeState() {
 EOM
 
   echo "$COMP_STR"
-  _log "< $COMP_STR"
+  _logBuilder "< $COMP_STR"
 }
 
 _buildBooleanAction() {
@@ -245,16 +249,16 @@ _buildBooleanAction() {
     COMP_STATE_EXECUTOR=$3
     COMP_ACTION=$4
   else
-    _war "Wrong buildBooleanAction() params, please use one of the following prototypes:"
-    _war "- buildBooleanAction COMP_NAME COMP_STATE_TYPE COMP_STATE_EXECUTOR COMP_ACTION"
+    _warBuilder "Wrong buildBooleanAction() params, please use one of the following prototypes:"
+    _warBuilder "- buildBooleanAction COMP_NAME COMP_STATE_TYPE COMP_STATE_EXECUTOR COMP_ACTION"
     echo "ERR: Can't build '$1' component because wrong params (${#}#: $*)"
     exit
   fi
 
-  _log "> create BooleanAction '$COMP_NAME' component with following args" >&2
-  #_log "  - $COMP_STATE_TYPE"
-  #_log "  - $COMP_STATE_EXECUTOR"
-  #_log "  - $COMP_ACTION"
+  _logBuilder "> create BooleanAction '$COMP_NAME' component with following args" >&2
+  #_logBuilder "  - $COMP_STATE_TYPE"
+  #_logBuilder "  - $COMP_STATE_EXECUTOR"
+  #_logBuilder "  - $COMP_ACTION"
 
   read -r -d '' COMP_STR <<EOM
 "$COMP_NAME" : {
@@ -265,7 +269,7 @@ _buildBooleanAction() {
 EOM
 
   echo "$COMP_STR"
-  _log "< $COMP_STR"
+  _logBuilder "< $COMP_STR"
 }
 
 _buildRangeAction() {
@@ -286,20 +290,20 @@ _buildRangeAction() {
     COMP_STEP=$6
     COMP_EXECUTOR=$7
   else
-    _war "Wrong buildRangeAction() params, please use one of the following prototypes:"
-    _war "- buildRangeAction COMP_NAME COMP_STATE_TYPE COMP_STATE_EXECUTOR COMP_EXECUTOR"
-    _war "- buildRangeAction COMP_NAME COMP_STATE_TYPE COMP_STATE_EXECUTOR COMP_MIN COMP_MAX COMP_STEP COMP_EXECUTOR"
+    _warBuilder "Wrong buildRangeAction() params, please use one of the following prototypes:"
+    _warBuilder "- buildRangeAction COMP_NAME COMP_STATE_TYPE COMP_STATE_EXECUTOR COMP_EXECUTOR"
+    _warBuilder "- buildRangeAction COMP_NAME COMP_STATE_TYPE COMP_STATE_EXECUTOR COMP_MIN COMP_MAX COMP_STEP COMP_EXECUTOR"
     echo "ERR: Can't build '$1' component because wrong params (${#}#: $*)"
     exit
   fi
 
-  _log "> create RangeAction '$COMP_NAME' component with following args" >&2
-  #_log "  - $COMP_STATE_TYPE"
-  #_log "  - $COMP_STATE_EXECUTOR"
-  #_log "  - $COMP_MIN"
-  #_log "  - $COMP_MAX"
-  #_log "  - $COMP_STEP"
-  #_log "  - $COMP_EXECUTOR"
+  _logBuilder "> create RangeAction '$COMP_NAME' component with following args" >&2
+  #_logBuilder "  - $COMP_STATE_TYPE"
+  #_logBuilder "  - $COMP_STATE_EXECUTOR"
+  #_logBuilder "  - $COMP_MIN"
+  #_logBuilder "  - $COMP_MAX"
+  #_logBuilder "  - $COMP_STEP"
+  #_logBuilder "  - $COMP_EXECUTOR"
 
   read -r -d '' COMP_STR <<EOM
 "$COMP_NAME" : {
@@ -313,7 +317,7 @@ _buildRangeAction() {
 EOM
 
   echo "$COMP_STR"
-  _log "< $COMP_STR"
+  _logBuilder "< $COMP_STR"
 }
 
 # ###################### #
@@ -322,8 +326,8 @@ EOM
 
 addSubComponent() {
   if [ "$#" -lt 2 ]; then
-    _war "Wrong addSubComponent() params, please use one of the following prototypes:"
-    _war "- addSubComponent CONT SUB_COMP_1 ... SUB_COMP_N"
+    _warBuilder "Wrong addSubComponent() params, please use one of the following prototypes:"
+    _warBuilder "- addSubComponent CONT SUB_COMP_1 ... SUB_COMP_N"
     echo "ERR: Can't build '$1' container because wrong params (${#}#: $*)"
     exit
   fi
@@ -338,9 +342,9 @@ addSubComponent() {
 
 _addSubComponent_Single() {
   if [ "$#" -ne 2 ]; then
-    _war "Wrong addSubComponent_Single() params, please use one of the following prototypes:"
-    _war "Wrong addSubComponent_Single() CONT params, it must include the 'contains' property:"
-    _war "- addSubComponent_Single CONT SUB_COMP"
+    _warBuilder "Wrong addSubComponent_Single() params, please use one of the following prototypes:"
+    _warBuilder "Wrong addSubComponent_Single() CONT params, it must include the 'contains' property:"
+    _warBuilder "- addSubComponent_Single CONT SUB_COMP"
     echo "ERR: Can't build '$1' container because wrong params (${#}#: $*)"
     exit
   fi
@@ -349,14 +353,14 @@ _addSubComponent_Single() {
   SUB_COMP=$2
 
   if [[ $CONT != *"contains"* ]]; then
-    _war "Wrong addSubComponent_Single() 'CONT' param, it must include the 'contains' property."
-    _war "Method addSubComponent_Single CONT can be a component of Container or Root types"
-    _war "instead provided params ($CONT)"
+    _warBuilder "Wrong addSubComponent_Single() 'CONT' param, it must include the 'contains' property."
+    _warBuilder "Method addSubComponent_Single CONT can be a component of Container or Root types"
+    _warBuilder "instead provided params ($CONT)"
     echo "ERR: Can't build '$1' container because wrong 'CONT' param ($CONT)"
     exit
   fi
 
-  #_log "CONT |$CONT|"
+  #_logBuilder "CONT |$CONT|"
   #|"Audio System" : {            // 1st add
   #  "type": "JODContainer",
   #  "contains" : {
@@ -371,7 +375,7 @@ _addSubComponent_Single() {
   #}
   #  }
   #}|
-  #_log "SUB_COMP |$SUB_COMP|"
+  #_logBuilder "SUB_COMP |$SUB_COMP|"
   #|"Mute" : {                    // 1st add
   #  "type": "BooleanState",
   #  "listener" : "listener.sh param1 param2"
@@ -388,14 +392,14 @@ _addSubComponent_Single() {
 
   CONT_INFO=${CONT%$CONTAINS_PATTERN}
   CONT_CONTAINS=${CONT:${#CONT_INFO}}
-  #_log "CONT_INFO:        |$CONT_INFO|"
+  #_logBuilder "CONT_INFO:        |$CONT_INFO|"
   #|"Audio System" : {            // 1st add
   #  "type": "JODContainer",
   #  |
   #|"Audio System" : {            // 2nd add
   #  "type": "JODContainer",
   #  |
-  #_log "CONT_CONTAINS:    |$CONT_CONTAINS|"
+  #_logBuilder "CONT_CONTAINS:    |$CONT_CONTAINS|"
   #|"contains" : {                // 1st add
   #  }
   #}|
@@ -427,7 +431,7 @@ $SUB_COMP
 }
 EOM
 
-  #_log "CONT_CONTAINS:    |$CONT_CONTAINS|"
+  #_logBuilder "CONT_CONTAINS:    |$CONT_CONTAINS|"
   #|"contains" : {                // 1st add
   #"Mute" : {
   #  "type": "BooleanState",
@@ -459,19 +463,19 @@ EOM
 # ########## #
 
 prettyPrint() {
-  echo "$1" | jq . || _war "Error parsing JSON string ($1)"
+  echo "$1" | jq . || _warBuilder "Error parsing JSON string ($1)"
 }
 
 tryPrettyFormat() {
   if command -v jq &>/dev/null; then
-    echo "$(echo "$1" | jq .)" || _war "Error parsing JSON string ($1)"
+    echo "$(echo "$1" | jq .)" || _warBuilder "Error parsing JSON string ($1)"
   else
     echo "$1"
   fi
 }
 
 prettyFormat() {
-  echo "$(echo "$1" | jq .)" || _war "Error parsing JSON string ($1)"
+  echo "$(echo "$1" | jq .)" || _warBuilder "Error parsing JSON string ($1)"
 }
 
 # ######## #
