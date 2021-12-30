@@ -35,9 +35,9 @@
 ###############################################################################
 
 # TMPL Customize - START
-$CURRENT_SCRIPT="$PSCommandPath"
+$SCRIPT_DIR=(Get-Item $PSCommandPath ).DirectoryName
 # Customize this file and then delete this line
-#throw "WAR: Please customize TMPL before call it`n     Update the '${CURRENT_SCRIPT}' file and delete current line";
+#throw "WAR: Please customize TMPL before call it`n     Update the '${SCRIPT_DIR}' file and delete current line";
 
 
 # ################ #
