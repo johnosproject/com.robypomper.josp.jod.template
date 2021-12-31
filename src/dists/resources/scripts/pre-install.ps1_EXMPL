@@ -75,7 +75,7 @@ logInf "PRE Install script"
 #} else {
 #    logDeb "PRE startup script not found, skipped (missing $JOD_DIR/scripts/pre-startup.sh)"
 #}
-## Example check Java installed - END
+## Example include another PRE/POST script - END
 
 # ToDo translate examples in powershell
 ## Example check Java installed - START

@@ -61,6 +61,12 @@ logInf "PRE Startup script"
 #failOnUnsupportedOS "${supportedOS[@]}"
 ## Example check Supported OS - END
 
+## Example start the HW Daemon - START
+# Start HW Daemon as background process
+##export DEBUG=true
+#nohup bash "$JOD_DIR/scripts/hw/start_daemon.sh" 0<&- &> "$JOD_DIR/logs/daemon.log" &
+## Example start the HW Daemon - END
+
 ## Example check Java installed - START
 # Check java
 #if command -v java &>/dev/null; then

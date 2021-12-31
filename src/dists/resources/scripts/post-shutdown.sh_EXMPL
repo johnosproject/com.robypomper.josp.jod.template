@@ -50,6 +50,11 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 
 logInf "POST Shutdown script"
 
+## Example stop the HW Daemon - START
+# Stop HW Daemon as background process
+#bash "$JOD_DIR/scripts/hw/stop_daemon.sh"
+## Example stop the HW Daemon - END
+
 ## Example check Java installed - START
 # Check java
 #if command -v java &>/dev/null; then
