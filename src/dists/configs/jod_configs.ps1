@@ -38,3 +38,21 @@
 # JAVA_HOME
 # Full path of JAVA's JVM (ex: $JAVA_HOME/bin/java)
 #$global:JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home"
+
+
+# ################# #       # Delete if HW Daemon is not used in the distribution
+# HW Daemon configs #
+# ################# #
+# Configs from scripts/hw/start_daemon.ps1
+# Configs from scripts/hw/stop_daemon.ps1
+
+# HW Daemon, refresh time in seconds
+# The number of seconds between each HW daemon's internal function execution.
+# The HW Daemon, refresh time in seconds. By default it's '300'
+#$global:DAEMON_REFRESH="300"
+
+# Directory where are store all status files.
+# The path of the directory where are store the cache files like the command's
+# output. It used by "store values" and "structure generator" functions, it
+# can be relative to the working dir. By default it's '$JOD_DIR/status'.
+#$global:DAEMON_CACHE_DIR="$JOD_DIR/status"
