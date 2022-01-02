@@ -40,6 +40,17 @@
 #$global:JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home"
 
 
+# ########################## #      # Delete if Struct' Builder function are not used in the distribution
+# JOD Struct Builder configs #
+# ########################## #
+# Configs from scripts/jod/struct/builder.ps1
+
+# LOG_BUILDER_ENABLED
+# Enable debug messages on jod/struct/builder.ps1 script (if used in the
+# distribution). Set to true to enable builder's log messages.
+#$global:LOG_BUILDER_ENABLED=true
+
+
 # ################# #       # Delete if HW Daemon is not used in the distribution
 # HW Daemon configs #
 # ################# #
