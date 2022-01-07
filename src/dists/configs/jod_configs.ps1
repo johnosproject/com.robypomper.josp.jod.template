@@ -29,6 +29,9 @@
 #
 # Artifact: JOD Dist Template
 # Version:  1.0.3-DEV
+#
+# Artifact: {JOD Dist Name}
+# Version:  {JOD Dist Version}
 ###############################################################################
 
 # JOD_YML
