@@ -31,6 +31,9 @@
 #
 # Artifact: JOD Dist Template
 # Version:  1.0.3-DEV
+#
+# Artifact: {JOD Dist Name}
+# Version:  {JOD Dist Version}
 ###############################################################################
 
 ## Default init - START
@@ -51,14 +54,14 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 logInf "POST Uninstall script"
 
 ## Example include another PRE/POST script - START
-#logInf "Execute post-shutdown.sh..."
-#if [ -f "$JOD_DIR/scripts/post-shutdown.sh" ]; then
-#  execScriptCommand $JOD_DIR/scripts/post-shutdown.sh || ( [ "$?" -gt "0" ] \
-#    && logWar "Error executing POST shutdown script, exit $?" && exit $? \
-#    || logWar "Error executing POST shutdown script, continue $?" )
-#else
-#  logDeb "POST shutdown script not found, skipped (missing $JOD_DIR/scripts/post-shutdown.sh)"
-#fi
+logInf "Execute post-shutdown.sh..."
+if [ -f "$JOD_DIR/scripts/post-shutdown.sh" ]; then
+  execScriptCommand $JOD_DIR/scripts/post-shutdown.sh || ( [ "$?" -gt "0" ] \
+    && logWar "Error executing POST shutdown script, exit $?" && exit $? \
+    || logWar "Error executing POST shutdown script, continue $?" )
+else
+  logDeb "POST shutdown script not found, skipped (missing $JOD_DIR/scripts/post-shutdown.sh)"
+fi
 ## Example include another PRE/POST script - END
 
 

@@ -23,14 +23,18 @@
 # Customization:
 # $JOD_DIR/scripts/pre-startup.ps1
 #
-# This script is executed before JOD instance startup (via start.sh script).
-#
-# It can be customized adding more checks or operations depending on
-# JOD Distribution needs.
+# This script is executed before JOD instance startup (via start.ps1
+# script). It prepare current environment to run the JOD instance. For example
+# it check that the current os is supported (All OSs), generates object's
+# structure, starts HW Daemon as background process, checks gateways/servers
+# reachability, checks installed commands, make HW scripts executables...
 #
 #
 # Artifact: JOD Dist Template
 # Version:  1.0.3-DEV
+#
+# Artifact: {JOD Dist Name}
+# Version:  {JOD Dist Version}
 ###############################################################################
 
 ## Default init - START
@@ -63,6 +67,13 @@ logInf "PRE Startup script"
 
 
 
+## Example generate JOD Object Structure - START
+## Generate a John Object Structure for current {Represented Object}
+#."$JOD_DIR/scripts/hw/generateObjectStructure.ps1"
+## Example generate JOD Object Structure - END
+
+
+
 ## Example start the HW Daemon - START
 ## Start HW Daemon as background process
 ##$global:DEBUG=true # Not work
@@ -70,6 +81,19 @@ logInf "PRE Startup script"
 ## Example start the HW Daemon - END
 
 
+
+## Example various: Check server/gateway reachability - START
+## Check gateway reachability
+#$GW_NAME="Philips Hue Gateway at '$HUE_GW_ADDR' address"
+#$GW_CONN="on the same local network of current machine"
+#$GW_PARAMS="HUE_GW_NAME and HUE_GW_ADDR"
+#if ($(Test-Connection -TargetName "$HUE_GW_ADDR")) {
+#    logInf "$GW_NAME reachable"
+#} else {
+#    logWar "ERROR: $GW_NAME NOT reachable"
+#    logFat "Please check that the gateway was connected successfully ($GW_CONN), or update distribution configs with correct $GW_PARAMS values" $ERR_MISSING_REQUIREMENTS
+#}
+## Example various: Check server/gateway reachability - END
 
 ## Example various: check Java installed - START                              # ToDo translate examples in powershell
 ## Check java

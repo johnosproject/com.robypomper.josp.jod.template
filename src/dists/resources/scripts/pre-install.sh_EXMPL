@@ -23,14 +23,16 @@
 # Customization:
 # $JOD_DIR/scripts/pre-install.sh
 #
-# This script is executed before JOD instance installation (via install.sh script).
-#
-# It can be customized adding more checks or operations depending on
-# JOD Distribution needs.
+# This script is executed before JOD instance installation (via install.sh
+# script). It check that the current os is supported ({supportedOS}) and execute the
+# pre-startup script.
 #
 #
 # Artifact: JOD Dist Template
 # Version:  1.0.3-DEV
+#
+# Artifact: {JOD Dist Name}
+# Version:  {JOD Dist Version}
 ###############################################################################
 
 ## Default init - START
@@ -64,14 +66,14 @@ logInf "PRE Install script"
 
 
 ## Example include another PRE/POST script - START
-#logInf "Execute pre-startup.sh..."
-#if [ -f "$JOD_DIR/scripts/pre-startup.sh" ]; then
-#  execScriptCommand $JOD_DIR/scripts/pre-startup.sh || ( [ "$?" -gt "0" ] \
-#    && logWar "Error executing PRE startup script, exit $?" && exit $? \
-#    || logWar "Error executing PRE startup script, continue $?" )
-#else
-#  logDeb "PRE startup script not found, skipped (missing $JOD_DIR/scripts/pre-startup.sh)"
-#fi
+logInf "Execute pre-startup.sh..."
+if [ -f "$JOD_DIR/scripts/pre-startup.sh" ]; then
+  execScriptCommand $JOD_DIR/scripts/pre-startup.sh || ( [ "$?" -gt "0" ] \
+    && logWar "Error executing PRE startup script, exit $?" && exit $? \
+    || logWar "Error executing PRE startup script, continue $?" )
+else
+  logDeb "PRE startup script not found, skipped (missing $JOD_DIR/scripts/pre-startup.sh)"
+fi
 ## Example include another PRE/POST script - END
 
 
