@@ -61,6 +61,12 @@ logInf "PRE Startup script"
 #failOnUnsupportedOS $supportedOS
 ## Example check Supported OS - END
 
+## Example start the HW Daemon - START
+# Start HW Daemon as background process
+##$global:DEBUG=true
+#Start-Process "powershell.exe" -ArgumentList "$JOD_DIR/scripts/hw/start_daemon.ps1" -WindowStyle Hidden -RedirectStandardOutput "$JOD_DIR/logs/daemon.log" -RedirectStandardError "$JOD_DIR/logs/daemon.err"
+## Example start the HW Daemon - END
+
 # ToDo translate examples in powershell
 ## Example check Java installed - START
 # Check java

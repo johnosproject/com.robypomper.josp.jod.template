@@ -62,14 +62,14 @@ logInf "PRE Install script"
 ## Example check Supported OS - END
 
 ## Example include another PRE/POST script - START
-logInf "Execute pre-startup.sh..."
-if [ -f "$JOD_DIR/scripts/pre-startup.sh" ]; then
-  execScriptCommand $JOD_DIR/scripts/pre-startup.sh || ( [ "$?" -gt "0" ] \
-    && logWar "Error executing PRE startup script, exit $?" && exit $? \
-    || logWar "Error executing PRE startup script, continue $?" )
-else
-  logDeb "PRE startup script not found, skipped (missing $JOD_DIR/scripts/pre-startup.sh)"
-fi
+#logInf "Execute pre-startup.sh..."
+#if [ -f "$JOD_DIR/scripts/pre-startup.sh" ]; then
+#  execScriptCommand $JOD_DIR/scripts/pre-startup.sh || ( [ "$?" -gt "0" ] \
+#    && logWar "Error executing PRE startup script, exit $?" && exit $? \
+#    || logWar "Error executing PRE startup script, continue $?" )
+#else
+#  logDeb "PRE startup script not found, skipped (missing $JOD_DIR/scripts/pre-startup.sh)"
+#fi
 ## Example check Java installed - END
 
 ## Example check Java installed - START

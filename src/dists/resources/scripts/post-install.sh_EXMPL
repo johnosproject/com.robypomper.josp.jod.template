@@ -51,13 +51,13 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 logInf "POST Install script"
 
 ## Example include another PRE/POST script - START
-if [ -f "$JOD_DIR/scripts/post-startup.sh" ]; then
-  execScriptCommand $JOD_DIR/scripts/post-startup.sh || ( [ "$?" -gt "0" ] \
-    && logWar "Error executing POST startup script, exit $?" && exit $? \
-    || logWar "Error executing POST startup script, continue $?" )
-else
-  logDeb "POST startup script not found, skipped (missing $JOD_DIR/scripts/post-startup.sh)"
-fi
+#if [ -f "$JOD_DIR/scripts/post-startup.sh" ]; then
+#  execScriptCommand $JOD_DIR/scripts/post-startup.sh || ( [ "$?" -gt "0" ] \
+#    && logWar "Error executing POST startup script, exit $?" && exit $? \
+#    || logWar "Error executing POST startup script, continue $?" )
+#else
+#  logDeb "POST startup script not found, skipped (missing $JOD_DIR/scripts/post-startup.sh)"
+#fi
 ## Example check Java installed - END
 
 ## Example check Java installed - START
