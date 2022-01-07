@@ -51,40 +51,34 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.ps1"
 logInf "POST Install script"
 
 ## Example include another PRE/POST script - START
-#logInf "Execute post-shutdown.ps1..."
-#if (Test-Path "$JOD_DIR/scripts/post-shutdown.ps1")
-#{
-#    execScriptCommand "$JOD_DIR/scripts/post-shutdown.ps1"
-#    if (!$?)
-#    {
-#        logWar "Error executing POST shutdown script, continue $LastExitCode"
-#    }
-#    elseif ($LastExitCode -gt 0)
-#    {
-#        logWar "Error executing POST shutdown script, exit $LastExitCode"
+#logInf "Execute post-startup.ps1..."
+#if ( Test-Path "$JOD_DIR/scripts/post-startup.ps1" ) {
+#    execScriptCommand "$JOD_DIR/scripts/post-startup.ps1"
+#    if (!$?) {
+#        logWar "Error executing POST startup script, continue $LastExitCode"
+#    } elseif ($LastExitCode -gt 0) {
+#        logWar "Error executing POST startup script, exit $LastExitCode"
 #        $host.SetShouldExit($LastExitCode)
 #        exit $LastExitCode
 #    }
-#}
-#else
-#{
-#    logDeb "POST shutdown script not found, skipped (missing $JOD_DIR/scripts/post-shutdown.sh)"
+#} else {
+#    logDeb "POST startup script not found, skipped (missing $JOD_DIR/scripts/post-startup.sh)"
 #}
 ## Example include another PRE/POST script - END
 
-# ToDo translate examples in powershell
-## Example check Java installed - START
-# Check java
+
+
+## Example various: check Java installed - START                              # ToDo translate examples in powershell
+## Check java
 #if command -v java &>/dev/null; then
 #  logInf "Java installed"
 #else
 #  echo "Missing Java, please install it"
 #  logFat "Java not installed, exit" $ERR_MISSING_REQUIREMENTS
 #fi
-## Example check Java installed - END
+## Example various: check Java installed - END
 
-# ToDo translate examples in powershell
-## Example Make firmware's scripts executable - START
-# Set sensors scripts executables
+## Example various: Make firmware's scripts executable - START                # ToDo translate examples in powershell
+## Set sensors scripts executables
 #find $JOD_DIR/scripts/hw/ -type f -exec chmod +x {} \;
-## Example Make firmware's scripts executable - END
+## Example various: Make firmware's scripts executable - END

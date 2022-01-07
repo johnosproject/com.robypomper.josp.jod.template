@@ -50,17 +50,17 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 
 logInf "POST Startup script"
 
-## Example check Java installed - START
-# Check java
+## Example various: check Java installed - START
+## Check java
 #if command -v java &>/dev/null; then
 #  echo "Java installed"
 #else
 #  echo "Missing Java, please install it"
 #  logFat "Java not installed, exit" $ERR_MISSING_REQUIREMENTS
 #fi
-## Example check Java installed - END
+## Example various: check Java installed - END
 
-## Example Make firmware's scripts executable - START
-# Set sensors scripts executables
+## Example various: Make firmware's scripts executable - START
+## Set sensors scripts executables
 #find $JOD_DIR/scripts/hw/ -type f -exec chmod +x {} \;
-## Example Make firmware's scripts executable - END
+## Example various: Make firmware's scripts executable - END

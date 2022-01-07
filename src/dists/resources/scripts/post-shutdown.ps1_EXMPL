@@ -51,23 +51,23 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.ps1"
 logInf "POST Shutdown script"
 
 ## Example stop the HW Daemon - START
-# Stop HW Daemon as background process
+## Stop HW Daemon as background process
 #Start-Process "powershell.exe" -ArgumentList "$JOD_DIR/scripts/hw/stop_daemon.ps1"
 ## Example stop the HW Daemon - END
 
-# ToDo translate examples in powershell
-## Example check Java installed - START
-# Check java
+
+
+## Example various: check Java installed - START                              # ToDo translate examples in powershell
+## Check java
 #if command -v java &>/dev/null; then
 #  logInf "Java installed"
 #else
 #  echo "Missing Java, please install it"
 #  logFat "Java not installed, exit" $ERR_MISSING_REQUIREMENTS
 #fi
-## Example check Java installed - END
+## Example various: check Java installed - END
 
-# ToDo translate examples in powershell
-## Example Make firmware's scripts executable - START
-# Set sensors scripts executables
+## Example various: Make firmware's scripts executable - START                # ToDo translate examples in powershell
+## Set sensors scripts executables
 #find $JOD_DIR/scripts/hw/ -type f -exec chmod +x {} \;
-## Example Make firmware's scripts executable - END
+## Example various: Make firmware's scripts executable - END
