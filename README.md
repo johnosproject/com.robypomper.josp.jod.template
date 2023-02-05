@@ -214,14 +214,14 @@ Please email to [tech@johnosproject.com](mailto:tech@johnosproject.com).
 
 Each JOD Distribution TEMPLATE can download and build a JOD Distribution using different versions of the JOD agent. Here the table of JOD Distribution TEMPLATE versions and corresponding supported JOD versions.
 
-| JOD Distribution TEMPLATE Version | Supported JOD Versions |
-|-----------------------------------|------------------------|
-| 1.0-DEV                           | 2.2.0                  |
-| 1.0-DEVb                          | 2.2.0                  |
-| 1.0                               | 2.2.0*, 2.2.1          |
-| 1.0.1                             | 2.2.0, 2.2.1*          |
-| 1.0.2                             | 2.2.0, 2.2.1, 2.2.2*   |
-| 1.0.3-DEV                         | 2.2.0, 2.2.1, 2.2.2*   |
+| JOD Distribution TEMPLATE Version | Supported JOD Versions     |
+|-----------------------------------|----------------------------|
+| 1.0-DEV                           | 2.2.0                      |
+| 1.0-DEVb                          | 2.2.0                      |
+| 1.0                               | 2.2.0*, 2.2.1              |
+| 1.0.1                             | 2.2.0, 2.2.1*              |
+| 1.0.2                             | 2.2.0, 2.2.1, 2.2.2*       |
+| 1.0.3-DEV                         | 2.2.0, 2.2.1, 2.2.2, 2.2.3 |
 
 ----
 
