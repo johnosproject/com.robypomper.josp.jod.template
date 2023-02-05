@@ -28,7 +28,7 @@
 # like execution, installation, etc...
 #
 # Artifact: JOD Dist Template
-# Version:  1.0.3-DEV
+# Version:  1.0.3
 #
 # Artifact: {JOD Dist Name}
 # Version:  {JOD Dist Version}

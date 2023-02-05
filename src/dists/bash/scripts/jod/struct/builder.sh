@@ -21,7 +21,7 @@
 
 ################################################################################
 # Artifact: JOD Dist Template
-# Version:  1.0.3-DEV
+# Version:  1.0.3
 ################################################################################
 
 #LOG_BUILDER_ENABLED=true                 # set to true to enable builder's log messages

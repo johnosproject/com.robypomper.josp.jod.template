@@ -21,7 +21,7 @@
 
 ################################################################################
 # Artifact: Robypomper Bash Utils
-# Version:  1.0.3-DEV
+# Version:  1.0.3
 ################################################################################
 
 # Initialize log env var to print only important logs.
