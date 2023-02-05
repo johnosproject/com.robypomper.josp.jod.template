@@ -5,13 +5,13 @@ Shell scripts to build customized JOD Distribution.
 For Bash:
 
 ```shell
-bash scripts/build.sh [JOD_DIST_CONFIG_FILE]
+$ bash scripts/build.sh [JOD_DIST_CONFIG_FILE]
 ```
 
 For PowerShell:
 
-```shell
-powershell scripts/build.ps1 [JOD_DIST_CONFIG_FILE]
+```powershell
+$ powershell scripts/build.ps1 [JOD_DIST_CONFIG_FILE]
 ```
 
 ## Description
@@ -26,22 +26,22 @@ The ```JOD_DIST_CONFIG_FILE``` can be an absolute file path or a working dir rel
 
 From the $DIST_DIR use the default ```$DIST_DIR/configs/jod_dist_configs.sh``` file
 ```shell
-bash scripts/build.sh
+$ bash scripts/build.sh
 ```
 
 From the $DIST_DIR use the ```$DIST_DIR/configs/jod_dist_test.sh``` configs
 ```shell
-bash scripts/build.sh "configs/jod_dist_test.sh"
+$ bash scripts/build.sh "configs/jod_dist_test.sh"
 ```
 
 From everywhere use the ```$DIST_DIR/configs/jod_dist_test.sh``` configs
 ```shell
-bash $DIST_DIR/scripts/build.sh "configs/jod_dist_test.sh"
+$ bash $DIST_DIR/scripts/build.sh "configs/jod_dist_test.sh"
 ```
 
 From the $DIST_DIR  use the ```/home/user/jod_configs/jod_dist_XYZ.sh``` configs
 ```shell
-bash scripts/build.sh "/home/user/jod_configs/jod_dist_XYZ.sh"
+$ bash scripts/build.sh "/home/user/jod_configs/jod_dist_XYZ.sh"
 ```
 
 ### Configs

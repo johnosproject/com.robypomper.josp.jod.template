@@ -39,7 +39,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0.2
+# Version:  1.0.3
 ###############################################################################
 
 param ([switch] $FOREGROUND=$false, [switch] $FORCE=$false)
@@ -124,15 +124,15 @@ if ($FOREGROUND) {
 
     $CURRENT_DIR = $( Get-Location )
     Set-Location -Path $JOD_DIR
-    .$JAVA_EXEC "-Dlog4j.configurationFile=log4j2.xml" -cp $JAR_RUN $MAIN_CLASS --configs = $JOD_YML $JOD_INSTALLATION_NAME_DOT
-    Set-Location -Path $CURRENT_DIR
+    .$JAVA_EXEC "-Dlog4j.configurationFile=log4j2.xml" -cp "$JAR_RUN" "$MAIN_CLASS" --configs="$JOD_YML" "$JOD_INSTALLATION_NAME_DOT"
     $EXIT_STATE = $?
     $EXIT_CODE = $LastExitCode
-    if (!$EXIT_STATE -or $EXIT_CODE -gt 0)
-    {
+    if (!$EXIT_STATE -or $EXIT_CODE -gt 0) {
         logFat "JOD Distribution terminated with exit code $EXIT_CODE"
+    } else {
+        logInf "JOD distribution started and terminated successfully"
     }
-    logInf "JOD distribution started and terminated successfully"
+    Set-Location -Path $CURRENT_DIR
 
     logInf "Execute post-shutdown.ps1..."
     if (Test-Path "$JOD_DIR/scripts/post-shutdown.ps1")
@@ -165,7 +165,7 @@ if ($FOREGROUND) {
         -WindowStyle Hidden `
         -ArgumentList "-Dlog4j.configurationFile=log4j2.xml", `
                       "-cp", "$JAR_RUN", "$MAIN_CLASS", `
-                      "--configs=$JOD_YML $JOD_INSTALLATION_NAME_DOT"
+                      "--configs=$JOD_YML", "$JOD_INSTALLATION_NAME_DOT"
     #Set-Location -Path $CURRENT_DIR
 
     $JOD_PID=$(powershell "$JOD_DIR/scripts/jod/get-jod-pid.ps1" -NO_LOGS)

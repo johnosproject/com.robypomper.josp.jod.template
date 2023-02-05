@@ -57,7 +57,7 @@ task assembleTMPLResources(type: Copy) {
 
 When develop the JOD Distribution TEMPLATE commonly should use a combination of command to test your changes. For example if you would test JOD Template's scripts then you must build the gradle project's and then start the build script from generated JOD Distribution TEMPLATE. That can be handled with following commands:
 
-```
+```shell
 # To test JOD Distribution TEMPLATE scripts
 ./gradlew buildTMPL && \
     bash build/assemble/$JOD_DIST_TEMPLATE_VER/scripts/build.sh configs/jod_dist_configs-DEV.sh

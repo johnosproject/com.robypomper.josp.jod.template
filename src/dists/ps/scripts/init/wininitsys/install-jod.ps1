@@ -29,7 +29,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0.2
+# Version:  1.0.3
 ###############################################################################
 
 $JOD_DIR=(get-item $PSScriptRoot ).Parent.Parent.Parent.FullName

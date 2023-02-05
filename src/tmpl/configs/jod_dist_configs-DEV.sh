@@ -31,7 +31,10 @@
 # dist main dir. If not present, then default configs are used.
 #
 # Artifact: JOD Dist Template
-# Version:  1.0.2
+# Version:  1.0.3
+#
+# Artifact: {JOD Dist Name}
+# Version:  {JOD Dist Version}
 ###############################################################################
 
 # TMPL Customize - START
@@ -88,7 +91,7 @@ DIST_JCP_ENV="local"
 # JOD Agent version to include in the generated distribution
 # JOD agent's and his dependencies will be first downloaded from central maven
 # repository, if not available, then will be copied from local maven repository.
-DIST_JOD_VER="2.2.2"
+DIST_JOD_VER="2.2.3"
 
 # JOD Object's name
 # A string used as JOD object's name. All instances of current JOD Distribution

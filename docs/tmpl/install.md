@@ -5,13 +5,13 @@ Shell scripts to build and install customized JOD Distribution into local dir.
 For Bash:
 
 ```shell
-bash scripts/install.sh [JOD_DIST_CONFIG_FILE] [INST_DIR]
+$ bash scripts/install.sh [JOD_DIST_CONFIG_FILE] [INST_DIR]
 ```
 
 For PowerShell:
 
-```shell
-powershell scripts/install.ps1 [JOD_DIST_CONFIG_FILE] [INST_DIR]
+```powershell
+$ powershell scripts/install.ps1 [JOD_DIST_CONFIG_FILE] [INST_DIR]
 ```
 
 ## Description
@@ -25,15 +25,15 @@ More info on ```JOD_DIST_CONFIG_FILE``` path and contents can be found at [TMPL/
 
 From the $DIST_DIR use the default ```$DIST_DIR/configs/jod_dist_configs.sh``` file, and a random generated installation directory
 ```shell
-bash scripts/install.sh
+$ bash scripts/install.sh
 ```
 
 From everywhere use the default ```$DIST_DIR/configs/jod_dist_configs.sh``` file, and a random generated installation directory
 ```shell
-bash $DIST_DIR/scripts/install.sh
+$ bash $DIST_DIR/scripts/install.sh
 ```
 
 From the $DIST_DIR use the ```$DIST_DIR/configs/jod_dist_test.sh``` configs, and ```env/dist_dir``` folder as installation directory
 ```shell
-bash scripts/install.sh "configs/jod_dist_test.sh" "env/dist_dir"
+$ bash scripts/install.sh "configs/jod_dist_test.sh" "env/dist_dir"
 ```

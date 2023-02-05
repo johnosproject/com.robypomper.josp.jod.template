@@ -27,7 +27,7 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0.2
+# Version:  1.0.3
 ###############################################################################
 
 JOD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)/../../.."
@@ -57,6 +57,7 @@ logInf "Set jod.sh as executable..."
 chmod +x $JOD_DIR/start.sh
 
 logInf "Config and copy service file..."
+JOD_DIR=$(realpath "$JOD_DIR")
 sed -e 's|%JOD_INSTALLATION_NAME%|'"$JOD_INSTALLATION_NAME"'|g' \
   -e 's|%JOD_INSTALLATION_NAME_DOT%|'"$JOD_INSTALLATION_NAME_DOT"'|g' \
   -e 's|%JOD_DIR%|'"$JOD_DIR"'|g' \

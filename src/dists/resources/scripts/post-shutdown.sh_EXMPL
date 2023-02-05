@@ -30,7 +30,10 @@
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0.2
+# Version:  1.0.3
+#
+# Artifact: {JOD Dist Name}
+# Version:  {JOD Dist Version}
 ###############################################################################
 
 ## Default init - START
@@ -50,17 +53,24 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 
 logInf "POST Shutdown script"
 
-## Example check Java installed - START
-# Check java
+## Example stop the HW Daemon - START
+## Stop HW Daemon as background process
+#bash "$JOD_DIR/scripts/hw/stop_daemon.sh"
+## Example stop the HW Daemon - END
+
+
+
+## Example various: check Java installed - START
+## Check java
 #if command -v java &>/dev/null; then
 #  echo "Java installed"
 #else
 #  echo "Missing Java, please install it"
-#  logFat "Java not installed, exit"
+#  logFat "Java not installed, exit" $ERR_MISSING_REQUIREMENTS
 #fi
-## Example check Java installed - END
+## Example various: check Java installed - END
 
-## Example Make firmware's scripts executable - START
-# Set sensors scripts executables
-#chmod +x $SCRIPT_DIR/sensors/*
-## Example Make firmware's scripts executable - END
+## Example various: Make firmware's scripts executable - START
+## Set sensors scripts executables
+#find $JOD_DIR/scripts/hw/ -type f -exec chmod +x {} \;
+## Example various: Make firmware's scripts executable - END

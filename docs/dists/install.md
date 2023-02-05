@@ -5,13 +5,13 @@ Shell scripts to install the JOD instance as service/daemon on local machine.
 For Bash:
 
 ```shell
-bash install.sh [FORCE]
+$ bash install.sh [FORCE]
 ```
 
 For PowerShell:
 
-```shell
-powershell install.ps1 [FORCE]
+```powershell
+$ powershell install.ps1 [FORCE]
 ```
 
 ## Description
@@ -28,7 +28,7 @@ This command use ```scripts/init/$INIT_SYS/*``` sub-scripts to query, install an
 
 Install JOD instance as a service/daemon on local operating system
 ```shell
-bash install.sh
+$ bash install.sh
 INF: Check if distribution is already installed...
 Password:
 INF: Execute pre-install.sh...

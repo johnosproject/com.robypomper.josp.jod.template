@@ -23,14 +23,16 @@
 # Customization:
 # $JOD_DIR/scripts/pre-install.ps1
 #
-# This script is executed before JOD instance installation (via install.sh script).
-#
-# It can be customized adding more checks or operations depending on
-# JOD Distribution needs.
+# This script is executed before JOD instance installation (via install.ps1
+# script). It check that the current os is supported ({supportedOS}) and execute the
+# pre-startup script.
 #
 #
 # Artifact: JOD Dist Template
-# Version:  1.0.2
+# Version:  1.0.3
+#
+# Artifact: {JOD Dist Name}
+# Version:  {JOD Dist Version}
 ###############################################################################
 
 ## Default init - START
@@ -51,7 +53,7 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.ps1"
 logInf "PRE Install script"
 
 ## Example check Supported OS - START
-# Check supported OS
+## Check supported OS
 ## De-comment only supported OS
 ##$supportedOS="Unix", "MacOS", "BSD", "Solaris", "Win32"        # All OSs
 ##$supportedOS="Unix", "MacOS", "BSD", "Solaris"                 # Only Unix base OS
@@ -61,34 +63,37 @@ logInf "PRE Install script"
 #failOnUnsupportedOS $supportedOS
 ## Example check Supported OS - END
 
-## Example include another PRE/POST script - START
-#logInf "Execute pre-startup.ps1..."
-#if ( Test-Path "$JOD_DIR/scripts/pre-startup.ps1" ) {
-#    execScriptCommand "$JOD_DIR/scripts/pre-startup.ps1"
-#    if (!$?) {
-#        logWar "Error executing PRE startup script, continue $LastExitCode"
-#    } elseif ($LastExitCode -gt 0) {
-#        logWar "Error executing PRE startup script, exit $LastExitCode"
-#        $host.SetShouldExit($LastExitCode)
-#        exit $LastExitCode
-#    }
-#} else {
-#    logDeb "PRE startup script not found, skipped (missing $JOD_DIR/scripts/pre-startup.sh)"
-#}
-## Example check Java installed - END
 
-# ToDo translate examples in powershell
-## Example check Java installed - START
-# Check java
+
+## Example include another PRE/POST script - START
+logInf "Execute pre-startup.ps1..."
+if ( Test-Path "$JOD_DIR/scripts/pre-startup.ps1" ) {
+    execScriptCommand "$JOD_DIR/scripts/pre-startup.ps1"
+    if (!$?) {
+        logWar "Error executing PRE startup script, continue $LastExitCode"
+    } elseif ($LastExitCode -gt 0) {
+        logWar "Error executing PRE startup script, exit $LastExitCode"
+        $host.SetShouldExit($LastExitCode)
+        exit $LastExitCode
+    }
+} else {
+    logDeb "PRE startup script not found, skipped (missing $JOD_DIR/scripts/pre-startup.sh)"
+}
+## Example include another PRE/POST script - END
+
+
+
+## Example various: check Java installed - START                              # ToDo translate examples in powershell
+## Check java
 #if command -v java &>/dev/null; then
 #  logInf "Java installed"
 #else
 #  echo "Missing Java, please install it"
-#  logFat "Java not installed, exit"
+#  logFat "Java not installed, exit" $ERR_MISSING_REQUIREMENTS
 #fi
-## Example check Java installed - END
+## Example various: check Java installed - END
 
-## Example Make firmware's scripts executable - START
-# Set sensors scripts executables
-#chmod +x $SCRIPT_DIR/sensors/*
-## Example Make firmware's scripts executable - END
+## Example various: Make firmware's scripts executable - START                # ToDo translate examples in powershell
+## Set sensors scripts executables
+#find $JOD_DIR/scripts/hw/ -type f -exec chmod +x {} \;
+## Example various: Make firmware's scripts executable - END

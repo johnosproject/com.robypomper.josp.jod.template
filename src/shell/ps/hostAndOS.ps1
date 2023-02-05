@@ -21,7 +21,7 @@
 
 ################################################################################
 # Artifact: Robypomper PowerShell Utils
-# Version:  1.0.2
+# Version:  1.0.3
 ################################################################################
 
 # Detect current OS.
@@ -86,7 +86,7 @@ function failOnWrongOS() {
 # Check if current OS is contained in supportedOS list (given param).
 function failOnUnsupportedOS() {
   $CURR_OS = detectOS
-  if (!$args.Contains($CURR_OS)) {
+  if (!$args[0].Contains($CURR_OS)) {
     logWar "Operating system '$CURR_OS' not supported by current distribution"
     logFat "Please execute this JOD distribution on one of the following OS '$( $args )'" 1 $ERR_OS_UNSUPPORTED
   }
