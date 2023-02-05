@@ -23,14 +23,16 @@
 # Customization:
 # $JOD_DIR/scripts/pre-install.sh
 #
-# This script is executed before JOD instance installation (via install.sh script).
-#
-# It can be customized adding more checks or operations depending on
-# JOD Distribution needs.
+# This script is executed before JOD instance installation (via install.sh
+# script). It check that the current os is supported ({supportedOS}) and execute the
+# pre-startup script.
 #
 #
 # Artifact: JOD Dist Template
 # Version:  1.1.0-DEV
+#
+# Artifact: {JOD Dist Name}
+# Version:  {JOD Dist Version}
 ###############################################################################
 
 ## Default init - START
@@ -51,7 +53,7 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 logInf "PRE Install script"
 
 ## Example check Supported OS - START
-# Check supported OS
+## Check supported OS
 ## De-comment only supported OS
 ##supportedOS=("Unix" "MacOS" "BSD" "Solaris" "Win32")    # All OSs
 ##supportedOS=("Unix" "MacOS" "BSD" "Solaris" )           # Only Unix base OS
@@ -60,6 +62,8 @@ logInf "PRE Install script"
 ##supportedOS=("Win32")                                   # Only Windows
 #failOnUnsupportedOS "${supportedOS[@]}"
 ## Example check Supported OS - END
+
+
 
 ## Example include another PRE/POST script - START
 logInf "Execute pre-startup.sh..."
@@ -70,19 +74,21 @@ if [ -f "$JOD_DIR/scripts/pre-startup.sh" ]; then
 else
   logDeb "PRE startup script not found, skipped (missing $JOD_DIR/scripts/pre-startup.sh)"
 fi
-## Example check Java installed - END
+## Example include another PRE/POST script - END
 
-## Example check Java installed - START
-# Check java
+
+
+## Example various: check Java installed - START
+## Check java
 #if command -v java &>/dev/null; then
 #  echo "Java installed"
 #else
 #  echo "Missing Java, please install it"
-#  logFat "Java not installed, exit"
+#  logFat "Java not installed, exit" $ERR_MISSING_REQUIREMENTS
 #fi
-## Example check Java installed - END
+## Example various: check Java installed - END
 
-## Example Make firmware's scripts executable - START
-# Set sensors scripts executables
-#chmod +x $SCRIPT_DIR/sensors/*
-## Example Make firmware's scripts executable - END
+## Example various: Make firmware's scripts executable - START
+## Set sensors scripts executables
+#find $JOD_DIR/scripts/hw/ -type f -exec chmod +x {} \;
+## Example various: Make firmware's scripts executable - END

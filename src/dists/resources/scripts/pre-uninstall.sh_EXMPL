@@ -31,6 +31,9 @@
 #
 # Artifact: JOD Dist Template
 # Version:  1.1.0-DEV
+#
+# Artifact: {JOD Dist Name}
+# Version:  {JOD Dist Version}
 ###############################################################################
 
 ## Default init - START
@@ -51,26 +54,29 @@ setupJODScriptConfigs "$JOD_DIR/configs/configs.sh"
 logInf "PRE Uninstall script"
 
 ## Example include another PRE/POST script - START
-if [ -f "$JOD_DIR/scripts/pre-shutdown.sh" ]; then
-  execScriptCommand $JOD_DIR/scripts/pre-shutdown.sh || ( [ "$?" -gt "0" ] \
-    && logWar "Error executing PRE shutdown script, exit $?" && exit $? \
-    || logWar "Error executing PRE shutdown script, continue $?" )
-else
-  logDeb "PRE shutdown script not found, skipped (missing $JOD_DIR/scripts/pre-shutdown.sh)"
-fi
-## Example check Java installed - END
+#logInf "Execute pre-shutdown.sh..."
+#if [ -f "$JOD_DIR/scripts/pre-shutdown.sh" ]; then
+#  execScriptCommand $JOD_DIR/scripts/pre-shutdown.sh || ( [ "$?" -gt "0" ] \
+#    && logWar "Error executing PRE shutdown script, exit $?" && exit $? \
+#    || logWar "Error executing PRE shutdown script, continue $?" )
+#else
+#  logDeb "PRE shutdown script not found, skipped (missing $JOD_DIR/scripts/pre-shutdown.sh)"
+#fi
+## Example include another PRE/POST script - END
 
-## Example check Java installed - START
-# Check java
+
+
+## Example various: check Java installed - START
+## Check java
 #if command -v java &>/dev/null; then
 #  echo "Java installed"
 #else
 #  echo "Missing Java, please install it"
-#  logFat "Java not installed, exit"
+#  logFat "Java not installed, exit" $ERR_MISSING_REQUIREMENTS
 #fi
-## Example check Java installed - END
+## Example various: check Java installed - END
 
-## Example Make firmware's scripts executable - START
-# Set sensors scripts executables
-#chmod +x $SCRIPT_DIR/sensors/*
-## Example Make firmware's scripts executable - END
+## Example various: Make firmware's scripts executable - START
+## Set sensors scripts executables
+#find $JOD_DIR/scripts/hw/ -type f -exec chmod +x {} \;
+## Example various: Make firmware's scripts executable - END

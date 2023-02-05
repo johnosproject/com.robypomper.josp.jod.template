@@ -3,7 +3,7 @@
 Gradle's task to build and publish the JOD Distribution TEMPLATE.
 
 ```shell
-./gradlew publishTMPL
+$ ./gradlew publishTMPL
 ```
 
 ## Description

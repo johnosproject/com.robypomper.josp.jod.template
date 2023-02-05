@@ -5,12 +5,12 @@ Shell scripts to start the JOD instance
 For Bash:
 
 ```shell
-bash start.sh [FOREGROUND] [FORCE]
+$ bash start.sh [FOREGROUND] [FORCE]
 ```
 
 For PowerShell:
 
-```shell
+```powershell
 powershell start.ps1 [FOREGROUND] [FORCE]
 ```
 
@@ -31,7 +31,7 @@ The start script output the JOD instance's process id, and the shell commands to
 
 Start JOD instance as a background process.
 ```shell
-bash start.sh
+$ bash start.sh
 INF: Check if distribution is already running...
 INF: Create logs dir...
 INF: Execute pre-startup.sh...
@@ -47,7 +47,7 @@ INF: Execute post-startup.sh...
 
 Start JOD instance as a foreground process.
 ```shell
-bash start.sh true
+$ bash start.sh true
 INF: Check if distribution is already running...
 INF: Create logs dir...
 INF: Execute pre-startup.sh...
@@ -64,13 +64,13 @@ JOD-Blackberry_07>        # type '?list' to print all JOD Shell commands
 
 Start JOD instance twice and exit on error.
 ```shell
-bash start.sh
+$ bash start.sh
 INF: Check if distribution is already running...
 WAR: Distribution already running, please shutdown distribution or set FORCE param
 ```
 Start JOD instance twice and restart it on error.
 ```shell
-bash start.sh false true
+$ bash start.sh false true
 INF: Check if distribution is already running...
 WAR: Distribution already running, stop it
 INF: Check if distribution is already stopped...

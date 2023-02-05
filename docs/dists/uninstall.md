@@ -5,13 +5,13 @@ Shell scripts to uninstall the JOD instance as service/daemon on local machine.
 For Bash:
 
 ```shell
-bash uninstall.sh
+$ bash uninstall.sh
 ```
 
 For PowerShell:
 
-```shell
-powershell uninstall.ps1
+```powershell
+$ powershell uninstall.ps1
 ```
 
 ## Description
@@ -28,7 +28,7 @@ This command use ```scripts/init/$INIT_SYS/*``` sub-scripts to query, install an
 
 Install JOD instance as a service/daemon on local operating system
 ```shell
-bash uninstall.sh
+$ bash uninstall.sh
 INF: Check if distribution is already uninstalled...
 Password:
 INF: Execute pre-uninstall.sh...

@@ -97,7 +97,7 @@ $ curl -fo JOD_Dist_TMPL-{VER}.tgz https://bitbucket.org/johnosproject_shared/co
 ```
 
 For Powershell:
-```shell
+```powershell
 $ Invoke-WebRequest -Uri "https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-{VER}.zip" -OutFile "JOD_Dist_TMPL-{VER}.tgz"
 ```
 
@@ -130,7 +130,7 @@ $ nano configs/jod_dist_configs.ps1
 ```
 
 For Powershell:
-```shell
+```powershell
 # Create new JOD Distribution
 $ Expand-Archive -Path build/publications/JOD_Dist_TMPL-{VER}.zip
 $ mv JOD_Dist_TMPL-{VER} {MY_JOD_DIST}
@@ -168,7 +168,7 @@ $ bash scripts/publish.sh
 ```
 
 For Powershell:
-```shell
+```powershell
 #Build JOD Distribution
 $ powershell scripts/build.ps1
 
@@ -204,21 +204,21 @@ Please email to [tech@johnosproject.com](mailto:tech@johnosproject.com).
 * v [1.0.2](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/src/1.0.2/) (
   [tgz](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-1.0.2.tgz) |
   [zip](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-1.0.2.zip))
-* v [1.1.0-DEV](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/src/1.1.0-DEV/) (
-  [tgz](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-1.1.0-DEV.tgz) |
-  [zip](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-1.1.0-DEV.zip))
+* v [1.0.3](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/src/1.0.3/) (
+  [tgz](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-1.0.3.tgz) |
+  [zip](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/downloads/JOD_Dist_TMPL-1.0.3.zip))
+* v [1.1.0-DEV](https://bitbucket.org/johnosproject_shared/com.robypomper.josp.jod.template/src/1.1.0-DEV/)
 
 Each JOD Distribution TEMPLATE can download and build a JOD Distribution using different versions of the JOD agent. Here the table of JOD Distribution TEMPLATE versions and corresponding supported JOD versions.
 
 
-| JOD Distribution TEMPLATE Version | Supported JOD Versions   |
-|-----------------------------------|--------------------------|
-| 1.0-DEV                           | 2.2.0                    |
-| 1.0-DEVb                          | 2.2.0                    |
-| 1.0                               | 2.2.0*, 2.2.1            |
-| 1.0.1                             | 2.2.0, 2.2.1*            |
-| 1.0.2                             | 2.2.0, 2.2.1, 2.2.2*     |
-| 1.1.0-DEV                         | 2.2.0, 2.2.1, 2.2.2, N/D |
+| JOD Distribution TEMPLATE Version | Supported JOD Versions      |
+|-----------------------------------|-----------------------------|
+| 1.0                               | 2.2.0*, 2.2.1               |
+| 1.0.1                             | 2.2.0, 2.2.1*               |
+| 1.0.2                             | 2.2.0, 2.2.1, 2.2.2*        |
+| 1.0.3                             | 2.2.0, 2.2.1, 2.2.2, 2.2.3* |
+| 1.1.0-DEV                         | 2.2.0, 2.2.1, 2.2.2, N/D    |
 
 ----
 
